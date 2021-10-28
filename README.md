@@ -2,8 +2,7 @@
 
 부스트캠프 멤버들이 가꾸어 나가는 **위키피디아**입니다. 🌲
  
-![image](https://user-images.githubusercontent.com/53328838/139227446-770ee8b5-82a5-43d2-b771-c55e211b9c97.png)
-
+![Frame 1](https://user-images.githubusercontent.com/66904178/139255656-f9fbdd3c-1928-4a82-a035-7c4b5c187c83.png)
 
 ### 🎉서비스 소개
 
