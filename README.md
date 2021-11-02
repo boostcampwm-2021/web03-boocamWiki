@@ -9,8 +9,8 @@
 
 ## 🧲 Link
 
-| [디자인](https://www.figma.com/file/ViFwoe5JSjijrbdXxHTH0T/Untitled?node-id=0%3A1) | [기획서](https://www.notion.so/Boocam-Wiki-2996ca2ad89946418585959417d4a72b) | [WBS](https://docs.google.com/spreadsheets/d/14jd9if0431Ih4VC7_v_LaDh-YgCqnmm6TNrp20yRdKQ/edit#gid=0)|
-|---|---|---|
+| [디자인](https://www.figma.com/file/ViFwoe5JSjijrbdXxHTH0T/Untitled?node-id=0%3A1) | [기획서](https://kimsuky.notion.site/Boocam-Wiki-059da23a27bf4df68570170bcb519ac6) | [WBS](https://docs.google.com/spreadsheets/d/14jd9if0431Ih4VC7_v_LaDh-YgCqnmm6TNrp20yRdKQ/edit#gid=0)| [ERD](https://kimsuky.notion.site/ERD-f890216d2a4e437cbba3c53f93c62e9e) | [그라운드룰](https://github.com/boostcampwm-2021/web03-boocamWiki/wiki#%ED%8C%80-%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0) |
+|---|---|---|---|---|
 
 ## 🎉기획 의도
 
@@ -54,9 +54,3 @@
 |[<img src="https://github.com/0xsuky.png" width="100px">](https://github.com/0xsuky)|[<img src="https://github.com/wil953742.png" width="100px">](https://github.com/wil953742)|[<img src="https://github.com/LeeKwang-min.png" width="100px">](https://github.com/LeeKwang-min)|[<img src="https://github.com/ingyeoking13.png" width="100px">](https://github.com/ingyeoking13)|
 |:---:|:---:|:---:|:---:|
 |[J038 김영수](https://github.com/0xsuky) | [J045 김웅일](https://github.com/wil953742) | [J138 이광민](https://github.com/LeeKwang-min) | [J187 정요한](https://github.com/ingyeoking13)
-
-
-## 👨‍✈️ 팀 그라운드 룰 📜
-
-![image](https://user-images.githubusercontent.com/18030634/139003208-13e74e9b-e67a-4251-8be2-1d68877808c6.png)
-
