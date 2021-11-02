@@ -1,13 +1,33 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 300;
+  src: url('./styles/fonts/NotoSansKR-Light.otf') format('woff2'),
+    url('./styles/fonts/NotoSansKR-Light.otf') format('woff'),
+    url('./styles/fonts/NotoSansKR-Light.otf') format('truetype');
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 400;
+  src: url('./styles/fonts/NotoSansKR-Regular.otf') format('woff2'),
+    url('./styles/fonts/NotoSansKR-Regular.otf') format('woff'),
+    url('./styles/fonts/NotoSansKR-Regular.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 500;
+  src: url('styles/fonts/NotoSansKR-Medium.otf') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 700;
+  src: url('./styles/fonts/NotoSansKR-Bold.otf') format('woff2'),
+    url('./styles/fonts/NotoSansKR-Bold.otf') format('woff'),
+    url('./styles/fonts/NotoSansKR-Bold.otf') format('truetype');
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
 }

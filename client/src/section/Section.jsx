@@ -5,18 +5,15 @@ import RecentSection from "./sidepage/recentSection";
 import RankSection from "./sidepage/rankSection";
 
 const SectionArea = styled.div`
-    background: #D7D7D7;
-    width: 100%;
+    background: #F6F6F6;
+    width: 1920px;
     height: 1500px;
     display: flex;
-    justify-content: center;
 `;
 
 const SideArea = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 25%;
 `;
 
 const Section = () => {

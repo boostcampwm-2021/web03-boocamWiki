@@ -10,29 +10,30 @@ const SearchBar = styled.div`
 
 const HeaderInput = styled.input`
     width: 440px;
-    height: 40px;
+    height: 66px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `;
 
 const SearchBtn = styled.button`
     background: white;
     border: none;
-    height: 40px;
-    &:hover{
-        cursor: pointer;
-    }
-    border-left:1px solid #E5E5E5;
+    height: 66px;
+    cursor: pointer;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    filter: drop-shadow(-1px 4px 4px rgba(0, 0, 0, 0.25));
+    margin-right: 30px;
 `;
 
 const SearchSVG = styled.img`
-    width: 30px;
-    height: 30px;
+    width: 60px;
+    height: 66px;
     padding-right: 10px;
     padding-left: 5px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 `;
 
 const HeaderSearchBar = () => {
