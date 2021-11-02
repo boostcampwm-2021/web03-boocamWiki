@@ -8,11 +8,12 @@ const NavMenu = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-right: 120px;
 `;
 
 const MenuImg = styled.img`
-    width: 20px;
-    height: 20px;
+    width: 36px;
+    height: 36px;
     padding-right: 5px;
 `;
 
@@ -21,32 +22,43 @@ const Menu = styled.div`
     align-items: center;
     justify-content: center;
     color: white;
-    width: 120px;
-    height: 40px;
-    margin-right: 15px;
+    width: 141px;
+    height: 52px;
+    margin-right: 30px;
+    position: relative;
+    cursor: pointer;
+    font-family: "Noto Sans KR";
+    font-weight: 500;
+    font-size: 24px;
     &:hover{
-        cursor: pointer;
-        border-bottom: 5px solid white;
+        box-shadow: 0px 5px white;
     }
 `;
 
 const HeaderMenu = () => {
-    const clickHandler = (e) => {
-        console.log(e.target)
-        alert(e.target.innerText)
+    const newDocs = () => {
+        alert("문서 작성 페이지");
+    }
+
+    const rankPage = () => {
+        alert("각종 순위 페이지");
+    }
+
+    const locationPage = () => {
+        alert("위치 정보 페이지");
     }
 
     return(
-        <NavMenu onClick={clickHandler}>
-            <Menu>
+        <NavMenu>
+            <Menu onClick={newDocs}>
                 <MenuImg src={recent} />
-                문서 작성
+                <div>문서 작성</div>
             </Menu>
-            <Menu>
+            <Menu onClick={rankPage}>
                 <MenuImg src={rank} />
                 각종 순위
             </Menu>
-            <Menu>
+            <Menu onClick={locationPage}>
                 <MenuImg src={map} />   
                 위치 정보
             </Menu>
