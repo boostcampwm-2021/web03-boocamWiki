@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import SideHeader from "./sideHeader";
 
 const Side = styled.div`
     width: 339px;
@@ -8,7 +7,6 @@ const Side = styled.div`
     background: white;
     margin-top: 10px;
     margin-bottom: 20px;
-    margin-left: 250px;
     border: 1px solid #D7D7D7;
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
