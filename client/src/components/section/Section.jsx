@@ -1,6 +1,9 @@
 import React from "react";
+import { Route } from "react-router-dom";
 import styled from "styled-components";
 import MainPage from "./mainpage/mainSection";
+import MakePage from "./makepage/mainSection";
+import TmpPage from "./tmpPage/mainSection";
 import RecentSection from "./sidepage/recentSection";
 import RankSection from "./sidepage/rankSection";
 
@@ -25,7 +28,9 @@ const Section = () => {
     return(
         <SectionBackground>
             <SectionArea>
-                <MainPage />
+                <Route path='/' exact component={MainPage} />
+                <Route path='/makedocs' component={MakePage} />
+                <Route path='/tmp' component={TmpPage} />
                 <SideArea>
                     <RecentSection />
                     <RankSection />

@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-import recent from '../resource/img/recent.svg';
-import rank from '../resource/img/rank.svg';
-import map from '../resource/img/map.svg';
+import recent from '../../resource/img/recent.svg';
+import rank from '../../resource/img/rank.svg';
+import map from '../../resource/img/map.svg';
 
 const NavMenu = styled.div`
     display: flex;
@@ -21,46 +22,38 @@ const Menu = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     width: 141px;
     height: 52px;
     margin-right: 30px;
     position: relative;
     cursor: pointer;
-    font-family: "Noto Sans KR";
-    font-weight: 500;
-    font-size: 24px;
     &:hover{
         box-shadow: 0px 5px white;
     }
 `;
 
+const aTagStyle = {
+    textDecoration: 'none',
+    color: 'white',
+    fontFamily: 'Noto Sans KR',
+    fontWeight: 500,
+    fontSize: '24px',
+}
+
 const HeaderMenu = () => {
-    const newDocs = () => {
-        alert("문서 작성 페이지");
-    }
-
-    const rankPage = () => {
-        alert("각종 순위 페이지");
-    }
-
-    const locationPage = () => {
-        alert("위치 정보 페이지");
-    }
-
     return(
         <NavMenu>
-            <Menu onClick={newDocs}>
+            <Menu>
                 <MenuImg src={recent} />
-                <div>문서 작성</div>
+                <Link to='/makedocs' style={aTagStyle}>문서 작성</Link>
             </Menu>
-            <Menu onClick={rankPage}>
+            <Menu>
                 <MenuImg src={rank} />
-                각종 순위
+                <Link to='/tmp' style={aTagStyle}>각종 순위</Link>
             </Menu>
-            <Menu onClick={locationPage}>
+            <Menu>
                 <MenuImg src={map} />   
-                위치 정보
+                <Link to='/tmp' style={aTagStyle}>위치 정보</Link>
             </Menu>
         </NavMenu>
     )
