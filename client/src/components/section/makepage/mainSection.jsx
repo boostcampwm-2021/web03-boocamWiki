@@ -14,12 +14,12 @@ const Main = styled.div`
     margin-top: 10px;
 `;
 
-const MainPage = () => {
+const MakePage = () => {
     return (
         <Main>
-            <MainHeader title='제목' />
+            <MainHeader title='문서 생성' />
         </Main>
     )
 }
 
-export default MainPage;
+export default MakePage;

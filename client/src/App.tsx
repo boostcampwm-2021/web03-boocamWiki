@@ -1,14 +1,13 @@
 import './App.css';
 import React from 'react';
-import Header from './header/Header';
-import Section from './section/Section';
+import { Route } from 'react-router-dom';
+import Home from './components/Main';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Header />
-      <Section />
-    </>
+    <div>
+      <Route path='/' component={Home} />
+    </div>
   );
 }
 
