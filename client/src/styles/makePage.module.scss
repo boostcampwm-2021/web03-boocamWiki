@@ -1,0 +1,13 @@
+@import './global.scss';
+
+.makePageContainer {
+  background: #F6F6F6;
+  width: 100%;
+  min-width: 1920px;
+  height: 1500px;
+}
+
+.sectionWrapper {
+  display: flex;
+  justify-content: center;
+}

@@ -5,13 +5,13 @@ const Side = styled.div`
     width: 339px;
     height: 489px;
     background: white;
-    margin-bottom: 20px;
     margin-top: 10px;
+    margin-bottom: 20px;
     border: 1px solid #D7D7D7;
     box-sizing: border-box;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    position: relative
+    position: relative;
 `;
 
 const SideTitle = styled.div`
@@ -29,12 +29,12 @@ const SideTitle = styled.div`
     align-items: center;
 `;
 
-const RecentSection = () => {
-    return (
+const SectionItem = () => {
+    return(
         <Side>
-            <SideTitle>최근 변경</SideTitle>
+            <SideTitle>제목</SideTitle>
         </Side>
     )
 }
 
-export default RecentSection;
+export default SectionItem;

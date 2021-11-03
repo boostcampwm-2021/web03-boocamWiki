@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import Markdown from "./markdownPreview";
+import Markdown from "./MarkdownPreview";
 
 const PreviewWrap = styled.div`
     border: 1px solid red;

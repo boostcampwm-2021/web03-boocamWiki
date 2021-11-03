@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import MainHeader from "./mainHeader";
-import Title from "./inputTitle";
-import EditorWithPreview from "./editorWithPreview";
-import Editor from "./editor";
-import Preview from "./preview";
+import MainHeader from "../SectionTitle";
+import Title from "./make-section-components/InputTitle";
+import EditorWithPreview from "./make-section-components/EditorWithPreview";
+import Editor from "./make-section-components/Editor";
+import Preview from "./make-section-components/Preview";
 
 const Main = styled.div`
     width: 1115px;
@@ -26,7 +26,7 @@ const EditorTypeBtn = styled.button`
 
 `;
 
-const MakePage = () => {
+const MakePageSection = () => {
     const [markdown, setMarkdown] = useState(``);
     const [inputStatus, setInputStatus] = useState('editor');
 
@@ -71,4 +71,4 @@ const MakePage = () => {
     )
 }
 
-export default MakePage;
+export default MakePageSection;

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import recent from '../../resource/img/recent.svg';
-import rank from '../../resource/img/rank.svg';
-import map from '../../resource/img/map.svg';
+import recent from '../../../resource/img/recent.svg';
+import rank from '../../../resource/img/rank.svg';
+import map from '../../../resource/img/map.svg';
 
 const NavMenu = styled.div`
     display: flex;
@@ -52,13 +52,13 @@ const HeaderMenu = () => {
                 </Link>
             </Menu>
             <Menu>
-                <Link to='/tmp' style={aTagStyle}>
+                <Link to='/' style={aTagStyle}>
                     <MenuImg src={rank} />
                     각종 순위
                 </Link>
             </Menu>
             <Menu>
-                <Link to='/tmp' style={aTagStyle}>
+                <Link to='/' style={aTagStyle}>
                     <MenuImg src={map} />
                     위치 정보
                 </Link>
