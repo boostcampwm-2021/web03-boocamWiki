@@ -23,7 +23,7 @@ const Menu = styled.div`
     align-items: center;
     justify-content: center;
     width: 141px;
-    height: 52px;
+    height: 36px;
     margin-right: 30px;
     position: relative;
     cursor: pointer;
@@ -38,22 +38,30 @@ const aTagStyle = {
     fontFamily: 'Noto Sans KR',
     fontWeight: 500,
     fontSize: '24px',
+    display: 'flex',
+    alignItems: 'center',
 }
 
 const HeaderMenu = () => {
     return(
         <NavMenu>
             <Menu>
-                <MenuImg src={recent} />
-                <Link to='/makedocs' style={aTagStyle}>문서 작성</Link>
+                <Link to='/makedocs' style={aTagStyle}>
+                    <MenuImg src={recent} />
+                    문서 작성
+                </Link>
             </Menu>
             <Menu>
-                <MenuImg src={rank} />
-                <Link to='/tmp' style={aTagStyle}>각종 순위</Link>
+                <Link to='/tmp' style={aTagStyle}>
+                    <MenuImg src={rank} />
+                    각종 순위
+                </Link>
             </Menu>
             <Menu>
-                <MenuImg src={map} />   
-                <Link to='/tmp' style={aTagStyle}>위치 정보</Link>
+                <Link to='/tmp' style={aTagStyle}>
+                    <MenuImg src={map} />
+                    위치 정보
+                </Link>
             </Menu>
         </NavMenu>
     )
