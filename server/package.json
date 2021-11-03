@@ -17,7 +17,8 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.2"
   },
   "scripts": {
     "start": "tsc-watch --onSuccess \" node dist/app.js\""
