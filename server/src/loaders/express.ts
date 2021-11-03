@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
+import router from '../api'
 
 export default async ({ app }: { app: express.Application }) => {
   app.get('/status', (req, res) => {
@@ -12,6 +13,6 @@ export default async ({ app }: { app: express.Application }) => {
   app.use(express.json());
   app.use(morgan('dev'));
   app.use(express.urlencoded({ extended: false }));
-
+  app.use('/', router)
   return app;
 };

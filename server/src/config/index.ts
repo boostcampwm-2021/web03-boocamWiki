@@ -5,5 +5,6 @@ export default {
     DB_HOST : process.env.DB_HOST,
     DB_PASS : process.env.DB_PASS,
     DB_USER : process.env.DB_USER,
-    DB_DB : process.env.DB_DB
+    DB_DB : process.env.DB_DB,
+    PORT : process.env.PORT
 }

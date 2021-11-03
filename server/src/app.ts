@@ -1,6 +1,6 @@
 import loaders, {dbLoader} from './loaders';
 import * as express from 'express';
-import 'dotenv/config';
+import config from './config'
 
 async function startServer() {
   const app = express();
@@ -8,11 +8,7 @@ async function startServer() {
   await loaders({ expressApp: app });
   await dbLoader({});
 
-  app.listen(process.env.PORT, () => {
-    // if (err) {
-    //   console.log(err);
-    //   return;
-    // }
+  app.listen(config.PORT, () => {
     console.log(`✅ Your server is ready !`);
   });
 }
