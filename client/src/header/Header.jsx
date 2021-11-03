@@ -5,7 +5,8 @@ import HeaderMenu from "./HeaderMenu";
 import HeaderSearchBar from "./HeaderSearchBar";
 
 const HeaderBar = styled.div`
-    width: 1920px;
+    width: 100%;
+    min-width: 1920px;
     height: 90px;
     background: #E8A20C;
     display: flex;

@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import SideHeader from "./sideHeader";
 
 const Side = styled.div`
     width: 339px;
     height: 489px;
     background: white;
     margin-bottom: 20px;
-    margin-left: 250px;
     margin-top: 10px;
     border: 1px solid #D7D7D7;
     box-sizing: border-box;

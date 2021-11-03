@@ -4,11 +4,16 @@ import MainPage from "./mainpage/mainSection";
 import RecentSection from "./sidepage/recentSection";
 import RankSection from "./sidepage/rankSection";
 
-const SectionArea = styled.div`
+const SectionBackground = styled.div`
     background: #F6F6F6;
-    width: 1920px;
+    width: 100%;
+    min-width: 1920px;
     height: 1500px;
+`;
+
+const SectionArea = styled.div`
     display: flex;
+    justify-content: center;
 `;
 
 const SideArea = styled.div`
@@ -18,13 +23,15 @@ const SideArea = styled.div`
 
 const Section = () => {
     return(
-        <SectionArea>
-            <MainPage />
-            <SideArea>
-                <RecentSection />
-                <RankSection />
-            </SideArea>
-        </SectionArea>
+        <SectionBackground>
+            <SectionArea>
+                <MainPage />
+                <SideArea>
+                    <RecentSection />
+                    <RankSection />
+                </SideArea>
+            </SectionArea>
+        </SectionBackground>
     )
 }
 
