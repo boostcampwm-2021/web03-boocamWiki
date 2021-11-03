@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
+import { Route, Link } from 'react-router-dom';
 import styled from "styled-components";
-import MainHeader from "./mainHeader";
+import MainHeader from '../SectionTitle';
 
 const Main = styled.div`
     width: 1115px;
@@ -14,12 +15,11 @@ const Main = styled.div`
     margin-top: 10px;
 `;
 
-const MakePage = () => {
+const MainSection = () => {
     return (
         <Main>
-            <MainHeader title='문서 생성' />
+          <MainHeader title='대문' />
         </Main>
-    )
+    );
 }
-
-export default MakePage;
+export default MainSection;

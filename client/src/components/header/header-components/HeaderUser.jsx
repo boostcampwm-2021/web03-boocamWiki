@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import user from '../../resource/img/user.svg';
+import user from '../../../resource/img/user.svg';
 
 const UserBtn = styled.button`
     background: #E8A20C;

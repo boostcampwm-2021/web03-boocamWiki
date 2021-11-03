@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import HeaderUser from "./HeaderUser";
-import search from '../../resource/img/search.svg';
+import search from '../../../resource/img/search.svg';
 
 const SearchBar = styled.div`
     display: flex;

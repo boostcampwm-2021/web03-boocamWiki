@@ -1,8 +1,8 @@
 import React from "react";
 import styled from 'styled-components';
-import Logo from "./Logo";
-import HeaderMenu from "./HeaderMenu";
-import HeaderSearchBar from "./HeaderSearchBar";
+import Logo from "./header-components/Logo";
+import HeaderMenu from "./header-components/HeaderMenu";
+import HeaderSearchBar from "./header-components/HeaderSearchBar";
 
 const HeaderBar = styled.div`
     width: 100%;

@@ -1,0 +1,17 @@
+@mixin flexBox($direction: 'row', $justify-content: 'center', $align-items: 'center') {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
+
+$white: #ffffff;
+$off-white: #f6f6f6;
+$grey1: #888888;
+$grey2: #bbbbbb;
+$grey3: #d7d7d7;
+$title-active: #222222;
+$blue: #0055fb;
+$red: #f45452;
+$primary: #ffc700;
+$primary-dark: #e8a20c;
