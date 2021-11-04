@@ -50,7 +50,7 @@ export async function getDoc(params: DocumentsSearch) {
 
 export async function updateRecentDoc(params: DocumentsCreate) {
   let query =
-    'INSERT INTO `UPDATE` ' +
+    'INSERT INTO `update` ' +
     `(${Object.entries(params)
       .map(([key]) => key)
       .toString()})` +
