@@ -23,10 +23,9 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
 router.post('/', async (req: express.Request, res: express.Response) => {
   console.log(req.body);
   let result = await createDoc(req.body);
-  res.status(200);
-  res.json({ msg: 'OK', result: result });
-  let query: DocumentsCreate = req.body;
-  OnDocCreate(query);
+  res.status(200).json({ msg: 'OK', result: result });
+  // let query: DocumentsCreate = req.body;
+  // OnDocCreate(query);
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
@@ -34,11 +33,11 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
   try {
     const result = await getSearchDoc(queryParam);
     if (result.length === 0) {
-      res.status(404).json({ result, msg: 'empty result' });
+      return res.status(404).json({ result, msg: 'empty result' });
     }
-    res.status(200).json({ result, msg: 'success' });
+    return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
-    res.status(404).json({ result: [], msg: 'fail' });
+    return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
 
@@ -47,11 +46,11 @@ router.get('/', async (req: express.Request, res: express.Response) => {
   try {
     const result = await getDoc(queryParam);
     if (result.length === 0) {
-      res.status(404).json({ result, msg: 'empty result' });
+      return res.status(404).json({ result, msg: 'empty result' });
     }
-    res.status(200).json({ result, msg: 'success' });
+    return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
-    res.status(404).json({ result: [], msg: 'fail' });
+    return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
 
