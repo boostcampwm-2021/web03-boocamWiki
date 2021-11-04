@@ -9,8 +9,9 @@ export default async ({ app }: { app: express.Application }) => {
   app.head('/status', (req, res) => {
     res.status(200).end();
   });
-  app.use((req, res) => {
+  app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
   });
   app.enable('trust proxy');
   app.use(express.json());
