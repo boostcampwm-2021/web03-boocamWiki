@@ -1,5 +1,6 @@
 import * as express from 'express';
-import { createDoc, getRecentUpdatedDoc, getTopViewedDoc } from '../sql/documents-query';
+import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc } from '../sql/documents-query';
+import { DocumentsSearch } from '../types/apiInterface';
 
 const router = express.Router();
 router.get('/recents', async (req: express.Request, res: express.Response) => {
@@ -33,7 +34,6 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
   } catch (err) {
     res.status(404).json({ result: [], msg: 'fail' });
   }
-  
 });
 
 export default router;
