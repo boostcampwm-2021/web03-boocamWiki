@@ -28,7 +28,10 @@ const SideTitle = styled.p`
   align-items: center;
 `;
 
-const ListItem = styled.li``;
+const ListItem = styled.li`
+  list-style: none;
+  padding-left: 10px;
+`;
 
 const SectionItem = ({ title, OnLoaded }) => {
   const [listItem, setListItem] = useState([]);
@@ -44,7 +47,9 @@ const SectionItem = ({ title, OnLoaded }) => {
       <SideTitle>{title}</SideTitle>
       <ul>
         {listItem.map((item) => (
-          <ListItem key={`${item.generation}${item.boostcamp_id}${item.name}`}>{item.name}</ListItem>
+          <ListItem key={`${item.generation}${item.boostcamp_id}${item.name}`}>
+            {item.name}({item.generation},{item.boostcamp_id})
+          </ListItem>
         ))}
       </ul>
     </Side>
