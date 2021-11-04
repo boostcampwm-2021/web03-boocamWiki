@@ -2,7 +2,10 @@ import db from '../services/db-pool';
 import { DocumentsCreate, DocumentsSearch } from '../types/apiInterface';
 
 export async function getRecentUpdatedDoc({ count }: { count: number }) {
-  let [result] = await db.pool.query(`SELECT * FROM \`update\` ORDER BY user_id LIMIT ${count}`);
+  let query =
+    `SELECT generation, boostcamp_id, name, MAX(created_at) FROM \`update\` ` +
+    `GROUP BY generation, boostcamp_id, name LIMIT ${count}`;
+  let [result] = await db.pool.query(query);
   return result;
 }
 
