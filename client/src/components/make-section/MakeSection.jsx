@@ -28,6 +28,7 @@ const EditorTypeBtn = styled.button`
 
 const MakePageSection = () => {
     const [markdown, setMarkdown] = useState(``);
+    const [canMake, setCanMake] = useState(false);
     const [inputStatus, setInputStatus] = useState('editor');
 
     const editorTypes = [
@@ -51,7 +52,7 @@ const MakePageSection = () => {
     return (
         <Main>
             <MainHeader title='문서 생성' />
-            <Title />
+            <Title setCanMake={setCanMake} canMake={canMake} />
             <EditorType>
                 {editorTypes.map((type) => (
                     <div key={type.name}>
