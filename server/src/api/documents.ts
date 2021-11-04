@@ -33,7 +33,11 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
   const queryParam: DocumentsSearch = req.query;
   try {
     const result = await getSearchDoc(queryParam);
-    res.status(200).json({ result, msg: 'success' });
+    if (result.length === 0) {
+      res.status(404).json({ result, msg: 'empty result' });
+    } else {
+      res.status(200).json({ result, msg: 'success' });
+    }
   } catch (err) {
     res.status(404).json({ result: [], msg: 'fail' });
   }
