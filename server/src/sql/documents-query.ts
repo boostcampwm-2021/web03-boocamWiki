@@ -15,7 +15,11 @@ export async function getTopViewedDoc({ count }: { count: number }) {
 }
 
 export async function createDoc(params: DocumentsCreate) {
-  let query = `INSERT INTO document(${Object.entries(params).map(([key]) => key).toString()}) VALUES(${Object.entries(params).map(([key, value]) => `'${value}'`).toString()})`;
+  let query = `INSERT INTO document(${Object.entries(params)
+    .map(([key]) => key)
+    .toString()}) VALUES(${Object.entries(params)
+    .map(([key, value]) => `'${value}'`)
+    .toString()})`;
   const result = await db.pool.query(query);
   return result;
 }
@@ -34,7 +38,7 @@ export async function getSearchDoc(params: DocumentsSearch) {
 
 export async function getDoc(params: DocumentsSearch) {
   const [result] = await db.pool.query(
-    'SELECT user_id, created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link, classification ' +
+    'SELECT created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link, classification ' +
       'FROM `document` ' +
       `WHERE ${Object.entries(params)
         .filter(([, value]) => value)

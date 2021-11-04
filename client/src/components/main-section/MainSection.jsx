@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import MainHeader from '../SectionTitle';
-import { md } from './temp';
 import Loading from '../Loading';
 import MdParser from '../MdParser';
 
@@ -26,12 +25,13 @@ const MainSection = () => {
 
   useEffect(() => {
     const getContent = async () => {
-      let res = await fetch('/documents/?generation=6&boostcamp_id=J138&name=이광민');
+      const res = await fetch('/documents/?generation=0&boostcamp_id=J000&name=대문');
       if (res.status !== 200) {
         history.push('/error');
       }
-      res = await res.json();
-      setContent(res);
+      const { result } = await res.json();
+      console.log(result);
+      setContent(result[0].content);
       setLoading(false);
     };
 
