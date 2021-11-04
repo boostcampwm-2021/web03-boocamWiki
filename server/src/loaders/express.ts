@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
+import * as cors from 'cors';
 import router from '../api';
 
 export default async ({ app }: { app: express.Application }) => {
@@ -10,7 +11,9 @@ export default async ({ app }: { app: express.Application }) => {
     res.status(200).end();
   });
   app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
   });
   app.enable('trust proxy');

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import MainHeader from "../SectionTitle";
 import Title from "./make-section-components/InputTitle";
@@ -30,6 +30,9 @@ const MakePageSection = () => {
     const [markdown, setMarkdown] = useState(``);
     const [canMake, setCanMake] = useState(false);
     const [inputStatus, setInputStatus] = useState('editor');
+    const generation = useRef(0);
+    const id = useRef('');
+    const name = useRef('');
 
     const editorTypes = [
         {name: 'editor', text: '편집기', component: <Editor markdown={markdown} setMarkdown={setMarkdown} />},
@@ -37,26 +40,45 @@ const MakePageSection = () => {
         {name: 'editorWithPreview', text: '동시보기', component: <EditorWithPreview markdown={markdown} setMarkdown={setMarkdown} />}
     ]
 
-    const handleRadioBtn = (e) => {
+    const handleBtn = (e) => {
         setInputStatus(e.target.value)
     }
 
-    // const handleTmp = () => {
-    //     console.log(window.getSelection().toString())
-    //     if(window.getSelection().toString() !== ''){
-    //         console.log(window.getSelection().anchorNode)
-    //         console.log(window.getSelection().focusNode)
-    //     }
-    // }
+    const addDocument = async () => {
+        if(!canMake) alert('생성 가능 여부를 확인해주세요');
+        else{
+            await fetch('/documents',{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "generation": generation.current.value,
+                    "boostcamp_id": id.current.value,
+                    "name": name.current.value,
+                    "user_id": null,
+                    "content": markdown,
+                    "nickname": null,
+                    "location": null,
+                    "language": null,
+                    "user_image": null,
+                    "mbti": null,
+                    "field": null,
+                    "link": null,
+                    "classification": 'camper',
+                })
+            }).then(res => res.json());
+        }
+    }
 
     return (
         <Main>
             <MainHeader title='문서 생성' />
-            <Title setCanMake={setCanMake} canMake={canMake} />
+            <Title setCanMake={setCanMake} canMake={canMake} generation={generation} id={id} name={name} />
             <EditorType>
                 {editorTypes.map((type) => (
                     <div key={type.name}>
-                        <EditorTypeBtn onClick={handleRadioBtn} value={type.name}>{type.text}</EditorTypeBtn>
+                        <EditorTypeBtn onClick={handleBtn} value={type.name}>{type.text}</EditorTypeBtn>
                     </div>
                 ))}
             </EditorType>
@@ -66,7 +88,7 @@ const MakePageSection = () => {
                 </div>
             ))}
 
-            <button type='button'>드래그</button>
+            <button type='button' onClick={addDocument}>등록</button>
             
         </Main>
     )
