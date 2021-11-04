@@ -1,9 +1,18 @@
 import db from '../services/db-pool';
 import { DocumentsSearch } from '../types/apiInterface';
 
-export async function getRecentUpdatedDoc() {
-  let result = await db.pool.query('SELECT * FROM update;');
+export async function getRecentUpdatedDoc({ count }: { count: number }) {
+  let result = await db.pool.query('SELECT * FROM `update`;');
   return result;
+}
+
+export async function getTopViewedDoc({ count }: { count: number }) {
+  let result = await db.pool.query('SELECT * FROM `view`');
+  return result;
+}
+
+export async function createDoc({ count }: { count: number }) {
+  return true;
 }
 
 export async function getSearchDoc(params: DocumentsSearch) {
