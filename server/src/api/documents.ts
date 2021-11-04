@@ -1,11 +1,12 @@
 import * as express from 'express';
 import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc } from '../sql/documents-query';
-import { DocumentsSearch } from '../types/apiInterface';
+import { OnDocCreate } from '../subscribers/document-subscriber';
+import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
 
 const router = express.Router();
 router.get('/recents', async (req: express.Request, res: express.Response) => {
   const defaultCount = 20;
-  let count = parseInt(req.query.count.toString()) || defaultCount;
+  let count = parseInt(req.query.count?.toString()) || defaultCount;
   let result = await getRecentUpdatedDoc({ count: count });
   res.status(200);
   res.json({ msg: 'OK', result: result });
@@ -24,6 +25,8 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   let result = await createDoc(req.body);
   res.status(200);
   res.json({ msg: 'OK', result: result });
+  let query: DocumentsCreate = req.body;
+  OnDocCreate(query);
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {

@@ -1,8 +1,8 @@
 import db from '../services/db-pool';
-import { DocumentsSearch } from '../types/apiInterface';
+import { DocumentsCreate, DocumentsSearch } from '../types/apiInterface';
 
 export async function getRecentUpdatedDoc({ count }: { count: number }) {
-  let result = await db.pool.query('SELECT * FROM `update`;');
+  let [result] = await db.pool.query(`SELECT * FROM \`update\` ORDER BY user_id LIMIT ${count}`);
   return result;
 }
 
@@ -24,5 +24,19 @@ export async function getSearchDoc(params: DocumentsSearch) {
         .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
         .join(' AND ')}`,
   );
+  return result;
+}
+
+export async function updateRecentDoc(params: DocumentsCreate) {
+  let query =
+    'INSERT INTO `UPDATE` ' +
+    `(${Object.entries(params)
+      .map(([key]) => key)
+      .toString()})` +
+    ' VALUES ' +
+    `( ${Object.entries(params)
+      .map(([key, value]) => `'${value}'`)
+      .toString()})`;
+  const [result] = await db.pool.query(query);
   return result;
 }
