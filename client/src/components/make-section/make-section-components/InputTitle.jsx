@@ -1,4 +1,4 @@
-import {React, useRef} from "react";
+import {React, useRef, useState} from "react";
 import styled from 'styled-components';
 
 const TitleWrap = styled.div`
@@ -21,17 +21,15 @@ const ValidationBtn = styled.button`
 
 `;
 
-const Title = ({ canMake, setCanMake }) => {
-    const generation = useRef(0);
-    const id = useRef('');
-    const name = useRef('');
+const peopleType = ['master', 'manager', 'camper'];
 
+const Title = ({ canMake, setCanMake, generation, id, name }) => {
     const changeData = () => {
         if(canMake) setCanMake(false);
     }
 
     const titleCheckHandler = async () => {
-        const result = await fetch(`http://localhost:3001/documents/search?generation=${generation.current.value}&boostcamp_id=${id.current.value}&name=${name.current.value}`);
+        const result = await fetch(`/documents/search?generation=${generation.current.value}&boostcamp_id=${id.current.value}&name=${name.current.value}`);
         const data = await result.json();
         if(data.result.length === 0) setCanMake(true);
         else setCanMake(false);
@@ -51,6 +49,7 @@ const Title = ({ canMake, setCanMake }) => {
                 <Text>이름</Text>
                 <Input type='text' ref={name} onChange={changeData} />
             </TextInputWrap>
+
             <ValidationBtn onClick={titleCheckHandler}>생성 확인</ValidationBtn>
             { canMake ? <div>생성 가능</div> : <div>생성 불가</div> }
         </TitleWrap>
