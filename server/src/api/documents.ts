@@ -34,7 +34,7 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
   try {
     const result = await getSearchDoc(queryParam);
     if (result.length === 0) {
-      res.status(404).json({ result: [], msg: 'fail' });
+      res.status(404).json({ result, msg: 'empty result' });
     }
     res.status(200).json({ result, msg: 'success' });
   } catch (err) {
@@ -47,7 +47,7 @@ router.get('/', async (req: express.Request, res: express.Response) => {
   try {
     const result = await getDoc(queryParam);
     if (result.length === 0) {
-      res.status(404).json({ result: [], msg: 'fail' });
+      res.status(404).json({ result, msg: 'empty result' });
     }
     res.status(200).json({ result, msg: 'success' });
   } catch (err) {
