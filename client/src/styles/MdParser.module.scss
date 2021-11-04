@@ -1,18 +1,30 @@
 @import './global.scss';
 
 .MdWrapper {
+  padding: 5px 20px;
+
+  li {
+    margin: 5px 0;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
-  h6,
-  li {
-    padding: 5px 0;
+  h6 {
+    margin: 20px 0 10px 0;
+  }
+
+  h1,
+  h2 {
+    padding-bottom: 5px;
+    border-bottom: 1px solid $grey3;
   }
 
   ul,
   ol {
+    margin-top: 10px;
     padding-inline-start: 30px;
   }
 }
