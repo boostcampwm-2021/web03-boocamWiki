@@ -1,0 +1,53 @@
+@import './global.scss';
+
+.ErrorPageContainer {
+  width: 100%;
+  height: 100%;
+  @include FlexBox();
+}
+
+.ErrorModalWrapper {
+  @include FlexBox($direction: column, $justify-content: space-between);
+  width: 500px;
+  height: 580px;
+  background: #ffffff;
+  padding: 10px 60px 40px 60px;
+  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2), 2px 2px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 40px;
+
+  .logo {
+    width: 288px;
+    height: 144px;
+  }
+}
+
+.ErrorMessageWrapper {
+  @include FlexBox($direction: column);
+
+  .ErrorMessageEn {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 70px;
+    color: #222222;
+  }
+
+  .ErrorMessageKr {
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 46px;
+    color: #222222;
+  }
+}
+
+.ErrorGuideWrapper {
+  @include FlexBox($direction: column, $justify-content: space-between);
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 35px;
+}
