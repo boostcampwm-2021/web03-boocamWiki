@@ -11,8 +11,10 @@ export async function getTopViewedDoc({ count }: { count: number }) {
   return result;
 }
 
-export async function createDoc({ count }: { count: number }) {
-  return true;
+export async function createDoc(params: DocumentsCreate) {
+  let query = `INSERT INTO document(${Object.entries(params).map(([key]) => key).toString()}) VALUES(${Object.entries(params).map(([key, value]) => `'${value}'`).toString()})`;
+  const result = await db.pool.query(query);
+  return result;
 }
 
 export async function getSearchDoc(params: DocumentsSearch) {

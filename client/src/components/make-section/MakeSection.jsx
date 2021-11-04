@@ -26,7 +26,7 @@ const EditorTypeBtn = styled.button`
 
 `;
 
-const MakePageSection = () => {
+const MakePageSection = ({ history }) => {
     const [markdown, setMarkdown] = useState(``);
     const [canMake, setCanMake] = useState(false);
     const [inputStatus, setInputStatus] = useState('editor');
@@ -56,7 +56,6 @@ const MakePageSection = () => {
                     "generation": generation.current.value,
                     "boostcamp_id": id.current.value,
                     "name": name.current.value,
-                    "user_id": null,
                     "content": markdown,
                     "nickname": null,
                     "location": null,
@@ -67,7 +66,8 @@ const MakePageSection = () => {
                     "link": null,
                     "classification": 'camper',
                 })
-            }).then(res => res.json());
+            }).then(res => res.json()).then(data => console.log(data));
+            history.goBack();
         }
     }
 
