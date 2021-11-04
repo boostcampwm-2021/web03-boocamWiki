@@ -25,4 +25,15 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   res.json({ msg: 'OK', result: result });
 });
 
+router.get('/search', async (req: express.Request, res: express.Response) => {
+  const queryParam: DocumentsSearch = req.query;
+  try {
+    const result = await getSearchDoc(queryParam);
+    res.status(200).json({ result, msg: 'success' });
+  } catch (err) {
+    res.status(404).json({ result: [], msg: 'fail' });
+  }
+  
+});
+
 export default router;
