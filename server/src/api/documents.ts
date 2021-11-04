@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc } from '../sql/documents-query';
+import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc, getDoc } from '../sql/documents-query';
 import { OnDocCreate } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
 
@@ -33,6 +33,22 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
   const queryParam: DocumentsSearch = req.query;
   try {
     const result = await getSearchDoc(queryParam);
+    if (result.length === 0) {
+      res.status(404).json({ result: [], msg: 'fail' });
+    }
+    res.status(200).json({ result, msg: 'success' });
+  } catch (err) {
+    res.status(404).json({ result: [], msg: 'fail' });
+  }
+});
+
+router.get('/', async (req: express.Request, res: express.Response) => {
+  const queryParam: DocumentsSearch = req.query;
+  try {
+    const result = await getDoc(queryParam);
+    if (result.length === 0) {
+      res.status(404).json({ result: [], msg: 'fail' });
+    }
     res.status(200).json({ result, msg: 'success' });
   } catch (err) {
     res.status(404).json({ result: [], msg: 'fail' });

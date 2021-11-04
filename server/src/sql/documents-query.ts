@@ -30,6 +30,18 @@ export async function getSearchDoc(params: DocumentsSearch) {
   return result;
 }
 
+export async function getDoc(params: DocumentsSearch) {
+  const [result] = await db.pool.query(
+    'SELECT user_id, created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link, classification ' +
+      'FROM `document` ' +
+      `WHERE ${Object.entries(params)
+        .filter(([, value]) => value)
+        .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
+        .join(' AND ')}`,
+  );
+  return result;
+}
+
 export async function updateRecentDoc(params: DocumentsCreate) {
   let query =
     'INSERT INTO `UPDATE` ' +

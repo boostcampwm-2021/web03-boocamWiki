@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import MainHeader from '../SectionTitle';
 import { md } from './temp';
@@ -21,10 +22,14 @@ const Main = styled.div`
 const MainSection = () => {
   const [content, setContent] = useState();
   const [loading, setLoading] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const getContent = async () => {
-      let res = await fetch('/documents/:대문');
+      let res = await fetch('/documents/?generation=6&boostcamp_id=J138&name=이광민');
+      if (res.status !== 200) {
+        history.push('/error');
+      }
       res = await res.json();
       setContent(res);
       setLoading(false);
@@ -37,7 +42,7 @@ const MainSection = () => {
     <Main>
       <MainHeader title="대문" />
       {loading && <Loading />}
-      {!loading && <MdParser content={md} />}
+      {!loading && <MdParser content={content} />}
     </Main>
   );
 };
