@@ -6,12 +6,12 @@ import SideSection from '../components/side-section/SideSection';
 import style from '../styles/makePage.module.scss';
 
 
-const MakePage = () => {
+const MakePage = ({ history }) => {
     return (
         <div className={style.makePageContainer}>
           <Header />
           <div className={style.sectionWrapper}>
-            <MakePageSection />
+            <MakePageSection history={history}/>
             <SideSection />
           </div>
         </div>

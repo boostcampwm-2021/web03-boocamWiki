@@ -1,4 +1,4 @@
-@mixin flexBox($direction: 'row', $justify-content: 'center', $align-items: 'center') {
+@mixin FlexBox($direction: row, $justify-content: center, $align-items: center) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify-content;
