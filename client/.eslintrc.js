@@ -25,4 +25,8 @@ module.exports = {
     browser: true,
     node: true,
   },
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> feature/main-section-j045
