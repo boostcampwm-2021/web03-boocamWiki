@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
-import router from '../api'
+import router from '../api';
 
 export default async ({ app }: { app: express.Application }) => {
   app.get('/status', (req, res) => {
@@ -9,10 +9,13 @@ export default async ({ app }: { app: express.Application }) => {
   app.head('/status', (req, res) => {
     res.status(200).end();
   });
+  app.use((req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  });
   app.enable('trust proxy');
   app.use(express.json());
   app.use(morgan('dev'));
   app.use(express.urlencoded({ extended: false }));
-  app.use('/', router)
+  app.use('/', router);
   return app;
 };
