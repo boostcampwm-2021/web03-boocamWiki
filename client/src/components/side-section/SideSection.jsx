@@ -1,19 +1,31 @@
-import React from "react";
-import styled from "styled-components";
-import SectionItem from "./side-section-components/SectionItem";
+import React from 'react';
+import styled from 'styled-components';
+import SectionItem from './side-section-components/SectionItem';
 
 const SideArea = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const SideSection = () => {
-    return(
-        <SideArea>
-            <SectionItem />
-            <SectionItem />
-        </SideArea>
-    )
-}
+  const FetchingRecent = async () => {
+    const result = await fetch('/documents/recents');
+    const list = await result.json();
+    return list;
+  };
+
+  const FetchingTopView = async () => {
+    const result = await fetch('/documents/');
+    const jobj = await result.json();
+    return jobj;
+  };
+
+  return (
+    <SideArea>
+      <SectionItem title="최근 변경" OnLoaded={FetchingRecent} />
+      <SectionItem title="부캠 조회 순위" />
+    </SideArea>
+  );
+};
 
 export default SideSection;
