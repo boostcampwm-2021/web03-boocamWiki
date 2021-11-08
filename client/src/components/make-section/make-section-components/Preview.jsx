@@ -6,6 +6,7 @@ const PreviewWrap = styled.div`
     border: 1px solid red;
     width: 90%;
     height: 500px;
+    overflow: auto;
 `;
 
 const Preview = ({docData}) => {
