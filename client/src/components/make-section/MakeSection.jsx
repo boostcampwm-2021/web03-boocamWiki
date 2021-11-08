@@ -24,6 +24,11 @@ const EditorType = styled.div`
 
 const EditorTypeBtn = styled.button``;
 
+const RuleDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const docDataReducer = (state, action) => {
   switch(action.type){
     case 'INPUT_TITLE':
@@ -69,6 +74,7 @@ const initialDocData = {
 const MakePageSection = ({ history }) => {
   const [canMake, setCanMake] = useState(false);
   const [inputStatus, setInputStatus] = useState('editor');
+  const [docRule, setDocRule] = useState(false);
   const [docData, dispatch] = useReducer(docDataReducer, initialDocData);
 
   const editorTypes = [
@@ -85,8 +91,14 @@ const MakePageSection = ({ history }) => {
     setInputStatus(e.target.value);
   };
 
+  const handleRule = (e) => {
+    if(e.target.checked) setDocRule(true);
+    else setDocRule(false);
+  }
+
   const addDocument = async () => {
     if (!canMake) alert('생성 가능 여부를 확인해주세요');
+    else if(!docRule) alert('규정에 동의해주세요');
     else {
       await fetch('/documents', {
         method: 'POST',
@@ -99,6 +111,10 @@ const MakePageSection = ({ history }) => {
       history.goBack();
     }
   };
+
+  const cancelAddDoc = () => {
+    history.goBack();
+  }
 
   return (
     <Main>
@@ -116,9 +132,16 @@ const MakePageSection = ({ history }) => {
       {editorTypes.map((type) => (
         <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
       ))}
+      <RuleDiv>
+        작성자는 아래 규정에 동의합니다.
+        <input type='checkbox' onChange={handleRule}/>
+      </RuleDiv>
 
       <button type="button" onClick={addDocument}>
         등록
+      </button>
+      <button type="button" onClick={cancelAddDoc}>
+        취소
       </button>
     </Main>
   );
