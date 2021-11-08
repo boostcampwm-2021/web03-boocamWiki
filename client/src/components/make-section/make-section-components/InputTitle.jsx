@@ -23,13 +23,23 @@ const ValidationBtn = styled.button`
 
 const peopleType = ['master', 'manager', 'camper'];
 
-const Title = ({ canMake, setCanMake, generation, id, name }) => {
+const Title = ({ canMake, setCanMake, docData, dispatch }) => {
+    const generation = useRef(0);
+    const id = useRef('');
+    const name = useRef('');
+
     const changeData = () => {
         if(canMake) setCanMake(false);
+        dispatch({
+            type: 'INPUT_TITLE',
+            generation: generation.current.value,
+            boostcamp_id: id.current.value,
+            name: name.current.value
+        });
     }
 
     const titleCheckHandler = async () => {
-        const result = await fetch(`/documents/search?generation=${generation.current.value}&boostcamp_id=${id.current.value}&name=${name.current.value}`);
+        const result = await fetch(`/documents/search?generation=${docData.generation}&boostcamp_id=${docData.boostcamp_id}&name=${docData.name}`);
         const data = await result.json();
         if(data.result.length === 0) setCanMake(true);
         else setCanMake(false);
