@@ -25,7 +25,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   let result = await createDoc(req.body);
   res.status(200).json({ msg: 'OK', result: result });
   let query: DocumentsCreate = req.body;
-  query.user_id = 'youths';
+  query.user_id = 'zoeas';
   OnDocCreate(query);
 });
 
