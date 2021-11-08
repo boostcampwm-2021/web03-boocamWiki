@@ -5,10 +5,11 @@ import Title from './make-section-components/InputTitle';
 import EditorWithPreview from './make-section-components/EditorWithPreview';
 import Editor from './make-section-components/Editor';
 import Preview from './make-section-components/Preview';
+import MakePageRule from './make-section-components/MakePageRule';
 
 const Main = styled.div`
   width: 1115px;
-  height: 1200px;
+  height: 100%;
   background: white;
   border: 1px solid #d7d7d7;
   box-sizing: border-box;
@@ -143,6 +144,8 @@ const MakePageSection = ({ history }) => {
       <button type="button" onClick={cancelAddDoc}>
         취소
       </button>
+
+      <MakePageRule />
     </Main>
   );
 };
