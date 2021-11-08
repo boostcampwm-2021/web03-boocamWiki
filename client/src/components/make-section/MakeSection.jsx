@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useReducer } from 'react';
 import styled from 'styled-components';
 import MainHeader from '../SectionTitle';
 import Title from './make-section-components/InputTitle';
@@ -24,21 +24,66 @@ const EditorType = styled.div`
 
 const EditorTypeBtn = styled.button``;
 
+const RuleDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const docDataReducer = (state, action) => {
+  switch(action.type){
+    case 'INPUT_TITLE':
+      return {...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name }
+    case 'INPUT_CONTENT':
+      return {...state, content: action.content }
+    case 'INPUT_NICKNAME':
+      return {...state, nickname: action.nickname }
+    case 'INPUT_LOCATION':
+      return {...state, location: action.location }
+    case 'INPUT_LANGUAGE':
+      return {...state, language: action.language }
+    case 'INPUT_USER_IMAGE':
+      return {...state, user_image: action.user_image }
+    case 'INPUT_MBTI':
+      return {...state, mbti: action.mbti }
+    case 'INPUT_FIELD':
+      return {...state, field: action.field }
+    case 'INPUT_LINK':
+      return {...state, link: action.link }
+    case 'INPUT_CLASSIFICATION':
+      return {...state, classification: action.classification }
+    default:
+      return state;
+  }
+}
+
+const initialDocData = {
+  generation: 0,
+  boostcamp_id: '',
+  name: '',
+  content: '',
+  nickname: null,
+  location: null,
+  language: null,
+  user_image: null,
+  mbti: null,
+  field: null,
+  link: null,
+  classification: 'camper',
+}
+
 const MakePageSection = ({ history }) => {
-  const [markdown, setMarkdown] = useState(``);
   const [canMake, setCanMake] = useState(false);
   const [inputStatus, setInputStatus] = useState('editor');
-  const generation = useRef(0);
-  const id = useRef('');
-  const name = useRef('');
+  const [docRule, setDocRule] = useState(false);
+  const [docData, dispatch] = useReducer(docDataReducer, initialDocData);
 
   const editorTypes = [
-    { name: 'editor', text: '편집기', component: <Editor markdown={markdown} setMarkdown={setMarkdown} /> },
-    { name: 'preview', text: '미리보기', component: <Preview markdown={markdown} /> },
+    { name: 'editor', text: '편집기', component: <Editor docData={docData} dispatch={dispatch} /> },
+    { name: 'preview', text: '미리보기', component: <Preview docData={docData} /> },
     {
       name: 'editorWithPreview',
       text: '동시보기',
-      component: <EditorWithPreview markdown={markdown} setMarkdown={setMarkdown} />,
+      component: <EditorWithPreview docData={docData} dispatch={dispatch} />,
     },
   ];
 
@@ -46,39 +91,35 @@ const MakePageSection = ({ history }) => {
     setInputStatus(e.target.value);
   };
 
+  const handleRule = (e) => {
+    if(e.target.checked) setDocRule(true);
+    else setDocRule(false);
+  }
+
   const addDocument = async () => {
     if (!canMake) alert('생성 가능 여부를 확인해주세요');
+    else if(!docRule) alert('규정에 동의해주세요');
     else {
       await fetch('/documents', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          generation: generation.current.value,
-          boostcamp_id: id.current.value,
-          name: name.current.value,
-          content: markdown,
-          nickname: null,
-          location: null,
-          language: null,
-          user_image: null,
-          mbti: null,
-          field: null,
-          link: null,
-          classification: 'camper',
-        }),
+        body: JSON.stringify(docData),
       })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((res) => res.json());
       history.goBack();
     }
   };
 
+  const cancelAddDoc = () => {
+    history.goBack();
+  }
+
   return (
     <Main>
       <MainHeader title="문서 생성" />
-      <Title setCanMake={setCanMake} canMake={canMake} generation={generation} id={id} name={name} />
+      <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
       <EditorType>
         {editorTypes.map((type) => (
           <div key={type.name}>
@@ -91,9 +132,16 @@ const MakePageSection = ({ history }) => {
       {editorTypes.map((type) => (
         <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
       ))}
+      <RuleDiv>
+        작성자는 아래 규정에 동의합니다.
+        <input type='checkbox' onChange={handleRule}/>
+      </RuleDiv>
 
       <button type="button" onClick={addDocument}>
         등록
+      </button>
+      <button type="button" onClick={cancelAddDoc}>
+        취소
       </button>
     </Main>
   );

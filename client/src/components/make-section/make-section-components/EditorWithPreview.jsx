@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import Markdown from "./MarkdownPreview";
+import MdParser from "../../MdParser";
 
 const EditorWrap = styled.div`
     display: flex;
@@ -17,18 +17,20 @@ const Preview = styled.div`
     border: 1px solid red;
     width: 45%;
     height: 500px;
-    padding-left: 40px;
 `;
 
-const EditorWithPreview = ({ markdown, setMarkdown }) => {
+const EditorWithPreview = ({ docData, dispatch }) => {
     const changeHandler = (e) => {
-        setMarkdown(e.target.value);
+        dispatch({
+            type: 'INPUT_CONTENT',
+            content: e.target.value,
+        })
     }
     return (
         <EditorWrap>
-            <Editor onChange={changeHandler} value={markdown} />
+            <Editor onChange={changeHandler} value={docData.content} />
             <Preview>
-                <Markdown markdown={markdown}/>
+                <MdParser content={docData.content} />
             </Preview>
         </EditorWrap>
     )

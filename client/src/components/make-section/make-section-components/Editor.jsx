@@ -8,12 +8,17 @@ const EditorBox = styled.textarea`
     font-size: 24px;
 `;
 
-const Editor = ({ markdown, setMarkdown }) => {
+const Editor = ({ docData, dispatch }) => {
     const changeHandler = (e) => {
-        setMarkdown(e.target.value);
+        dispatch({
+            type: 'INPUT_CONTENT',
+            content: e.target.value,
+        })
     }
     return (
-        <EditorBox onChange={changeHandler} value={markdown} />
+        <>
+            <EditorBox onChange={changeHandler} value={docData.content} />
+        </>
     )
 }
 
