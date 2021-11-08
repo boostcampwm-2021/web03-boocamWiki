@@ -1,8 +1,7 @@
-import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import MainPage from './pages/mainPage';
-import MakePage from './pages/makePage';
+import MainPage from './pages/MainPage';
+import MakePage from './pages/MakePage';
 import ErrorPage from './pages/ErrorPage';
 
 const App = () => {

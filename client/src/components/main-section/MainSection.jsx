@@ -7,7 +7,6 @@ import MdParser from '../MdParser';
 
 const Main = styled.div`
   width: 1115px;
-  min-height: 1200px;
   height: 100%;
   background: white;
   border: 1px solid #d7d7d7;
@@ -35,7 +34,7 @@ const MainSection = () => {
       setLoading(false);
     };
 
-    getContent();
+    // getContent();
   }, []);
 
   return (
@@ -46,4 +45,5 @@ const MainSection = () => {
     </Main>
   );
 };
+
 export default MainSection;

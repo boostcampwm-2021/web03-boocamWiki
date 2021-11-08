@@ -1,8 +1,7 @@
 import React from 'react';
-import Header from '../components/header/Header';
 
 import logo from '../resource/img/logo.png';
-import style from '../styles/ErrorPage.module.scss';
+import style from '../styles/scss/ErrorPage.module.scss';
 
 const ErrorPage = () => {
   return (

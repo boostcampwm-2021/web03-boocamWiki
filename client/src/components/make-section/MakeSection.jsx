@@ -24,7 +24,7 @@ const EditorType = styled.div`
 
 const EditorTypeBtn = styled.button``;
 
-const MakePageSection = ({ history }) => {
+const MakeSection = ({ history }) => {
   const [markdown, setMarkdown] = useState(``);
   const [canMake, setCanMake] = useState(false);
   const [inputStatus, setInputStatus] = useState('editor');
@@ -99,4 +99,4 @@ const MakePageSection = ({ history }) => {
   );
 };
 
-export default MakePageSection;
+export default MakeSection;

@@ -3,13 +3,44 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 import styled from 'styled-components';
-import style from '../styles/MdParser.module.scss';
+
+const MdParserContainer = styled.div`
+  height: 100%;
+
+  & {
+    padding: 5px 20px;
+    li {
+      margin: 5px 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 20px 0 10px 0;
+    }
+
+    h1,
+    h2 {
+      padding-bottom: 5px;
+      border-bottom: 1px solid #d7d7d7;
+    }
+
+    ul,
+    ol {
+      margin-top: 10px;
+      padding-inline-start: 30px;
+    }
+  }
+`;
 
 const MdParser = ({ content }) => {
   return (
-    <div className={style.MdWrapper}>
+    <MdParserContainer>
       <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
-    </div>
+    </MdParserContainer>
   );
 };
 
