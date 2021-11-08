@@ -30,9 +30,9 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
-  const queryParam: DocumentsSearch = req.query;
+  const { generation, boostcamp_id, name, content }: Partial<DocumentsSearch> = req.query;
   try {
-    const result = await getSearchDoc(queryParam);
+    const result = await getSearchDoc({ generation, boostcamp_id, name, content });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
@@ -43,9 +43,9 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const queryParam: DocumentsSearch = req.query;
+  const { generation, boostcamp_id, name, content }: Partial<DocumentsSearch> = req.query;
   try {
-    const result = await getDoc(queryParam);
+    const result = await getDoc({ generation, boostcamp_id, name, content });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }

@@ -1,7 +1,8 @@
 export interface DocumentsSearch {
-  generation?: number;
-  boostcamp_id?: string;
-  name?: string;
+  generation: number;
+  boostcamp_id: string;
+  name: string;
+  content: string;
 }
 
 export interface DocumentsCreate {
