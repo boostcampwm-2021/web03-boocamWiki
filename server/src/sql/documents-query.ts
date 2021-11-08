@@ -24,15 +24,24 @@ export async function createDoc(params: DocumentsCreate) {
   return result;
 }
 
-export async function getSearchDoc(params: DocumentsSearch) {
-  const [result] = await db.pool.query(
-    'SELECT generation, boostcamp_id, name ' +
-      'FROM `document` ' +
-      `WHERE ${Object.entries(params)
-        .filter(([, value]) => value)
-        .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
-        .join(' AND ')}`,
-  );
+export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSearch[]> {
+  const { generation, boostcamp_id, name, content } = params;
+  if (Object.values(params).every((el) => el === undefined)) {
+    throw new Error('Empty Query Params');
+  }
+  const query =
+    'SELECT generation, boostcamp_id, name, content ' +
+    'FROM `document` ' +
+    `WHERE ${Object.entries([generation, boostcamp_id, name])
+      .filter(([, value]) => value)
+      .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
+      .join(' AND ')}` +
+    (content
+      ? `${
+          [generation, boostcamp_id, name].every((el) => el === undefined) ? '' : ' AND'
+        } MATCH (content) AGAINST ('${content}' IN NATURAL LANGUAGE MODE)`
+      : '');
+  const [result]: [DocumentsSearch[]] = await db.pool.query(query);
   return result;
 }
 
