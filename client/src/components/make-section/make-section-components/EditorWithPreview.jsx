@@ -17,6 +17,7 @@ const Preview = styled.div`
     border: 1px solid red;
     width: 45%;
     height: 500px;
+    overflow: auto;
 `;
 
 const EditorWithPreview = ({ docData, dispatch }) => {
