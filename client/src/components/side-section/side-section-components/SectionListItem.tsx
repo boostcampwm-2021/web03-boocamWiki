@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IDocument } from '../../../types/api-document';
 
-export const Flexed = styled.div`
+const Flexed = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
@@ -14,12 +15,23 @@ export const Flexed = styled.div`
   }
 `;
 
-export const TitleP = styled.p`
+const TitleP = styled.p`
   color: #0055fb;
 `;
 
-export const RightP = styled.p`
-  color: inherit;
+const RightP = styled.p`
+  color: #000;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
 `;
 
 const getTime = (arg: Date): string => {
@@ -29,11 +41,13 @@ const getTime = (arg: Date): string => {
 export const SectionListItem = (arg: IDocument): JSX.Element => {
   const { name, boostcampID, generation, timestamp } = arg;
   return (
-    <Flexed>
-      <TitleP>
-        {name} ({generation}기 {boostcampID})
-      </TitleP>
-      <RightP>{getTime(timestamp)}</RightP>
-    </Flexed>
+    <StyledLink to={`/w/${generation}_${boostcampID}_${name}`}>
+      <Flexed>
+        <TitleP>
+          {name} ({generation}기 {boostcampID})
+        </TitleP>
+        <RightP>{getTime(timestamp)}</RightP>
+      </Flexed>
+    </StyledLink>
   );
 };
