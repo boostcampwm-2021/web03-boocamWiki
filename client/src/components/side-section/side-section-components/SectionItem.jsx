@@ -27,24 +27,24 @@ const SideTitle = styled.p`
   border-bottom: 2px solid #d7d7d7;
 `;
 
+const recordToItem = (item) => {
+  const timetag = 'MAX(created_at)';
+  const date = new Date(item[timetag]);
+  return {
+    id: item.name,
+    name: item.name,
+    generation: item.generation,
+    boostcampID: item.boostcamp_id,
+    timestamp: date,
+  };
+};
+
 const SectionItem = ({ title, OnLoaded }) => {
   const [listItem, setListItem] = useState([]);
   useEffect(async () => {
     if (!OnLoaded) return;
     const response = await OnLoaded();
-    const timetag = 'MAX(created_at)';
-
-    const items = response.result.map((item) => {
-      const date = new Date(item[timetag]);
-      return {
-        id: item.name,
-        name: item.name,
-        generation: item.generation,
-        boostcampID: item.boostcamp_id,
-        timestamp: date,
-      };
-    });
-
+    const items = response.result.map(recordToItem);
     setListItem(items);
   }, []);
 
