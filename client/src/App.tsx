@@ -5,7 +5,7 @@ import MainPage from './pages/MainPage';
 import MakePage from './pages/MakePage';
 import SearchPage from './pages/SearchPage';
 import ErrorPage from './pages/ErrorPage';
-import WikiPage from './pages/wikiPage';
+import WikiPage from './pages/WikiPage';
 
 const App = () => {
   return (
