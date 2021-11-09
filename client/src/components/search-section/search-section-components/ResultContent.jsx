@@ -6,11 +6,11 @@ const ResultContent = ({ result }) => {
   const [renderResult, setRenderResult] = useState(result);
 
   useEffect(async () => {
-    if (!renderResult) {
+    if (!result) {
       return;
     }
     const filteredResult = await Promise.all(
-      renderResult.map(async ({ content, ...props }) => {
+      result.map(async ({ content, ...props }) => {
         return {
           content: await remark()
             .use(strip)
@@ -21,7 +21,7 @@ const ResultContent = ({ result }) => {
       }),
     );
     setRenderResult(filteredResult);
-  }, []);
+  }, [result]);
 
   return (
     <div>
