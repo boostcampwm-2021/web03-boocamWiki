@@ -22,6 +22,11 @@ const CardWrap = styled.div`
     height: 100%;
     width: 50%;
   }
+  div.cardInput{
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+  }
   width: 1000px;
   height: 500px;
   border: none;
@@ -35,12 +40,12 @@ const DataLabel = styled.div`
   font-style: normal;
   font-weight: bold;
   font-size: 20px;
+  width: 50%;
 `;
 
 const DataInput = styled.input`
-  border: none;
-  border-bottom: 1px solid black;
   outline: none;
+  width: 50%;
 `;
 
 const dataValue = {
@@ -65,13 +70,13 @@ const DocCard = ({docData, dispatch}) => {
   return (
     <CardWrap>
       <div className='cardBox'>
-        <div>
+        <div className='cardInput'>
           <DataLabel>프로필 사진</DataLabel>
           <DataInput type='text' />
         </div>
 
         {dataName.map((type) => (
-          <div>
+          <div className='cardInput'>
             <DataLabel>{dataValue[type].name}</DataLabel>
             <DataInput type='text' onChange={dataValueChange} id={type} value={docData.type} />
           </div>
