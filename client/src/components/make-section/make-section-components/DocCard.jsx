@@ -1,13 +1,47 @@
 import React from "react";
 import styled from "styled-components";
+import DocCardPreview from "./DocCardPreview";
 
-const InputWrap = styled.div`
+const CardWrap = styled.div`
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div.cardBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    border-right: 1px solid #D7D7D7;
+  }
+  div.preview{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+  }
+  width: 1000px;
+  height: 500px;
+  border: none;
+  border-radius: 11px;
+  box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom: 30px;
 `;
 
-const DataLabel = styled.div``;
+const DataLabel = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+`;
 
-const DataInput = styled.input``;
+const DataInput = styled.input`
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+`;
 
 const dataValue = {
   'nickname': { 'name': '별명', 'type': 'INPUT_NICKNAME' },
@@ -29,45 +63,24 @@ const DocCard = ({docData, dispatch}) => {
   }
 
   return (
-    <>
-      <InputWrap>
-        <DataLabel>프로필 사진</DataLabel>
-        <DataInput type='text' />
-        <input type='button' value='사진 추가'/>
-      </InputWrap>
+    <CardWrap>
+      <div className='cardBox'>
+        <div>
+          <DataLabel>프로필 사진</DataLabel>
+          <DataInput type='text' />
+        </div>
 
-      {dataName.map((type) => (
-        <InputWrap>
-          <DataLabel>{dataValue[type].name}</DataLabel>
-          <DataInput type='text' onChange={dataValueChange} id={type} value={docData.type} />
-        </InputWrap>
-      ))}
-
-      {/* <InputWrap>
-        <DataLabel>별명</DataLabel>
-        <DataInput type='text' />
-      </InputWrap>
-      <InputWrap>
-        <DataLabel>지역</DataLabel>
-        <DataInput type='text' />
-      </InputWrap>
-      <InputWrap>
-        <DataLabel>주언어</DataLabel>
-        <DataInput type='text' />
-      </InputWrap>
-      <InputWrap>
-        <DataLabel>MBTI</DataLabel>
-        <DataInput type='text' />
-      </InputWrap>
-      <InputWrap>
-        <DataLabel>분야</DataLabel>
-        <DataInput type='text' />
-      </InputWrap>
-      <InputWrap>
-        <DataLabel>SNS</DataLabel>
-        <DataInput type='text' />
-      </InputWrap> */}
-    </>
+        {dataName.map((type) => (
+          <div>
+            <DataLabel>{dataValue[type].name}</DataLabel>
+            <DataInput type='text' onChange={dataValueChange} id={type} value={docData.type} />
+          </div>
+        ))}
+      </div>
+      <div className='preview'>
+        <DocCardPreview docData={docData} />
+      </div>
+    </CardWrap>
   )
 }
 
