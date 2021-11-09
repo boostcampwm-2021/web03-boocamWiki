@@ -6,6 +6,7 @@ import EditorWithPreview from './make-section-components/EditorWithPreview';
 import Editor from './make-section-components/Editor';
 import Preview from './make-section-components/Preview';
 import MakePageRule from './make-section-components/MakePageRule';
+import DocCard from './make-section-components/DocCard';
 
 const Main = styled.div`
   width: 1115px;
@@ -36,22 +37,22 @@ const docDataReducer = (state, action) => {
       return {...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name }
     case 'INPUT_CONTENT':
       return {...state, content: action.content }
+    case 'INPUT_CLASSIFICATION':
+      return {...state, classification: action.classification }
+    case 'INPUT_USER_IMAGE':
+      return {...state, user_image: action.user_image }
     case 'INPUT_NICKNAME':
       return {...state, nickname: action.nickname }
     case 'INPUT_LOCATION':
       return {...state, location: action.location }
     case 'INPUT_LANGUAGE':
       return {...state, language: action.language }
-    case 'INPUT_USER_IMAGE':
-      return {...state, user_image: action.user_image }
     case 'INPUT_MBTI':
       return {...state, mbti: action.mbti }
     case 'INPUT_FIELD':
       return {...state, field: action.field }
     case 'INPUT_LINK':
       return {...state, link: action.link }
-    case 'INPUT_CLASSIFICATION':
-      return {...state, classification: action.classification }
     default:
       return state;
   }
@@ -81,11 +82,7 @@ const MakePageSection = ({ history }) => {
   const editorTypes = [
     { name: 'editor', text: '편집기', component: <Editor docData={docData} dispatch={dispatch} /> },
     { name: 'preview', text: '미리보기', component: <Preview docData={docData} /> },
-    {
-      name: 'editorWithPreview',
-      text: '동시보기',
-      component: <EditorWithPreview docData={docData} dispatch={dispatch} />,
-    },
+    { name: 'editorWithPreview', text: '동시보기', component: <EditorWithPreview docData={docData} dispatch={dispatch} /> },
   ];
 
   const handleBtn = (e) => {
@@ -121,6 +118,9 @@ const MakePageSection = ({ history }) => {
     <Main>
       <MainHeader title="문서 생성" />
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
+
+      <DocCard docData={docData} dispatch={dispatch} />
+
       <EditorType>
         {editorTypes.map((type) => (
           <div key={type.name}>
