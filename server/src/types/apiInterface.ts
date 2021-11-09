@@ -3,6 +3,8 @@ export interface DocumentsSearch {
   boostcamp_id: string;
   name: string;
   content: string;
+  offset: number;
+  limit: number;
 }
 
 export interface DocumentsCreate {
