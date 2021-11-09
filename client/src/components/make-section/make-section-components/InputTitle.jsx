@@ -3,26 +3,61 @@ import styled from 'styled-components';
 
 const TitleWrap = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: none;
+  border-radius: 11px;
+  margin-top: 10px;
+  width: 90%;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.35);
+  margin-bottom: 20px;
 `;
 
 const TextInputWrap = styled.div`
-  display: flex;
+  
+`;
+
+const DownLine = styled.div`
+  border: 1px solid gray;
+  width: 0.1px;
+  height: 40px;
 `;
 
 const Text = styled.div`
-
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
 `;
 
 const Input = styled.input`
-
+  border: none;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+  outline: none;
 `;
 
 const ValidationBtn = styled.button`
+  width: 100px;
+  height: 40px;
+  background-color: #0055FB;
+  color: white;
+  border: none;
+  border-radius: 11px;
 
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
 `;
 
 const PeopleTypeSelect = styled.select`
-  
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
 `;
 
 const Title = ({ canMake, setCanMake, docData, dispatch }) => {
@@ -76,18 +111,26 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
         <option value='manager'>운영진</option>
       </PeopleTypeSelect>
 
+      <DownLine />
+
       {docData.classification === 'camper' ? 
-      <TextInputWrap>
-        <Text>기수</Text>
-        <Input type='text' ref={generation} onChange={changeData} />
-      </TextInputWrap>
+      <>
+        <TextInputWrap>
+          <Text>기수</Text>
+          <Input type='text' ref={generation} onChange={changeData} />
+        </TextInputWrap>
+        <DownLine />
+      </>
       : <></> }
 
       {docData.classification === 'camper' ? 
-      <TextInputWrap>
-        <Text>아이디</Text>
-        <Input type='text' ref={id} onChange={changeData} />
-      </TextInputWrap>
+      <>
+        <TextInputWrap>
+          <Text>아이디</Text>
+          <Input type='text' ref={id} onChange={changeData} />
+        </TextInputWrap>
+        <DownLine />
+      </>
       : <></> }
       
       <TextInputWrap>
@@ -95,8 +138,12 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
         <Input type='text' ref={name} onChange={changeData} />
       </TextInputWrap>
 
+      <DownLine />
+
       <ValidationBtn onClick={titleCheckHandler}>생성 확인</ValidationBtn>
-      { canMake ? <div>생성 가능</div> : <div>생성 불가</div> }
+
+      <DownLine />
+      { canMake ? <canMakeColor>생성 가능</canMakeColor> : <canMakeColor>생성 불가</canMakeColor> }
     </TitleWrap>
   )
 }

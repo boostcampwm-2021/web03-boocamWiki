@@ -18,17 +18,72 @@ const Main = styled.div`
   border-radius: 10px;
   margin-right: 50px;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const SectionTitle = styled.div`
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  width: 90%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-self: start;
 `;
 
 const EditorType = styled.div`
   display: flex;
 `;
 
-const EditorTypeBtn = styled.button``;
+const EditorTypeBtn = styled.button`
+  width: 80px;
+  background-color: white;
+  border: 1px solid gray;
+`;
 
 const RuleDiv = styled.div`
   display: flex;
   align-items: center;
+  color: red;
+  margin-bottom: 10px;
+  margin-top: 5px;
+`;
+
+const ButtonWrap = styled.div`
+  
+`;
+
+const SubmitBtn = styled.button`
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: #0055FB;
+  border-radius: 11px;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  border: none;
+  margin-right: 20px;
+`;
+
+const CancelBtn = styled.button`
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: #F45452;
+  border-radius: 11px;
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+  border: none;
 `;
 
 const docDataReducer = (state, action) => {
@@ -117,35 +172,41 @@ const MakePageSection = ({ history }) => {
   return (
     <Main>
       <MainHeader title="문서 생성" />
+
+      <SectionTitle>문서 정보 입력</SectionTitle>
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
 
+      <SectionTitle>명함 정보 입력</SectionTitle>
       <DocCard docData={docData} dispatch={dispatch} />
 
-      <EditorType>
+      <SectionTitle>문서 내용 입력</SectionTitle>
+      <div>
+        <EditorType>
+          {editorTypes.map((type) => (
+            <div key={type.name}>
+              <EditorTypeBtn onClick={handleBtn} value={type.name}>
+                {type.text}
+              </EditorTypeBtn>
+            </div>
+          ))}
+        </EditorType>
         {editorTypes.map((type) => (
-          <div key={type.name}>
-            <EditorTypeBtn onClick={handleBtn} value={type.name}>
-              {type.text}
-            </EditorTypeBtn>
-          </div>
+          <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
         ))}
-      </EditorType>
-      {editorTypes.map((type) => (
-        <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
-      ))}
+      </div>
+
       <RuleDiv>
+        <input type='checkbox' style={{margin: '10px'}} onChange={handleRule}/>
         작성자는 아래 규정에 동의합니다.
-        <input type='checkbox' onChange={handleRule}/>
       </RuleDiv>
 
-      <button type="button" onClick={addDocument}>
-        등록
-      </button>
-      <button type="button" onClick={cancelAddDoc}>
-        취소
-      </button>
+      <ButtonWrap>
+       <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
+        <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
+      </ButtonWrap>
 
       <MakePageRule />
+
     </Main>
   );
 };
