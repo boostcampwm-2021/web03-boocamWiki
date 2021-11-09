@@ -2,13 +2,9 @@
 
 .PageContainer {
   width: 100%;
-  height: 100%;
 }
 
 .SectionWrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  @include FlexBox($direction: row, $align-items: flex-start);
+  padding: 20px 0 40px 0;
 }

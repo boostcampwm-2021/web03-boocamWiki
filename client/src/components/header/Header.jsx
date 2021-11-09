@@ -1,34 +1,31 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
-import Logo from "./header-components/Logo";
-import HeaderMenu from "./header-components/HeaderMenu";
-import HeaderSearchBar from "./header-components/HeaderSearchBar";
+import Logo from './header-components/Logo';
+import HeaderMenu from './header-components/HeaderMenu';
+import HeaderSearchBar from './header-components/HeaderSearchBar';
+import HeaderUser from './header-components/HeaderUser';
 
 const HeaderBar = styled.div`
-    width: 100%;
-    min-width: 1920px;
-    height: 90px;
-    background: #E8A20C;
-    display: flex;
-    justify-content: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
-`;
-
-const HeaderNav = styled.div`
-    display: flex;
-    align-items: center;
+  position: relative;
+  width: 100%;
+  min-width: 1190px;
+  height: 70px;
+  background: #e8a20c;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 `;
 
 const Header = () => {
-    return (
-        <HeaderBar>
-            <HeaderNav>
-                <Logo />
-                <HeaderMenu />
-                <HeaderSearchBar />
-            </HeaderNav>
-        </HeaderBar>
-    )
-}
+  return (
+    <HeaderBar>
+      <Logo />
+      <HeaderMenu />
+      <HeaderSearchBar />
+      <HeaderUser />
+    </HeaderBar>
+  );
+};
 
 export default Header;

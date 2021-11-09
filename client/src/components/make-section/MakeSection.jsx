@@ -15,7 +15,6 @@ const Main = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin-right: 50px;
-  margin-top: 10px;
 `;
 
 const EditorType = styled.div`
