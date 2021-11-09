@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import queryString from 'query-string';
 import MainHeader from '../SectionTitle';
 import Loading from '../Loading';
+import ResultView from './search-section-components/ResultView';
 
 const Main = styled.div`
   width: 1115px;
@@ -24,14 +25,13 @@ const SearchSection = () => {
   const history = useHistory();
   const { search } = useLocation();
   const { generation, boostcamp_id: boostcampId, name, content } = queryString.parse(search);
+  const [searchType, searchValue] = Object.entries({ generation, boostcampId, name, content }).filter(
+    ([, value]) => value !== undefined,
+  )[0];
 
   useEffect(() => {
     const getContent = async () => {
-      const queryString = Object.entries({ generation, boostcampId, name, content })
-        .filter(([, value]) => value !== undefined)
-        .map(([key, value]) => `${key}=${value}`)
-        .join('&');
-      const res = await fetch(`/documents/search?${queryString}`);
+      const res = await fetch(`/documents/search?${searchType}=${searchValue}`);
       const { result } = await res.json();
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
@@ -48,13 +48,7 @@ const SearchSection = () => {
     <Main>
       <MainHeader title="검색결과" />
       {loading && <Loading />}
-      {!loading && (
-        <ul>
-          {searchResult.map((data) => (
-            <li>{JSON.stringify(data)}</li>
-          ))}
-        </ul>
-      )}
+      {!loading && <ResultView type={searchType} value={searchValue} result={searchResult} />}
     </Main>
   );
 };

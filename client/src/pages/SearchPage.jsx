@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from '../components/header/Header';
-import SearchSection from '../components/search-section/SearchSecion';
+import SearchSection from '../components/search-section/SearchSection';
 import SideSection from '../components/side-section/SideSection';
 
 import style from '../styles/makePage.module.scss';
