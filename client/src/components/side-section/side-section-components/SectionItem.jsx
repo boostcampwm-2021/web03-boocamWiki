@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { SectionListGenerator } from './SectionListGenerator';
+import { SectionListItem } from './SectionListItem';
 
 const Side = styled.div`
   width: 339px;
@@ -15,43 +17,41 @@ const Side = styled.div`
 `;
 
 const SideTitle = styled.p`
-  left: 4.13%;
-  right: 0.29%;
-  top: 0%;
-  bottom: 86.91%;
-  font-size: 20px;
+  height: 64px;
+  font-size: 28px;
   padding-left: 10px;
   font-family: 'Noto Sans KR';
   font-weight: 500;
-  font-size: 28px;
   display: flex;
   align-items: center;
-`;
-
-const ListItem = styled.li`
-  list-style: none;
-  padding-left: 10px;
+  border-bottom: 2px solid #d7d7d7;
 `;
 
 const SectionItem = ({ title, OnLoaded }) => {
   const [listItem, setListItem] = useState([]);
   useEffect(async () => {
-    if (OnLoaded) {
-      const response = await OnLoaded();
-      const items = response.result.map((item) => item);
-      setListItem(items);
-    }
+    if (!OnLoaded) return;
+    const response = await OnLoaded();
+    const timetag = 'MAX(created_at)';
+
+    const items = response.result.map((item) => {
+      const date = new Date(item[timetag]);
+      return {
+        id: item.name,
+        name: item.name,
+        generation: item.generation,
+        boostcampID: item.boostcamp_id,
+        timestamp: date,
+      };
+    });
+
+    setListItem(items);
   }, []);
+
   return (
     <Side>
       <SideTitle>{title}</SideTitle>
-      <ul>
-        {listItem.map((item) => (
-          <ListItem key={`${item.generation}${item.boostcamp_id}${item.name}`}>
-            {item.name}({item.generation},{item.boostcamp_id})
-          </ListItem>
-        ))}
-      </ul>
+      <SectionListGenerator list={listItem} templateFunc={SectionListItem} />
     </Side>
   );
 };
