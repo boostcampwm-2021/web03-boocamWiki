@@ -42,7 +42,7 @@ const SearchSection = () => {
     };
 
     getContent();
-  }, []);
+  }, [search]);
 
   return (
     <Main>
