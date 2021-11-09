@@ -34,8 +34,8 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
       if(canMake) setCanMake(false);
       dispatch({
           type: 'INPUT_TITLE',
-          generation: generation.current.value,
-          boostcamp_id: id.current.value,
+          generation: docData.classification === 'camper' ? generation.current.value : 0,
+          boostcamp_id: docData.classification === 'camper' ? id.current.value : docData.classification,
           name: name.current.value
       });
   }
