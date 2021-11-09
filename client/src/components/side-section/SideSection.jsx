@@ -7,9 +7,11 @@ const SideArea = styled.div`
   flex-direction: column;
 `;
 
+const maxLength = 11;
+
 const SideSection = () => {
   const FetchingRecent = async () => {
-    const result = await fetch('/documents/recents');
+    const result = await fetch(`/documents/recents?count=${maxLength}`);
     const list = await result.json();
     return list;
   };
