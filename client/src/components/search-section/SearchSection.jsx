@@ -25,14 +25,14 @@ const SearchSection = () => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const { search } = useLocation();
-  const { generation, boostcamp_id: boostcampId, name, content } = queryString.parse(search);
+  const { generation, boostcamp_id: boostcampId, name, content, offset = 1 } = queryString.parse(search);
   const [searchType, searchValue] = Object.entries({ generation, boostcampId, name, content }).filter(
     ([, value]) => value !== undefined,
   )[0];
 
   useEffect(() => {
     const getContent = async () => {
-      let res = await fetch(`/documents/search?${searchType}=${searchValue}`);
+      let res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
       let { result } = await res.json();
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');

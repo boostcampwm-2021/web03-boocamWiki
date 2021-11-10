@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import queryString from 'query-string';
 
 const FooterContainer = styled.div`
   display: flex;
@@ -40,6 +41,10 @@ const StyledLink = styled(Link)`
 
 const ResultFooter = ({ resultCount }) => {
   const pageLength = Math.ceil(resultCount / 8);
+  const { pathname, search } = useLocation();
+  const query = queryString.parse(search);
+  query.offset = query.offset ?? 1;
+
   return (
     <FooterContainer>
       <IndexDivContainer>
@@ -48,7 +53,13 @@ const ResultFooter = ({ resultCount }) => {
           .map((_, idx) => idx)
           .map((el, idx) => (
             <IndexDiv idx={idx} key={el}>
-              <StyledLink to="/">{el + 1}</StyledLink>
+              <StyledLink
+                to={`${pathname}?${Object.entries(query)
+                  .map(([key, val]) => (key !== 'offset' ? `${key}=${val}` : `offset=${el + 1}`))
+                  .join('&')}`}
+              >
+                {el + 1}
+              </StyledLink>
             </IndexDiv>
           ))}
       </IndexDivContainer>

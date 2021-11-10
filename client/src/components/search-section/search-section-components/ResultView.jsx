@@ -6,7 +6,6 @@ import ResultFooter from './ResultFooter';
 
 const ResultViewDiv = styled.div`
   padding: 30px 20px;
-  background-color: #fcfcfc;
 `;
 
 const ResultView = ({ type, value, result, resultCount }) => {

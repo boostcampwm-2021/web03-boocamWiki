@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { remark } from 'remark';
 import strip from 'strip-markdown';
@@ -11,6 +12,10 @@ const ResultContainer = styled.div`
   padding: 15px 0px;
   ${(props) => (props.idx === 0 ? 'border-top: 1px solid #d7d7d7;' : '')}
   border-bottom: 1px solid #d7d7d7;
+
+  :hover {
+    background-color: #f6f6f6;
+  }
 `;
 
 const ResultTitleDiv = styled.div`
@@ -31,6 +36,16 @@ const ResultContentPreview = styled.div`
   max-height: 55px;
   white-space: normal;
   overflow: hidden;
+`;
+
+const ResultLink = styled(Link)`
+  text-decoration: none;
+  outline: none;
+
+  :hover,
+  :active {
+    text-decoration: none;
+  }
 `;
 
 const ResultContent = ({ result }) => {
@@ -58,14 +73,16 @@ const ResultContent = ({ result }) => {
     <ContentContainer>
       {renderResult &&
         renderResult.map(({ generation, boostcamp_id: boostcampId, name, content }, idx) => (
-          <ResultContainer idx={idx} key={`${generation}_${boostcampId}_${name}`}>
-            <ResultTitleDiv>
-              <ResultTitle>{`${generation}기 ${boostcampId} ${name}`}</ResultTitle>
-            </ResultTitleDiv>
-            <div>
-              <ResultContentPreview>{content}</ResultContentPreview>
-            </div>
-          </ResultContainer>
+          <ResultLink to={`/w/${generation}_${boostcampId}_${name}`} key={`${generation}_${boostcampId}_${name}`}>
+            <ResultContainer idx={idx}>
+              <ResultTitleDiv>
+                <ResultTitle>{`${generation}기 ${boostcampId} ${name}`}</ResultTitle>
+              </ResultTitleDiv>
+              <div>
+                <ResultContentPreview>{content}</ResultContentPreview>
+              </div>
+            </ResultContainer>
+          </ResultLink>
         ))}
     </ContentContainer>
   );
