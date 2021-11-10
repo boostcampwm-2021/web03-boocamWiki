@@ -1,5 +1,12 @@
 import * as express from 'express';
-import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc, getDoc } from '../sql/documents-query';
+import {
+  createDoc,
+  getRecentUpdatedDoc,
+  getTopViewedDoc,
+  getSearchDoc,
+  getDoc,
+  getCount,
+} from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
 
@@ -39,6 +46,16 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
     return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
     return res.status(404).json({ result: [], msg: 'fail' });
+  }
+});
+
+router.get('/count', async (req: express.Request, res: express.Response) => {
+  const { generation, boostcamp_id, name, content }: Partial<DocumentsSearch> = req.query;
+  try {
+    const result = await getCount({ generation, boostcamp_id, name, content });
+    return res.status(200).json({ result, msg: 'success' });
+  } catch (err) {
+    return res.status(404).json({ result: -1, msg: 'fail' });
   }
 });
 
