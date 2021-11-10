@@ -35,7 +35,7 @@ export async function createDoc(params: DocumentsCreate) {
 }
 
 export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSearch[]> {
-  const { generation, boostcamp_id, name, content, offset = 0, limit = 10 } = params;
+  const { generation, boostcamp_id, name, content, offset = 0, limit = 8 } = params;
   if (Object.values(params).every((el) => el === undefined)) {
     throw new Error('Empty Query Params');
   }
