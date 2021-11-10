@@ -35,7 +35,7 @@ export async function createDoc(params: DocumentsCreate) {
 }
 
 export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSearch[]> {
-  const { generation, boostcamp_id, name, content, offset = 0, limit = 10 } = params;
+  const { generation, boostcamp_id, name, content, offset = 0, limit = 8 } = params;
   if (Object.values(params).every((el) => el === undefined)) {
     throw new Error('Empty Query Params');
   }
@@ -51,8 +51,29 @@ export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSe
           [generation, boostcamp_id, name].every((el) => el === undefined) ? '' : ' AND'
         } MATCH (content) AGAINST ('${content}' IN NATURAL LANGUAGE MODE)`
       : '') +
-    ` LIMIT ${limit} OFFSET ${offset}`;
+    ` LIMIT ${limit} OFFSET ${offset * limit}`;
   const [result]: [DocumentsSearch[]] = await db.pool.query(query);
+  return result;
+}
+
+export async function getCount(params: Partial<DocumentsSearch>): Promise<number> {
+  const { generation, boostcamp_id, name, content } = params;
+  if (Object.values(params).every((el) => el === undefined)) {
+    throw new Error('Empty Query Params');
+  }
+  const query =
+    'SELECT count(*) as count ' +
+    'FROM `document` ' +
+    `WHERE ${Object.entries({ generation, boostcamp_id, name })
+      .filter(([, value]) => value)
+      .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
+      .join(' AND ')}` +
+    (content
+      ? `${
+          [generation, boostcamp_id, name].every((el) => el === undefined) ? '' : ' AND'
+        } MATCH (content) AGAINST ('${content}' IN NATURAL LANGUAGE MODE)`
+      : '');
+  const result: number = (await db.pool.query(query))[0][0].count;
   return result;
 }
 

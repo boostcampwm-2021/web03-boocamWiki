@@ -21,23 +21,29 @@ const Main = styled.div`
 
 const SearchSection = () => {
   const [searchResult, setSearchResult] = useState({});
+  const [searchResultCount, setSearchResultCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const { search } = useLocation();
-  const { generation, boostcamp_id: boostcampId, name, content } = queryString.parse(search);
+  const { generation, boostcamp_id: boostcampId, name, content, offset = 1 } = queryString.parse(search);
   const [searchType, searchValue] = Object.entries({ generation, boostcampId, name, content }).filter(
     ([, value]) => value !== undefined,
   )[0];
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await fetch(`/documents/search?${searchType}=${searchValue}`);
-      const { result } = await res.json();
+      let res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
+      let { result } = await res.json();
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
       }
-      console.log(result);
       setSearchResult(result);
+      res = await fetch(`/documents/count?${searchType}=${searchValue}`);
+      result = (await res.json()).result;
+      if (res.status !== 200) {
+        history.push('/error');
+      }
+      setSearchResultCount(result);
       setLoading(false);
     };
 
@@ -48,7 +54,9 @@ const SearchSection = () => {
     <Main>
       <MainHeader title="검색결과" />
       {loading && <Loading />}
-      {!loading && <ResultView type={searchType} value={searchValue} result={searchResult} />}
+      {!loading && (
+        <ResultView type={searchType} value={searchValue} result={searchResult} resultCount={searchResultCount} />
+      )}
     </Main>
   );
 };

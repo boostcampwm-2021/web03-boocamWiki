@@ -1,15 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import ResultSummary from './ResultSummary';
 import ResultContent from './ResultContent';
 import ResultFooter from './ResultFooter';
 
-const ResultView = ({ type, value, result }) => {
+const ResultViewDiv = styled.div`
+  padding: 30px 20px;
+`;
+
+const ResultView = ({ type, value, result, resultCount }) => {
   return (
-    <div>
-      <ResultSummary type={type} value={value} result={result} />
+    <ResultViewDiv>
+      <ResultSummary type={type} value={value} resultCount={resultCount} />
       <ResultContent result={result} />
-      <ResultFooter />
-    </div>
+      <ResultFooter resultCount={resultCount} />
+    </ResultViewDiv>
   );
 };
 

@@ -72,7 +72,7 @@ const HeaderSearchBar = () => {
   const history = useHistory();
   const searchInput = useRef();
   const searchBtn = useRef();
-  const [searchType, setSearchType] = useState('이름');
+  const [searchType, setSearchType] = useState('name');
 
   const submitEvent = (e) => {
     e.preventDefault();
