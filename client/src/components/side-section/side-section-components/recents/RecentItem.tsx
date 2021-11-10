@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { IDocument } from '../../../../types/api-document';
+import { Utils } from '../../../../utils';
 
 const Flexed = styled.div`
   display: flex;
@@ -51,9 +52,7 @@ export const RecentItem = (arg: IDocument): JSX.Element => {
   return (
     <StyledLink to={`/w/${generation}_${boostcampID}_${name}`}>
       <Flexed>
-        <TitleP>
-          {name} ({generation}기 {boostcampID})
-        </TitleP>
+        <TitleP> {Utils.docTitleGen({ name, boostcampID, generation })}</TitleP>
         <RightP>{getTime(timestamp)}</RightP>
       </Flexed>
     </StyledLink>

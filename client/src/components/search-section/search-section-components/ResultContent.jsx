@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { remark } from 'remark';
 import strip from 'strip-markdown';
+import { Utils } from '../../../utils';
 
 const ContentContainer = styled.div`
   margin: 10px 0px;
@@ -76,7 +77,7 @@ const ResultContent = ({ result }) => {
           <ResultLink to={`/w/${generation}_${boostcampId}_${name}`} key={`${generation}_${boostcampId}_${name}`}>
             <ResultContainer idx={idx}>
               <ResultTitleDiv>
-                <ResultTitle>{`${generation}기 ${boostcampId} ${name}`}</ResultTitle>
+                <ResultTitle>{Utils.docTitleGen({ generation, boostcampId, name }, 1)}</ResultTitle>
               </ResultTitleDiv>
               <div>
                 <ResultContentPreview>{content}</ResultContentPreview>

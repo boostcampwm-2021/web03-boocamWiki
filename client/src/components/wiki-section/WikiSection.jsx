@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import MainHeader from '../SectionTitle';
 import Loading from '../Loading';
 import MdParser from '../MdParser';
+import { Utils } from '../../utils';
 
 const Main = styled.div`
   width: 1115px;
@@ -40,7 +41,7 @@ const WikiSection = ({ generation, boostcampID, name }) => {
 
   return (
     <Main>
-      <MainHeader title={`${name} (${generation}기 ${boostcampID})`} />
+      <MainHeader title={Utils.docTitleGen({ name, boostcampID, generation }, 0)} />
       {loading && <Loading />}
       {!loading && 
       <>
