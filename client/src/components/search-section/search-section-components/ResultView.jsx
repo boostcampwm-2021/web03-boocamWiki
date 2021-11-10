@@ -9,12 +9,12 @@ const ResultViewDiv = styled.div`
   background-color: #fcfcfc;
 `;
 
-const ResultView = ({ type, value, result }) => {
+const ResultView = ({ type, value, result, resultCount }) => {
   return (
     <ResultViewDiv>
-      <ResultSummary type={type} value={value} result={result} />
+      <ResultSummary type={type} value={value} resultCount={resultCount} />
       <ResultContent result={result} />
-      <ResultFooter result={result} />
+      <ResultFooter resultCount={resultCount} />
     </ResultViewDiv>
   );
 };

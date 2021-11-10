@@ -32,11 +32,11 @@ const searchTypeMap = {
   content: '내용',
 };
 
-const ResultSummary = ({ type, value, result }) => {
+const ResultSummary = ({ type, value, resultCount }) => {
   return (
     <div>
       <SummaryDiv>
-        {searchTypeMap[type]}: {`${`'${value}'`}`}에 대한 {result.length}건
+        {searchTypeMap[type]}: {`${`'${value}'`}`}에 대한 {resultCount}건
       </SummaryDiv>
       <div>
         <FooterSpan>원하는 문서가 없으신가요? </FooterSpan>

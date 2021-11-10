@@ -38,8 +38,8 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const ResultFooter = ({ result }) => {
-  const pageLength = Math.ceil(result.length / 8);
+const ResultFooter = ({ resultCount }) => {
+  const pageLength = Math.ceil(resultCount / 8);
   return (
     <FooterContainer>
       <IndexDivContainer>
