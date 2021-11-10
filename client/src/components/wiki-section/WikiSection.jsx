@@ -19,7 +19,7 @@ const Main = styled.div`
 `;
 
 const WikiSection = ({ generation, boostcampID, name }) => {
-  const [content, setContent] = useState();
+  const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const id = generation + boostcampID + name;
@@ -31,7 +31,7 @@ const WikiSection = ({ generation, boostcampID, name }) => {
         history.push('/error');
       }
       const { result } = await res.json();
-      setContent(result[0].content);
+      setDocData(result[0]);
       setLoading(false);
     };
 
@@ -42,7 +42,17 @@ const WikiSection = ({ generation, boostcampID, name }) => {
     <Main>
       <MainHeader title={`${name} (${generation}기 ${boostcampID})`} />
       {loading && <Loading />}
-      {!loading && <MdParser content={content} />}
+      {!loading && 
+      <>
+        <div>별명: {docData.nickname}</div>
+        <div>지역: {docData.location}</div>
+        <div>주언어: {docData.language}</div>
+        <div>분야: {docData.field}</div>
+        <div>링크: {docData.link}</div>
+        <div>MBTI: {docData.mbti}</div>
+        <MdParser content={docData.content} />
+      </>
+      }
     </Main>
   );
 };
