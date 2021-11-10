@@ -61,7 +61,7 @@ const DocCardPreview = ({ docData }) => {
     <CardBox>
       <CardImg src='https://i.ytimg.com/vi/nhAR2-WIM-I/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDt47QnWrWAjzSou_NDsic-KwR6gQ'/>
       {cardData.map((item) => (
-        <CardData>
+        <CardData key={item.name}>
           <DataName>{item.name}</DataName>
           <DataValue>{docData[item.key]}</DataValue>
         </CardData>

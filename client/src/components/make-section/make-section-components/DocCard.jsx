@@ -76,7 +76,7 @@ const DocCard = ({docData, dispatch}) => {
         </div>
 
         {dataName.map((type) => (
-          <div className='cardInput'>
+          <div className='cardInput' key={type}>
             <DataLabel>{dataValue[type].name}</DataLabel>
             <DataInput type='text' onChange={dataValueChange} id={type} value={docData.type} />
           </div>

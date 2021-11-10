@@ -23,18 +23,6 @@ const Main = styled.div`
   align-items: center;
 `;
 
-const SectionTitle = styled.div`
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 30px;
-  width: 90%;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-self: start;
-`;
-
 const EditorType = styled.div`
   display: flex;
 `;
@@ -89,25 +77,31 @@ const CancelBtn = styled.button`
 const docDataReducer = (state, action) => {
   switch(action.type){
     case 'INPUT_TITLE':
-      return {...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name }
+      return { ...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name }
+    case 'INPUT_BOOSTCAMP_ID':
+      return { ...state, boostcamp_id: action.boostcamp_id }
+    case 'INPUT_GENERATION':
+      return { ...state, generation: action.generation}
+    case 'INPUT_NAME':
+      return { ...state, name: action.name }
     case 'INPUT_CONTENT':
-      return {...state, content: action.content }
+      return { ...state, content: action.content }
     case 'INPUT_CLASSIFICATION':
-      return {...state, classification: action.classification }
+      return { ...state, classification: action.classification }
     case 'INPUT_USER_IMAGE':
-      return {...state, user_image: action.user_image }
+      return { ...state, user_image: action.user_image }
     case 'INPUT_NICKNAME':
-      return {...state, nickname: action.nickname }
+      return { ...state, nickname: action.nickname }
     case 'INPUT_LOCATION':
-      return {...state, location: action.location }
+      return { ...state, location: action.location }
     case 'INPUT_LANGUAGE':
-      return {...state, language: action.language }
+      return { ...state, language: action.language }
     case 'INPUT_MBTI':
-      return {...state, mbti: action.mbti }
+      return { ...state, mbti: action.mbti }
     case 'INPUT_FIELD':
-      return {...state, field: action.field }
+      return { ...state, field: action.field }
     case 'INPUT_LINK':
-      return {...state, link: action.link }
+      return { ...state, link: action.link }
     default:
       return state;
   }
@@ -173,13 +167,10 @@ const MakePageSection = ({ history }) => {
     <Main>
       <MainHeader title="문서 생성" />
 
-      <SectionTitle>문서 정보 입력</SectionTitle>
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
 
-      <SectionTitle>명함 정보 입력</SectionTitle>
       <DocCard docData={docData} dispatch={dispatch} />
 
-      <SectionTitle>문서 내용 입력</SectionTitle>
       <div>
         <EditorType>
           {editorTypes.map((type) => (
