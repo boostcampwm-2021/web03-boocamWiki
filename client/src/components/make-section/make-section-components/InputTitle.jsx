@@ -102,6 +102,9 @@ const ValidationBtn = styled.button`
   font-size: 18px;
   margin-left: 15px;
   margin-right: 10px;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const PeopleTypeSelect = styled.select`
