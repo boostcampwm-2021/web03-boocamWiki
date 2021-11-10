@@ -84,6 +84,9 @@ const GenBtnWrap = styled.div`
 const GenBtn = styled.img`
   width: 12px;
   height: 6px;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const ValidationWrap = styled.div`

@@ -58,6 +58,9 @@ const SubmitBtn = styled.button`
   text-align: center;
   border: none;
   margin-right: 20px;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const CancelBtn = styled.button`
@@ -72,6 +75,9 @@ const CancelBtn = styled.button`
   font-size: 24px;
   text-align: center;
   border: none;
+  &:hover{
+    cursor: pointer;
+  }
 `;
 
 const docDataReducer = (state, action) => {
@@ -192,7 +198,7 @@ const MakePageSection = ({ history }) => {
       </RuleDiv>
 
       <ButtonWrap>
-       <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
+        <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
         <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
       </ButtonWrap>
 
