@@ -19,6 +19,7 @@ export function SectionListGenerator<T extends IDocument>({
     <>
       {list.map((item) => {
         const id = item.name + item.boostcampID + item.generation;
+        if (!templateFunc) return <></>;
         return <Li key={id}>{templateFunc(item)}</Li>;
       })}
     </>

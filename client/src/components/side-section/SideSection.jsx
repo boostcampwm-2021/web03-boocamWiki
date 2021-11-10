@@ -1,31 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import SectionItem from './side-section-components/SectionItem';
+import { FetchingRecent, RecentItem } from './side-section-components/recents/RecentItem';
+import { FetchingTopView, TopViewItem } from './side-section-components/top-views/TopViewItem';
 
 const SideArea = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const maxLength = 11;
-
 const SideSection = () => {
-  const FetchingRecent = async () => {
-    const result = await fetch(`/documents/recents?count=${maxLength}`);
-    const list = await result.json();
-    return list;
-  };
-
-  const FetchingTopView = async () => {
-    const result = await fetch(`/documents/ranks?count=${maxLength}`);
-    const list = await result.json();
-    return list;
-  };
-
   return (
     <SideArea>
-      <SectionItem title="최근 변경" OnLoaded={FetchingRecent} />
-      <SectionItem title="부캠 조회 순위" OnLoaded={FetchingTopView} />
+      <SectionItem title="최근 변경" onLoadedFetch={FetchingRecent} itemTemplate={RecentItem} />
+      <SectionItem title="부캠 조회 순위" onLoadedFetch={FetchingTopView} itemTemplate={TopViewItem} />
     </SideArea>
   );
 };

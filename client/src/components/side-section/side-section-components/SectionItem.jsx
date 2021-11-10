@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router';
 import styled from 'styled-components';
 import { SectionListGenerator } from './SectionListGenerator';
-import { SectionListItem } from './SectionListItem';
 
 const Side = styled.div`
   width: 339px;
@@ -37,21 +37,22 @@ const recordToItem = (item) => {
   };
 };
 
-const SectionItem = ({ title, OnLoaded }) => {
+const SectionItem = ({ title, onLoadedFetch, itemTemplate, location }) => {
+  const maxLength = 11;
   const [listItem, setListItem] = useState([]);
   useEffect(async () => {
-    if (!OnLoaded) return;
-    const response = await OnLoaded();
+    if (!onLoadedFetch) return;
+    const response = await onLoadedFetch({ maxLength });
     const items = response.result.map(recordToItem);
     setListItem(items);
-  }, []);
+  }, [location.pathname]);
 
   return (
     <Side>
       <SideTitle>{title}</SideTitle>
-      <SectionListGenerator list={listItem} templateFunc={SectionListItem} />
+      <SectionListGenerator list={listItem} templateFunc={itemTemplate} />
     </Side>
   );
 };
 
-export default SectionItem;
+export default withRouter(SectionItem);
