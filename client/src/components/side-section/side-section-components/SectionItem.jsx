@@ -31,7 +31,6 @@ const recordToItem = (item) => {
   const timetag = 'MAX(created_at)';
   const date = new Date(item[timetag]);
   return {
-    id: item.name,
     name: item.name,
     generation: item.generation,
     boostcampID: item.boostcamp_id,
