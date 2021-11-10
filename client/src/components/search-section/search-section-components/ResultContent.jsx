@@ -27,7 +27,7 @@ const ResultContent = ({ result }) => {
     <div>
       {renderResult &&
         renderResult.map(({ generation, boostcamp_id: boostcampId, name, content }) => (
-          <div>
+          <div key={`${generation}_${boostcampId}_${name}`}>
             <div>
               <span>{generation}</span>
               <span> </span>
