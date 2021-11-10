@@ -118,13 +118,13 @@ const DocCard = ({docData, dispatch}) => {
       {cardData.map((item) => (
         <CardDataWrap key={item.name}>
           <CardDataName>{item.name}</CardDataName>
-          <CardDataInput placeholder='입력하세요'>{docData[item.key]}</CardDataInput>
+          <CardDataInput placeholder='입력하세요' onChange={dataValueChange} id={item.key} />
         </CardDataWrap>
       ))}
 
       <CardDataWrap>
         <CardDataName>MBTI</CardDataName>
-        <MbtiSelector defaultValue='default'>
+        <MbtiSelector defaultValue='default' onChange={dataValueChange} id='mbti'>
           <option value='default' disabled style={{color: '#888888'}}>선택하세요</option>
           {MBTI.map((type) => (<option key={type} value={type}>{type}</option>))}
         </MbtiSelector>

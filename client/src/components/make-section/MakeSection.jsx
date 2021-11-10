@@ -162,7 +162,7 @@ const MakeSection = ({ history }) => {
         },
         body: JSON.stringify(docData),
       }).then((res) => res.json());
-      history.goBack();
+      history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
     }
   };
 
