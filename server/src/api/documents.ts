@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc, getDoc } from '../sql/documents-query';
-import { OnDocCreate } from '../subscribers/document-subscriber';
+import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
 
 const router = express.Router();
@@ -49,6 +49,8 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
+
+    OnDocViewed(req.query as unknown as DocumentsSearch);
     return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
     return res.status(404).json({ result: [], msg: 'fail' });
