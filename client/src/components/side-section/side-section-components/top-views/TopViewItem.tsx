@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { IDocument } from '../../../types/api-document';
+import { IDocument } from '../../../../types/api-document';
 
 const Flexed = styled.div`
   display: flex;
@@ -17,10 +17,9 @@ const Flexed = styled.div`
 
 const TitleP = styled.p`
   color: #0055fb;
-`;
-
-const RightP = styled.p`
-  color: #000;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 `;
 
 const StyledLink = styled(Link)`
@@ -34,20 +33,21 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const getTime = (arg: Date): string => {
-  return `${arg.getHours()}:${arg.getMinutes()}`;
-};
-
-export const SectionListItem = (arg: IDocument): JSX.Element => {
-  const { name, boostcampID, generation, timestamp } = arg;
+export const TopViewItem = (arg: IDocument): JSX.Element => {
+  const { name, boostcampID, generation } = arg;
   return (
     <StyledLink to={`/w/${generation}_${boostcampID}_${name}`}>
       <Flexed>
         <TitleP>
           {name} ({generation}기 {boostcampID})
         </TitleP>
-        <RightP>{getTime(timestamp)}</RightP>
       </Flexed>
     </StyledLink>
   );
+};
+
+export const FetchingTopView = async ({ maxLength }: { maxLength: number }): Promise<IDocument[]> => {
+  const result = await fetch(`/documents/ranks?count=${maxLength}`);
+  const list = await result.json();
+  return list;
 };

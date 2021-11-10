@@ -30,7 +30,6 @@ const MainSection = () => {
         history.push('/error');
       }
       const { result } = await res.json();
-      console.log(result);
       setContent(result[0].content);
       setLoading(false);
     };
