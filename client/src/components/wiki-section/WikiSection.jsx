@@ -5,6 +5,7 @@ import MainHeader from '../SectionTitle';
 import Loading from '../Loading';
 import MdParser from '../MdParser';
 import { Utils } from '../../utils';
+import WikiContentsIndex from '../WikiContentsIndex';
 
 const Main = styled.div`
   width: 1115px;
@@ -43,17 +44,18 @@ const WikiSection = ({ generation, boostcampID, name }) => {
     <Main>
       <MainHeader title={Utils.docTitleGen({ name, boostcampID, generation }, 0)} />
       {loading && <Loading />}
-      {!loading && 
-      <>
-        <div>별명: {docData.nickname}</div>
-        <div>지역: {docData.location}</div>
-        <div>주언어: {docData.language}</div>
-        <div>분야: {docData.field}</div>
-        <div>링크: {docData.link}</div>
-        <div>MBTI: {docData.mbti}</div>
-        <MdParser content={docData.content} />
-      </>
-      }
+      {!loading && (
+        <>
+          <WikiContentsIndex title="목차" text={docData.content} />
+          <div>별명: {docData.nickname}</div>
+          <div>지역: {docData.location}</div>
+          <div>주언어: {docData.language}</div>
+          <div>분야: {docData.field}</div>
+          <div>링크: {docData.link}</div>
+          <div>MBTI: {docData.mbti}</div>
+          <MdParser content={docData.content} />
+        </>
+      )}
     </Main>
   );
 };

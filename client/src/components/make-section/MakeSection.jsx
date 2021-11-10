@@ -7,6 +7,7 @@ import Editor from './make-section-components/Editor';
 import Preview from './make-section-components/Preview';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
+import WikiContentsIndex from '../WikiContentsIndex';
 
 const Main = styled.div`
   width: 1115px;
@@ -56,7 +57,7 @@ const SubmitBtn = styled.button`
   text-align: center;
   border: none;
   margin-right: 20px;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 `;
@@ -73,7 +74,7 @@ const CancelBtn = styled.button`
   font-size: 24px;
   text-align: center;
   border: none;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 `;
@@ -81,31 +82,31 @@ const CancelBtn = styled.button`
 const docDataReducer = (state, action) => {
   switch (action.type) {
     case 'INPUT_TITLE':
-      return { ...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name }
+      return { ...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name };
     case 'INPUT_BOOSTCAMP_ID':
-      return { ...state, boostcamp_id: action.boostcamp_id }
+      return { ...state, boostcamp_id: action.boostcamp_id };
     case 'INPUT_GENERATION':
-      return { ...state, generation: action.generation}
+      return { ...state, generation: action.generation };
     case 'INPUT_NAME':
-      return { ...state, name: action.name }
+      return { ...state, name: action.name };
     case 'INPUT_CONTENT':
-      return { ...state, content: action.content }
+      return { ...state, content: action.content };
     case 'INPUT_CLASSIFICATION':
-      return { ...state, classification: action.classification }
+      return { ...state, classification: action.classification };
     case 'INPUT_USER_IMAGE':
-      return { ...state, user_image: action.user_image }
+      return { ...state, user_image: action.user_image };
     case 'INPUT_NICKNAME':
-      return { ...state, nickname: action.nickname }
+      return { ...state, nickname: action.nickname };
     case 'INPUT_LOCATION':
-      return { ...state, location: action.location }
+      return { ...state, location: action.location };
     case 'INPUT_LANGUAGE':
-      return { ...state, language: action.language }
+      return { ...state, language: action.language };
     case 'INPUT_MBTI':
-      return { ...state, mbti: action.mbti }
+      return { ...state, mbti: action.mbti };
     case 'INPUT_FIELD':
-      return { ...state, field: action.field }
+      return { ...state, field: action.field };
     case 'INPUT_LINK':
-      return { ...state, link: action.link }
+      return { ...state, link: action.link };
     default:
       return state;
   }
@@ -161,7 +162,7 @@ const MakeSection = ({ history }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(docData),
-      }).then(res => res.json());
+      }).then((res) => res.json());
       history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
     }
   };
@@ -176,6 +177,7 @@ const MakeSection = ({ history }) => {
 
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
 
+      <WikiContentsIndex title="목차 미리보기" text={docData.content} />
       <DocCard docData={docData} dispatch={dispatch} />
 
       <div>
