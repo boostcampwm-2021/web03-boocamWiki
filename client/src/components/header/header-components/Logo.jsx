@@ -1,30 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import logo from '../../../resource/img/logo.png';
+import logo from '../../../resource/img/logo2.png';
 
-const LogoBtn = styled.button`
-  border: none;
-  background: #e8a20c;
-  width: 139px;
-  height: 83px;
+const LogoBtn = styled.img`
+  width: 115px;
+  height: 60px;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   &:hover {
     cursor: pointer;
   }
-  margin-right: 96px;
-`;
-
-const LogoTag = styled.img`
-  width: 139px;
-  height: 70px;
 `;
 
 const Logo = () => {
   return (
     <Link to="/">
-      <LogoBtn>
-        <LogoTag src={logo} />
-      </LogoBtn>
+      <LogoBtn src={logo} />
     </Link>
   );
 };

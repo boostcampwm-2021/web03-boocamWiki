@@ -7,7 +7,6 @@ const Side = styled.div`
   width: 339px;
   height: 489px;
   background: white;
-  margin-top: 10px;
   margin-bottom: 20px;
   border: 1px solid #d7d7d7;
   box-sizing: border-box;

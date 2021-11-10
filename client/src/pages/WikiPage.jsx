@@ -3,7 +3,7 @@ import Header from '../components/header/Header';
 import SideSection from '../components/side-section/SideSection';
 import WikiSection from '../components/wiki-section/WikiSection';
 
-import style from '../styles/makePage.module.scss';
+import style from '../styles/scss/Page.module.scss';
 
 const getDocumentInfo = (pathname) => {
   const result = pathname.match(/\/w\/(?<generation>\d+)_(?<boostcampID>.+)_(?<name>.+)/);
@@ -13,9 +13,9 @@ const getDocumentInfo = (pathname) => {
 const WikiPage = ({ location }) => {
   const result = getDocumentInfo(location.pathname);
   return (
-    <div className={style.makePageContainer}>
+    <div className={style.PageContainer}>
       <Header />
-      <div className={style.sectionWrapper}>
+      <div className={style.SectionWrapper}>
         <WikiSection name={result.name} generation={result.generation} boostcampID={result.boostcampID} />
         <SideSection />
       </div>

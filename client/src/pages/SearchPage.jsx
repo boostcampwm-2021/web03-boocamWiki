@@ -3,13 +3,13 @@ import Header from '../components/header/Header';
 import SearchSection from '../components/search-section/SearchSection';
 import SideSection from '../components/side-section/SideSection';
 
-import style from '../styles/makePage.module.scss';
+import style from '../styles/scss/Page.module.scss';
 
 const SearchPage = () => {
   return (
-    <div className={style.makePageContainer}>
+    <div className={style.PageContainer}>
       <Header />
-      <div className={style.sectionWrapper}>
+      <div className={style.SectionWrapper}>
         <SearchSection />
         <SideSection />
       </div>

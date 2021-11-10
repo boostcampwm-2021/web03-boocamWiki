@@ -41,15 +41,13 @@ const RuleDiv = styled.div`
   margin-top: 5px;
 `;
 
-const ButtonWrap = styled.div`
-  
-`;
+const ButtonWrap = styled.div``;
 
 const SubmitBtn = styled.button`
   width: 100px;
   height: 40px;
   color: white;
-  background-color: #0055FB;
+  background-color: #0055fb;
   border-radius: 11px;
   font-family: Noto Sans KR;
   font-style: normal;
@@ -67,7 +65,7 @@ const CancelBtn = styled.button`
   width: 100px;
   height: 40px;
   color: white;
-  background-color: #F45452;
+  background-color: #f45452;
   border-radius: 11px;
   font-family: Noto Sans KR;
   font-style: normal;
@@ -81,7 +79,7 @@ const CancelBtn = styled.button`
 `;
 
 const docDataReducer = (state, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'INPUT_TITLE':
       return { ...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name }
     case 'INPUT_BOOSTCAMP_ID':
@@ -111,7 +109,7 @@ const docDataReducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
 const initialDocData = {
   generation: 0,
@@ -126,9 +124,9 @@ const initialDocData = {
   field: null,
   link: null,
   classification: 'camper',
-}
+};
 
-const MakePageSection = ({ history }) => {
+const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState(false);
   const [inputStatus, setInputStatus] = useState('editor');
   const [docRule, setDocRule] = useState(false);
@@ -137,7 +135,11 @@ const MakePageSection = ({ history }) => {
   const editorTypes = [
     { name: 'editor', text: '편집기', component: <Editor docData={docData} dispatch={dispatch} /> },
     { name: 'preview', text: '미리보기', component: <Preview docData={docData} /> },
-    { name: 'editorWithPreview', text: '동시보기', component: <EditorWithPreview docData={docData} dispatch={dispatch} /> },
+    {
+      name: 'editorWithPreview',
+      text: '동시보기',
+      component: <EditorWithPreview docData={docData} dispatch={dispatch} />,
+    },
   ];
 
   const handleBtn = (e) => {
@@ -145,13 +147,13 @@ const MakePageSection = ({ history }) => {
   };
 
   const handleRule = (e) => {
-    if(e.target.checked) setDocRule(true);
+    if (e.target.checked) setDocRule(true);
     else setDocRule(false);
-  }
+  };
 
   const addDocument = async () => {
     if (!canMake) alert('생성 가능 여부를 확인해주세요');
-    else if(!docRule) alert('규정에 동의해주세요');
+    else if (!docRule) alert('규정에 동의해주세요');
     else {
       await fetch('/documents', {
         method: 'POST',
@@ -159,15 +161,14 @@ const MakePageSection = ({ history }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(docData),
-      })
-        .then((res) => res.json());
+      }).then((res) => res.json());
       history.goBack();
     }
   };
 
   const cancelAddDoc = () => {
     history.goBack();
-  }
+  };
 
   return (
     <Main>
@@ -193,7 +194,7 @@ const MakePageSection = ({ history }) => {
       </div>
 
       <RuleDiv>
-        <input type='checkbox' style={{margin: '10px'}} onChange={handleRule}/>
+        <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} />
         작성자는 아래 규정에 동의합니다.
       </RuleDiv>
 
@@ -203,9 +204,8 @@ const MakePageSection = ({ history }) => {
       </ButtonWrap>
 
       <MakePageRule />
-
     </Main>
   );
 };
 
-export default MakePageSection;
+export default MakeSection;
