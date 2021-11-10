@@ -3,4 +3,5 @@ export interface IDocument {
   boostcampID: string;
   generation: number;
   timestamp: Date;
+  content: string;
 }
