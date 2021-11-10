@@ -6,6 +6,10 @@ import rank from '../../../resource/img/rank.svg';
 import map from '../../../resource/img/map.svg';
 
 const NavMenu = styled.div`
+  position: absolute;
+  left: 140px;
+  width: 408px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,15 +21,10 @@ const MenuImg = styled.img`
 `;
 
 const Menu = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 141px;
-  height: 36px;
-  position: relative;
-  cursor: pointer;
+  width: 125px;
   &:hover {
-    box-shadow: 0px 5px white;
+    cursor: pointer;
+    box-shadow: 0px 4px white;
   }
 `;
 
@@ -36,6 +35,7 @@ const aTagStyle = {
   fontWeight: 500,
   fontSize: '24px',
   display: 'flex',
+  lineHeight: '35px',
   alignItems: 'center',
 };
 
@@ -45,19 +45,19 @@ const HeaderMenu = () => {
       <Menu>
         <Link to="/makedocs" style={aTagStyle}>
           <MenuImg src={recent} />
-          문서 작성
+          문서작성
         </Link>
       </Menu>
       <Menu>
         <Link to="/" style={aTagStyle}>
           <MenuImg src={rank} />
-          각종 순위
+          각종순위
         </Link>
       </Menu>
       <Menu>
         <Link to="/" style={aTagStyle}>
           <MenuImg src={map} />
-          위치 정보
+          위치정보
         </Link>
       </Menu>
     </NavMenu>

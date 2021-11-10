@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import user from '../../../resource/img/user.svg';
 
 const UserBtn = styled.button`
+  position: absolute;
+  right: 10px;
   background: #e8a20c;
   border: none;
   &:hover {
@@ -11,8 +13,8 @@ const UserBtn = styled.button`
 `;
 
 const UserSVG = styled.img`
-  width: 55px;
-  height: 55px;
+  width: 50px;
+  height: 50px;
 `;
 
 const HeaderUser = () => {
