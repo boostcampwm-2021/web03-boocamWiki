@@ -51,7 +51,7 @@ export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSe
           [generation, boostcamp_id, name].every((el) => el === undefined) ? '' : ' AND'
         } MATCH (content) AGAINST ('${content}' IN NATURAL LANGUAGE MODE)`
       : '') +
-    ` LIMIT ${limit} OFFSET ${offset}`;
+    ` LIMIT ${limit} OFFSET ${offset * limit}`;
   const [result]: [DocumentsSearch[]] = await db.pool.query(query);
   return result;
 }
