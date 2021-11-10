@@ -9,7 +9,7 @@ const ErrorPage = () => {
       <div className={style.ErrorModalWrapper}>
         <img src={logo} className={style.logo} alt="logo" />
         <div className={style.ErrorMessageWrapper}>
-          <p className={style.ErrorMessageEn}>404 Not Fount</p>
+          <p className={style.ErrorMessageEn}>404 Not Found</p>
           <p className={style.ErrorMessageKr}>페이지를 찾을 수 없습니다</p>
         </div>
         <div className={style.ErrorGuideWrapper}>

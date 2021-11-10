@@ -16,5 +16,4 @@ const MakePage = ({ history }) => {
     </div>
   );
 };
-
 export default MakePage;

@@ -1,18 +1,18 @@
 import React from "react";
 import styled from 'styled-components';
-import Markdown from "./MarkdownPreview";
+import MdParser from "../../MdParser";
 
 const PreviewWrap = styled.div`
-    border: 1px solid red;
-    width: 90%;
+    width: 1000px;
     height: 500px;
-    padding-left: 40px;
+    overflow: auto;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.25);
 `;
 
-const Preview = ({markdown}) => {
+const Preview = ({docData}) => {
     return (
         <PreviewWrap>
-            <Markdown markdown={markdown}/>
+            <MdParser content={docData.content} />
         </PreviewWrap>
     )
 }

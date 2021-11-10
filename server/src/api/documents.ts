@@ -1,6 +1,6 @@
 import * as express from 'express';
 import { createDoc, getRecentUpdatedDoc, getTopViewedDoc, getSearchDoc, getDoc } from '../sql/documents-query';
-import { OnDocCreate } from '../subscribers/document-subscriber';
+import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
 
 const router = express.Router();
@@ -25,14 +25,14 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   let result = await createDoc(req.body);
   res.status(200).json({ msg: 'OK', result: result });
   let query: DocumentsCreate = req.body;
-  query.user_id = 'youths';
+  query.user_id = 'zoeas';
   OnDocCreate(query);
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
-  const queryParam: DocumentsSearch = req.query;
+  const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
   try {
-    const result = await getSearchDoc(queryParam);
+    const result = await getSearchDoc({ generation, boostcamp_id, name, content, offset, limit });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
@@ -43,12 +43,14 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const queryParam: DocumentsSearch = req.query;
+  const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
   try {
-    const result = await getDoc(queryParam);
+    const result = await getDoc({ generation, boostcamp_id, name, content, offset, limit });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
+
+    OnDocViewed(req.query as unknown as DocumentsSearch);
     return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
     return res.status(404).json({ result: [], msg: 'fail' });
