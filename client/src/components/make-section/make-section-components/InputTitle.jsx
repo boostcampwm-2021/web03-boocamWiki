@@ -13,9 +13,8 @@ const TitleWrap = styled.div`
   width: 635px;
   height: 66px;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 22px;
   background-color: #F6F6F6;
   border: 1px solid #D7D7D7;
   border-radius: 15px;
@@ -31,6 +30,7 @@ const TextInputWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-left: 15px;
 `;
 
 const Text = styled.div`
@@ -86,6 +86,12 @@ const GenBtn = styled.img`
   height: 6px;
 `;
 
+const ValidationWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const ValidationBtn = styled.button`
   width: 94px;
   height: 34px;
@@ -94,16 +100,19 @@ const ValidationBtn = styled.button`
   border: none;
   border-radius: 11px;
   font-size: 18px;
+  margin-left: 15px;
   margin-right: 10px;
 `;
 
 const PeopleTypeSelect = styled.select`
-  width: 100px;
+  width: 93px;
   height: 23px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: normal;
   border: none;
   background-color: #F6F6F6;
+  color: #888888;
+  outline: none;
 `;
 
 const Title = ({ canMake, setCanMake, docData, dispatch }) => {
@@ -191,12 +200,8 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
             </>
           }
           {
-            docData.classification === 'master' &&
-            <GenInput type='text' onChange={changeData} placeholder='MASTER' readOnly/>
-          }
-          {
-            docData.classification === 'manager' &&
-            <GenInput type='text' onChange={changeData} placeholder='MANAGER' readOnly/>
+            docData.classification !== 'camper' &&
+            <GenInput type='text' placeholder='ALL' readOnly/>
           }
         </GenWrap>
       </TextInputWrap>
@@ -218,10 +223,10 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
       </TextInputWrap>
 
 
-      <TextInputWrap>
+      <ValidationWrap>
         <ValidationBtn onClick={titleCheckHandler}>생성 확인</ValidationBtn>
         { canMake ? <CanText color='#0055FB'>생성 가능</CanText> : <CanText color='#F45452'>생성 불가능</CanText> }
-      </TextInputWrap>
+      </ValidationWrap>
       
     </TitleWrap>
   )
