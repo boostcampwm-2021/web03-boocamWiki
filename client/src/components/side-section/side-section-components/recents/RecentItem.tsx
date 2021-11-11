@@ -48,11 +48,11 @@ const getTime = (arg: Date): string => {
 };
 
 export const RecentItem = (arg: IDocument): JSX.Element => {
-  const { name, boostcampID, generation, timestamp } = arg;
+  const { name, boostcampId, generation, timestamp } = arg;
   return (
-    <StyledLink to={`/w/${generation}_${boostcampID}_${name}`}>
+    <StyledLink to={`/w/${generation}_${boostcampId}_${name}`}>
       <Flexed>
-        <TitleP> {Utils.docTitleGen({ name, boostcampID, generation })}</TitleP>
+        <TitleP> {Utils.docTitleGen({ name, boostcampId, generation })}</TitleP>
         <RightP>{getTime(timestamp)}</RightP>
       </Flexed>
     </StyledLink>

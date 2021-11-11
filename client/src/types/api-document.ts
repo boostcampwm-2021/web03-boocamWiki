@@ -1,6 +1,6 @@
 export interface IDocument {
   name: string;
-  boostcampID: string;
+  boostcampId: string;
   generation: number;
   timestamp: Date;
   content: string;

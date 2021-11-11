@@ -32,7 +32,7 @@ const recordToItem = (item) => {
   return {
     name: item.name,
     generation: item.generation,
-    boostcampID: item.boostcamp_id,
+    boostcampId: item.boostcamp_id,
     timestamp: date,
   };
 };

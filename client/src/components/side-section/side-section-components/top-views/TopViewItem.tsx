@@ -35,11 +35,11 @@ const StyledLink = styled(Link)`
 `;
 
 export const TopViewItem = (arg: IDocument): JSX.Element => {
-  const { name, boostcampID, generation } = arg;
+  const { name, boostcampId, generation } = arg;
   return (
-    <StyledLink to={`/w/${generation}_${boostcampID}_${name}`}>
+    <StyledLink to={`/w/${generation}_${boostcampId}_${name}`}>
       <Flexed>
-        <TitleP>{Utils.docTitleGen({ generation, boostcampID, name })}</TitleP>
+        <TitleP>{Utils.docTitleGen({ generation, boostcampId, name })}</TitleP>
       </Flexed>
     </StyledLink>
   );

@@ -6,7 +6,7 @@ import WikiSection from '../components/wiki-section/WikiSection';
 import style from '../styles/scss/Page.module.scss';
 
 const getDocumentInfo = (pathname) => {
-  const result = pathname.match(/\/w\/(?<generation>\d+)_(?<boostcampID>.+)_(?<name>.+)/);
+  const result = pathname.match(/\/w\/(?<generation>\d+)_(?<boostcampId>.+)_(?<name>.+)/);
   return result.groups;
 };
 
@@ -16,7 +16,7 @@ const WikiPage = ({ location }) => {
     <div className={style.PageContainer}>
       <Header />
       <div className={style.SectionWrapper}>
-        <WikiSection name={result.name} generation={result.generation} boostcampID={result.boostcampID} />
+        <WikiSection name={result.name} generation={result.generation} boostcampId={result.boostcampId} />
         <SideSection />
       </div>
     </div>

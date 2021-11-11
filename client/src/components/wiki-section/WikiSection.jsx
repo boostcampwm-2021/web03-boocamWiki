@@ -25,15 +25,15 @@ const Padd = styled.div`
   margin-top: 20px;
 `;
 
-const WikiSection = ({ generation, boostcampID, name }) => {
+const WikiSection = ({ generation, boostcampId, name }) => {
   const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
-  const id = generation + boostcampID + name;
+  const id = generation + boostcampId + name;
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampID}&name=${name}`);
+      const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
       if (res.status !== 200) {
         history.push('/error');
       }
@@ -47,7 +47,7 @@ const WikiSection = ({ generation, boostcampID, name }) => {
 
   return (
     <Main>
-      <MainHeader title={Utils.docTitleGen({ name, boostcampID, generation }, 0)} />
+      <MainHeader title={Utils.docTitleGen({ name, boostcampId, generation }, 0)} />
       {loading && <Loading />}
       {!loading && (
         <>
