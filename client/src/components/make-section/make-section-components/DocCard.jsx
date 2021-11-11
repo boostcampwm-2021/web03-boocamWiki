@@ -59,6 +59,7 @@ const CardDataInput = styled.input`
   border: 1px solid #D7D7D7;
   text-align: center;
   outline: none;
+  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const MbtiSelector = styled.select`
@@ -112,7 +113,7 @@ const DocCard = ({docData, dispatch}) => {
   return (
     <CardBox>
 
-      <CardOwner type='text' placeholder='이름을 입력하세요' />
+      <CardOwner type='text' placeholder={docData.name === '' ? '이름을 입력하세요' : docData.name} readOnly />
 
       <CardImg src={docData.user_image !== null ? docData.user_image : noImg} />
 

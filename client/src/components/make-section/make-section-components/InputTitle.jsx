@@ -57,6 +57,7 @@ const Input = styled.input`
   background-color: #F6F6F6;
   outline: none;
   font-size: 16px;
+  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const GenWrap = styled.div`
@@ -72,6 +73,7 @@ const GenInput = styled.input`
   background-color: #F6F6F6;
   outline: none;
   font-size: 16px;
+  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const GenBtnWrap = styled.div`
