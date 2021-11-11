@@ -25,8 +25,7 @@ const Index = styled.div`
   padding: 12px 20px 18px 0;
   border: 2px solid #d7d7d7;
   max-width: 350px;
-  margin-top: 20px;
-  margin-left: 10px;
+  height: fit-content;
 `;
 
 const Title = styled.div`
