@@ -109,7 +109,7 @@ const HeaderSearchBar = () => {
     <SearchBar>
       <SearchTypeWrapper onClick={clickHandler}>
         <SearchType>{searchType}</SearchType>
-        <SelectModal content={Object.keys(searchTypeMap)} isModalOn={isTypeModalOn} onScroll={console.log('wheel')} />
+        <SelectModal content={Object.keys(searchTypeMap)} isModalOn={isTypeModalOn} translateX={20} />
         <DropIcon src={drop} />
       </SearchTypeWrapper>
       <SearchInput autocomplete="off" type="text" onKeyPress={keyPressEvent} ref={searchInput} />

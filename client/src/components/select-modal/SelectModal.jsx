@@ -9,6 +9,7 @@ const ModalWrapper = styled.div`
   border-radius: 10px;
   position: absolute;
   left: 0;
+  transform: translateX(-${(props) => props.translateX || '0'}%);
   top: 55px;
   z-index: 2;
 `;
@@ -44,7 +45,7 @@ const ModalBackground = styled.div`
   cursor: default;
 `;
 
-const SelectModal = ({ content, isModalOn }) => {
+const SelectModal = ({ content, isModalOn, translateX }) => {
   const [first, last] = [0, content.length - 1];
   const [target, setTarget] = useState();
 
@@ -66,7 +67,7 @@ const SelectModal = ({ content, isModalOn }) => {
       {isModalOn && (
         <ModalContainer>
           <ModalBackground />
-          <ModalWrapper>
+          <ModalWrapper translateX={translateX}>
             {content.map((value, idx) => (
               <ModalRow key={value} className="ModalRow" borderRadius={checkFloor(idx)}>
                 {value}
