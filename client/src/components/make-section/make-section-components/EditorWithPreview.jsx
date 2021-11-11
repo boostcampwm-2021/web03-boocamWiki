@@ -7,18 +7,28 @@ const EditorWrap = styled.div`
 `;
 
 const Editor = styled.textarea`
-    width: 500px;
-    height: 500px;
+    width: 424px;
+    height: 327px;
     resize: none;
-    font-size: 24px;
-    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.25);
+    background: #F6F6F6;
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 10px 0px 0px 10px;
+    outline: none;
+    
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
 `;
 
 const Preview = styled.div`
-    width: 500px;
-    height: 500px;
+    width: 424px;
+    height: 327px;
     overflow: auto;
-    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 0px 10px 10px 0px;
 `;
 
 const EditorWithPreview = ({ docData, dispatch }) => {

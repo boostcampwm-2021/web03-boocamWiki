@@ -157,10 +157,12 @@ const MakeSection = ({ history }) => {
       <MainHeader title="문서 생성" />
 
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
+      
       <ListCardWrap>
         <WikiContentsIndex title="목차 미리보기" text={docData.content} />
         <DocCard docData={docData} dispatch={dispatch} />
       </ListCardWrap>
+
       <div>
         <EditorBox docData={docData} dispatch={dispatch} />
       </div>

@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import MdParser from "../../MdParser";
 
 const PreviewWrap = styled.div`
-    width: 1000px;
-    height: 500px;
+    width: 848px;
+    height: 327px;
     overflow: auto;
-    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.25);
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 10px;
 `;
 
 const Preview = ({docData}) => {
