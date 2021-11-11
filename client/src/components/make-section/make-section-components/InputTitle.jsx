@@ -18,6 +18,7 @@ const TitleWrap = styled.div`
   background-color: #F6F6F6;
   border: 1px solid #D7D7D7;
   border-radius: 15px;
+  margin-top: 20px;
 
   font-family: Noto Sans KR;
   font-style: normal;

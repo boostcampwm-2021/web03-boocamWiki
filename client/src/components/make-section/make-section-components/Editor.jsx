@@ -10,6 +10,7 @@ const EditorBox = styled.textarea`
     box-sizing: border-box;
     border-radius: 10px;
     outline: none;
+    padding: 10px;
 
     font-family: Noto Sans KR;
     font-style: normal;

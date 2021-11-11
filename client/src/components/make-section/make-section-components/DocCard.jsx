@@ -10,6 +10,7 @@ const CardBox = styled.div`
   width: 350px;
   height: 598px;
   background-color: #DDEEAA;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 
   font-family: Noto Sans KR;
   font-style: normal;

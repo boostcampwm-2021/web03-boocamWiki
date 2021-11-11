@@ -12,19 +12,21 @@ const TotalBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 21px;
 `;
 
 const BoxHeader = styled.div`
   width: 868px;
-  height: 44px;
+  height: 43px;
   display: flex;
   justify-content: flex-start;
   margin-bottom: 10px;
   background: #F6F6F6;
   border-left: 2px solid #D7D7D7;
   border-right: 2px solid #D7D7D7;
+  border-bottom: 2px solid #D7D7D7;
   border-radius: 5px 5px 0px 0px;
-  padding-top: 8px;
+  padding-top: 7px;
   padding-left: 9px;
 `;
 
@@ -40,16 +42,16 @@ const EditorTypeLabel = styled.label`
   justify-content: center;
   align-items: center;
   background-color: #F6F6F6;
+  border-bottom: 2px solid #D7D7D7;
 `;
 
 const EditorTypeRadio = styled.input`
   &:checked + label{
     background-color: white;
     border: 2px solid #D7D7D7;
-    border-bottom: none;
+    border-bottom: 2px solid white;
     border-radius: 5px 5px 0px 0px;
   }
-
   display: none;
 `;
 
@@ -75,7 +77,7 @@ const EditorBox = ({docData, dispatch}) => {
       <BoxHeader>
           {editorTypes.map((type) => (
           <div key={type.name}>
-              <EditorTypeRadio type='radio' id={type.name} name='typeRadio' value={type.name} onClick={handleBtn} checked={inputStatus === type.name} />
+              <EditorTypeRadio type='radio' id={type.name} name='typeRadio' value={type.name} onChange={handleBtn} checked={inputStatus === type.name} />
               <EditorTypeLabel htmlFor={type.name}>{type.text}</EditorTypeLabel>
           </div>
           ))}
