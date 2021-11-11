@@ -12,17 +12,26 @@ const FooterContainer = styled.div`
 const IndexDivContainer = styled.div`
   border: 1px solid #bbbbbb;
   border-radius: 10px;
+  overflow: hidden;
 `;
 
 const IndexDiv = styled.div`
-  display: inline-flex;
+  float: left;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 30px;
   height: 36px;
   color: #0055fb;
-  ${(props) => (props.idx !== 0 ? 'border-left: 1px solid #bbbbbb;' : '')}
+  cursor: pointer;
+
+  :not(:first-of-type) {
+    border-left: 1px solid #bbbbbb;
+  }
+  :hover {
+    background-color: #f6f6f6;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -40,28 +49,40 @@ const StyledLink = styled(Link)`
 `;
 
 const ResultFooter = ({ resultCount }) => {
-  const pageLength = Math.ceil(resultCount / 8);
   const { pathname, search } = useLocation();
   const query = queryString.parse(search);
-  query.offset = query.offset ?? 1;
+  const MAX_PAGE_LENGTH = 5;
+  const maxPage = Math.ceil(resultCount / 8);
+  query.offset = Number(query.offset) ?? 1;
 
   return (
     <FooterContainer>
       <IndexDivContainer>
-        {new Array(pageLength)
-          .fill(0)
-          .map((_, idx) => idx)
-          .map((el, idx) => (
-            <IndexDiv idx={idx} key={el}>
+        <IndexDiv>{query.offset > MAX_PAGE_LENGTH ? '<' : '<'}</IndexDiv>
+        {new Array(MAX_PAGE_LENGTH).fill(0).map((_, idx) => {
+          let currentIdx;
+          if (query.offset > Math.ceil(MAX_PAGE_LENGTH / 2)) {
+            currentIdx = query.offset + 2 > maxPage ? maxPage - 4 + idx : query.offset + idx - 2;
+          } else {
+            currentIdx = idx + 1;
+          }
+
+          return currentIdx >= 1 && currentIdx <= maxPage ? (
+            <IndexDiv key={currentIdx}>
               <StyledLink
                 to={`${pathname}?${Object.entries(query)
-                  .map(([key, val]) => (key !== 'offset' ? `${key}=${val}` : `offset=${el + 1}`))
+                  .map(([key, val]) => (key !== 'offset' ? `${key}=${val}` : `offset=${currentIdx}`))
                   .join('&')}`}
               >
-                {el + 1}
+                {currentIdx}
               </StyledLink>
             </IndexDiv>
-          ))}
+          ) : (
+            <></>
+          );
+        })}
+
+        <IndexDiv>{query.offset > MAX_PAGE_LENGTH ? '>' : '>'}</IndexDiv>
       </IndexDivContainer>
     </FooterContainer>
   );
