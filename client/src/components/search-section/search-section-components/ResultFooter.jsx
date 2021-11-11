@@ -36,6 +36,12 @@ const IndexDiv = styled.div`
 `;
 
 const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
   color: #0055fb;
   font-style: normal;
   font-weight: normal;
