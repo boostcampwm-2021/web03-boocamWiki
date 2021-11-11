@@ -2,15 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+const HeaderDiv = styled.div`
+  margin-bottom: 20px;
+`;
+
 const SummaryDiv = styled.div`
+  margin-bottom: 10px;
   color: #222222;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 500;
 `;
 
 const StyledLink = styled(Link)`
   color: #0055fb;
-  font-size: 10px;
+  font-size: 16px;
   text-decoration: none;
   outline: none;
 
@@ -22,7 +27,7 @@ const StyledLink = styled(Link)`
 
 const FooterSpan = styled.span`
   color: #222222;
-  font-size: 10px;
+  font-size: 16px;
 `;
 
 const searchTypeMap = {
@@ -34,7 +39,7 @@ const searchTypeMap = {
 
 const ResultSummary = ({ type, value, resultCount }) => {
   return (
-    <div>
+    <HeaderDiv>
       <SummaryDiv>
         {searchTypeMap[type]}: {`${`'${value}'`}`}에 대한 {resultCount}건
       </SummaryDiv>
@@ -43,7 +48,7 @@ const ResultSummary = ({ type, value, resultCount }) => {
         <StyledLink to="/makedocs">[문서 작성]</StyledLink>
         <FooterSpan>을 통하여 작성하실 수 있습니다.</FooterSpan>
       </div>
-    </div>
+    </HeaderDiv>
   );
 };
 
