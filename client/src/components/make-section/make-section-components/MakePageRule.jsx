@@ -5,10 +5,11 @@ import ruleMd from "./ruleText";
 
 const RuleWrap = styled.div`
   border: 1px solid #888888;
-  width: 1000px;
-  height: 570px;
+  width: 868px;
   background-color: #F6F6F6;
   margin-top: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 `;
 
 const MakePageRule = () => {

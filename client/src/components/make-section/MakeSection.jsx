@@ -10,7 +10,7 @@ import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from '../WikiContentsIndex';
 
 const Main = styled.div`
-  width: 1115px;
+  width: 890px;
   height: 100%;
   background: white;
   border: 1px solid #d7d7d7;
@@ -18,10 +18,18 @@ const Main = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   margin-right: 50px;
-  margin-top: 10px;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0px 10px;
+`;
+
+const ListCardWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  height: fit-content;
+  width: 100%;
 `;
 
 const EditorType = styled.div`
@@ -176,10 +184,10 @@ const MakeSection = ({ history }) => {
       <MainHeader title="문서 생성" />
 
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
-
-      <WikiContentsIndex title="목차 미리보기" text={docData.content} />
-      <DocCard docData={docData} dispatch={dispatch} />
-
+      <ListCardWrap>
+        <WikiContentsIndex title="목차 미리보기" text={docData.content} />
+        <DocCard docData={docData} dispatch={dispatch} />
+      </ListCardWrap>
       <div>
         <EditorType>
           {editorTypes.map((type) => (
