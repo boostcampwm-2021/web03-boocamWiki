@@ -4,7 +4,7 @@ import styled from "styled-components";
 const HeaderBox = styled.div`
     background: #E5E5E5;
     border-radius: 10px 10px 0px 0px;
-    width: 890px;
+    width: 889px;
     height: 76px;
     position: relative;
     border-bottom: 2px solid #BBBBBB;
