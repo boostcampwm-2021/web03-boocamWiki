@@ -29,16 +29,17 @@ const SearchSection = () => {
   const [searchType, searchValue] = Object.entries({ generation, boostcampId, name, content }).filter(
     ([, value]) => value !== undefined,
   )[0];
+  const snakeSearchType = searchType === 'boostcampId' ? 'boostcamp_id' : searchType;
 
   useEffect(() => {
     const getContent = async () => {
-      let res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
+      let res = await fetch(`/documents/search?${snakeSearchType}=${searchValue}&offset=${offset - 1}`);
       let { result } = await res.json();
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
       }
       setSearchResult(result);
-      res = await fetch(`/documents/count?${searchType}=${searchValue}`);
+      res = await fetch(`/documents/count?${snakeSearchType}=${searchValue}`);
       result = (await res.json()).result;
       if (res.status !== 200) {
         history.push('/error');
@@ -55,7 +56,7 @@ const SearchSection = () => {
       <MainHeader title="검색결과" />
       {loading && <Loading />}
       {!loading && (
-        <ResultView type={searchType} value={searchValue} result={searchResult} resultCount={searchResultCount} />
+        <ResultView type={snakeSearchType} value={searchValue} result={searchResult} resultCount={searchResultCount} />
       )}
     </Main>
   );
