@@ -118,7 +118,7 @@ const DocCard = ({docData, dispatch}) => {
       {cardData.map((item) => (
         <CardDataWrap key={item.name}>
           <CardDataName>{item.name}</CardDataName>
-          <CardDataInput placeholder='입력하세요' onChange={dataValueChange} id={item.key} />
+          <CardDataInput placeholder='입력하세요' onChange={dataValueChange} id={item.key} autoComplete='off' />
         </CardDataWrap>
       ))}
 
