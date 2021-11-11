@@ -25,18 +25,22 @@ const ResultTitleDiv = styled.div`
 
 const ResultTitle = styled.span`
   color: #222222;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
 `;
 
 const ResultContentPreview = styled.div`
   color: #888888;
-  font-size: 10px;
+  font-size: 16px;
   font-weight: 500;
-  line-height: 14px;
-  max-height: 55px;
+  max-height: calc(16px * 6);
   white-space: normal;
   overflow: hidden;
+`;
+
+const Highlight = styled.span`
+  color: #69a64c;
+  text-decoration: underline;
 `;
 
 const ResultLink = styled(Link)`
@@ -49,9 +53,8 @@ const ResultLink = styled(Link)`
   }
 `;
 
-const ResultContent = ({ result }) => {
+const ResultContent = ({ type, value, result }) => {
   const [renderResult, setRenderResult] = useState(result);
-
   useEffect(async () => {
     if (!result) {
       return;
@@ -80,7 +83,17 @@ const ResultContent = ({ result }) => {
                 <ResultTitle>{Utils.docTitleGen({ generation, boostcampId, name }, 1)}</ResultTitle>
               </ResultTitleDiv>
               <div>
-                <ResultContentPreview>{content}</ResultContentPreview>
+                <ResultContentPreview>
+                  <span>
+                    {type !== 'content'
+                      ? content
+                      : content
+                          .split(new RegExp(`(${value})`))
+                          .map((part) =>
+                            part === value ? <Highlight key={part}>{part}</Highlight> : <span key={part}>{part}</span>,
+                          )}
+                  </span>
+                </ResultContentPreview>
               </div>
             </ResultContainer>
           </ResultLink>

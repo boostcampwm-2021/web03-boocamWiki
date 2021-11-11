@@ -12,7 +12,7 @@ const ResultView = ({ type, value, result, resultCount }) => {
   return (
     <ResultViewDiv>
       <ResultSummary type={type} value={value} resultCount={resultCount} />
-      <ResultContent result={result} />
+      <ResultContent type={type} value={value} result={result} />
       <ResultFooter resultCount={resultCount} />
     </ResultViewDiv>
   );
