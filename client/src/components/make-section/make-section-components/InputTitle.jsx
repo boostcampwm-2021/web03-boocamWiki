@@ -57,7 +57,6 @@ const Input = styled.input`
   background-color: #F6F6F6;
   outline: none;
   font-size: 16px;
-  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const GenWrap = styled.div`
@@ -73,7 +72,6 @@ const GenInput = styled.input`
   background-color: #F6F6F6;
   outline: none;
   font-size: 16px;
-  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const GenBtnWrap = styled.div`
@@ -227,7 +225,7 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
       
       <TextInputWrap>
         <Text>이름</Text>
-        <Input type='text' ref={name} onChange={changeData} placeholder='입력하세요' />
+        <Input type='text' ref={name} onChange={changeData} placeholder='입력하세요' className='nameInput' />
       </TextInputWrap>
 
 
