@@ -20,6 +20,11 @@ const Main = styled.div`
   margin-top: 10px;
 `;
 
+const Padd = styled.div`
+  margin-left: 10px;
+  margin-top: 20px;
+`;
+
 const WikiSection = ({ generation, boostcampID, name }) => {
   const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
@@ -46,7 +51,9 @@ const WikiSection = ({ generation, boostcampID, name }) => {
       {loading && <Loading />}
       {!loading && (
         <>
-          <WikiContentsIndex title="목차" text={docData.content} />
+          <Padd>
+            <WikiContentsIndex title="목차" text={docData.content} />
+          </Padd>
           <div>별명: {docData.nickname}</div>
           <div>지역: {docData.location}</div>
           <div>주언어: {docData.language}</div>
