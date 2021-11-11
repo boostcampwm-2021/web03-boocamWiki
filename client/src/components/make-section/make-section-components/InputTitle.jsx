@@ -198,7 +198,7 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
           {
             docData.classification === 'camper' && 
             <>
-              <GenInput type='text' onChange={changeData} placeholder={docData.generation !== 0 ? docData.generation : '선택하세요'} readOnly/>
+              <GenInput type='text' onChange={changeData} placeholder={docData.generation !== 0 ? docData.generation : '선택하세요'} readOnly autoComplete='off'/>
               <GenBtnWrap>
                 <GenBtn src={genUpBtn} id='up' onClick={genBtnHandler} />
                 <GenBtn src={genDownBtn} id='down' onClick={genBtnHandler} />
