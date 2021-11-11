@@ -28,6 +28,7 @@ const ListCardWrap = styled.div`
   justify-content: space-between;
   height: fit-content;
   width: 100%;
+  margin-top: 22px;
 `;
 
 const RuleDiv = styled.div`
@@ -35,7 +36,7 @@ const RuleDiv = styled.div`
   align-items: center;
   color: red;
   margin-bottom: 10px;
-  margin-top: 5px;
+  margin-top: 20px;
 `;
 
 const ButtonWrap = styled.div``;
@@ -157,10 +158,12 @@ const MakeSection = ({ history }) => {
       <MainHeader title="문서 생성" />
 
       <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
+
       <ListCardWrap>
         <WikiContentsIndex title="목차 미리보기" text={docData.content} />
         <DocCard docData={docData} dispatch={dispatch} />
       </ListCardWrap>
+
       <div>
         <EditorBox docData={docData} dispatch={dispatch} />
       </div>

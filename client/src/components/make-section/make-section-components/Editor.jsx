@@ -3,10 +3,19 @@ import styled from 'styled-components';
 
 const EditorBox = styled.textarea`
     width: 848px;
-    height: 340px;
+    height: 327px;
     resize: none;
-    font-size: 24px;
-    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.25), inset 2px 2px 4px rgba(0, 0, 0, 0.25);
+    background: #F6F6F6;
+    border: 1px solid #D7D7D7;
+    box-sizing: border-box;
+    border-radius: 10px;
+    outline: none;
+    padding: 10px;
+
+    font-family: Noto Sans KR;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
 `;
 
 const Editor = ({ docData, dispatch }) => {
@@ -17,9 +26,7 @@ const Editor = ({ docData, dispatch }) => {
         })
     }
     return (
-        <>
-            <EditorBox onChange={changeHandler} value={docData.content} />
-        </>
+        <EditorBox onChange={changeHandler} value={docData.content} />
     )
 }
 
