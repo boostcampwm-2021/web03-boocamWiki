@@ -23,6 +23,7 @@ const IndexDiv = styled.div`
   justify-content: center;
   width: 30px;
   height: 36px;
+  font-size: 18px;
   color: #0055fb;
   cursor: pointer;
 
@@ -36,7 +37,6 @@ const IndexDiv = styled.div`
 
 const StyledLink = styled(Link)`
   color: #0055fb;
-  font-size: 18px;
   font-style: normal;
   font-weight: normal;
   text-decoration: none;
@@ -58,7 +58,19 @@ const ResultFooter = ({ resultCount }) => {
   return (
     <FooterContainer>
       <IndexDivContainer>
-        <IndexDiv>{query.offset > MAX_PAGE_LENGTH ? '<' : '<'}</IndexDiv>
+        <IndexDiv>
+          <StyledLink
+            to={`${pathname}?${Object.entries(query)
+              .map(([key, val]) =>
+                key !== 'offset'
+                  ? `${key}=${val}`
+                  : `offset=${query.offset - MAX_PAGE_LENGTH >= 1 ? query.offset - MAX_PAGE_LENGTH : 1}`,
+              )
+              .join('&')}`}
+          >
+            {'<'}
+          </StyledLink>
+        </IndexDiv>
         {new Array(MAX_PAGE_LENGTH).fill(0).map((_, idx) => {
           let currentIdx;
           if (query.offset > Math.ceil(MAX_PAGE_LENGTH / 2)) {
@@ -66,7 +78,6 @@ const ResultFooter = ({ resultCount }) => {
           } else {
             currentIdx = idx + 1;
           }
-
           return currentIdx >= 1 && currentIdx <= maxPage ? (
             <IndexDiv key={currentIdx}>
               <StyledLink
@@ -81,8 +92,21 @@ const ResultFooter = ({ resultCount }) => {
             <></>
           );
         })}
-
-        <IndexDiv>{query.offset > MAX_PAGE_LENGTH ? '>' : '>'}</IndexDiv>
+        <IndexDiv>
+          (
+          <StyledLink
+            to={`${pathname}?${Object.entries(query)
+              .map(([key, val]) =>
+                key !== 'offset'
+                  ? `${key}=${val}`
+                  : `offset=${query.offset + MAX_PAGE_LENGTH <= maxPage ? query.offset + MAX_PAGE_LENGTH : maxPage}`,
+              )
+              .join('&')}`}
+          >
+            {'>'}
+          </StyledLink>
+          )
+        </IndexDiv>
       </IndexDivContainer>
     </FooterContainer>
   );
