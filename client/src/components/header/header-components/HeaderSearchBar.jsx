@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import search from '../../../resource/img/search.svg';
 import drop from '../../../resource/img/drop.svg';
+import SelectModal from '../../select-modal/SelectModal';
 
 const SearchBar = styled.div`
   display: flex;
@@ -18,7 +19,6 @@ const SearchBar = styled.div`
 `;
 
 const SearchTypeWrapper = styled.div`
-  width: 60px;
   height: 38px;
   padding-right: 7px;
   border-right: 2px solid #e5e5e5;
@@ -31,10 +31,13 @@ const SearchTypeWrapper = styled.div`
 `;
 
 const SearchType = styled.p`
-  width: 35px;
   font-family: Noto Sans KR;
   font-weight: 500;
   font-size: 16px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const DropIcon = styled.img`
@@ -68,16 +71,24 @@ const SearchSVG = styled.img`
   height: 30px;
 `;
 
+const searchTypeMap = {
+  기수: 'generation',
+  캠퍼번호: 'boostcamp_id',
+  이름: 'name',
+  내용: 'content',
+};
+
 const HeaderSearchBar = () => {
   const history = useHistory();
   const searchInput = useRef();
   const searchBtn = useRef();
-  const [searchType, setSearchType] = useState('name');
+  const [searchType, setSearchType] = useState('이름');
+  const [isTypeModalOn, setIsTypeModalOn] = useState(false);
 
   const submitEvent = (e) => {
     e.preventDefault();
     const searchValue = searchInput.current.value;
-    history.push(`/search?${searchType}=${searchValue}`);
+    history.push(`/search?${searchTypeMap[searchType]}=${searchValue}`);
   };
 
   const keyPressEvent = (e) => {
@@ -86,10 +97,19 @@ const HeaderSearchBar = () => {
     }
   };
 
+  const clickHandler = ({ target }) => {
+    setIsTypeModalOn(!isTypeModalOn);
+    const classList = target.className.split(' ');
+    if (classList.includes('ModalRow')) {
+      setSearchType(target.innerHTML);
+    }
+  };
+
   return (
     <SearchBar>
-      <SearchTypeWrapper>
-        <SearchType>이름</SearchType>
+      <SearchTypeWrapper onClick={clickHandler}>
+        <SearchType>{searchType}</SearchType>
+        <SelectModal content={Object.keys(searchTypeMap)} isModalOn={isTypeModalOn} onScroll={console.log('wheel')} />
         <DropIcon src={drop} />
       </SearchTypeWrapper>
       <SearchInput autocomplete="off" type="text" onKeyPress={keyPressEvent} ref={searchInput} />
