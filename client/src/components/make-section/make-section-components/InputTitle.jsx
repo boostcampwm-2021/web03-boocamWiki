@@ -137,7 +137,6 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
   }
 
   const titleCheckHandler = async () => {
-    // if(docData.generation && docData.boostcamp_id && docData.name)
     const result = await fetch(`/documents/search?generation=${docData.generation}&boostcamp_id=${docData.boostcamp_id}&name=${docData.name}`);
     const data = await result.json();
     if(data.result.length === 0) setCanMake(true);

@@ -6,9 +6,10 @@ import Loading from '../Loading';
 import MdParser from '../MdParser';
 import { Utils } from '../../utils';
 import WikiContentsIndex from '../WikiContentsIndex';
+import WikiCard from './wiki-section-components/WikiCard';
 
 const Main = styled.div`
-  width: 1115px;
+  width: 890px;
   min-height: 1200px;
   height: 100%;
   background: white;
@@ -21,8 +22,11 @@ const Main = styled.div`
 `;
 
 const Padd = styled.div`
-  margin-left: 10px;
   margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const WikiSection = ({ generation, boostcampId, name }) => {
@@ -53,13 +57,9 @@ const WikiSection = ({ generation, boostcampId, name }) => {
         <>
           <Padd>
             <WikiContentsIndex title="목차" text={docData.content} />
-          </Padd>
-          <div>별명: {docData.nickname}</div>
-          <div>지역: {docData.location}</div>
-          <div>주언어: {docData.language}</div>
-          <div>분야: {docData.field}</div>
-          <div>링크: {docData.link}</div>
-          <div>MBTI: {docData.mbti}</div>
+            <WikiCard docData={docData} name={name} />
+          </Padd> 
+
           <MdParser content={docData.content} />
         </>
       )}
