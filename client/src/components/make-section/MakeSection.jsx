@@ -2,12 +2,10 @@ import React, { useState, useRef, useReducer } from 'react';
 import styled from 'styled-components';
 import MainHeader from '../SectionTitle';
 import Title from './make-section-components/InputTitle';
-import EditorWithPreview from './make-section-components/EditorWithPreview';
-import Editor from './make-section-components/Editor';
-import Preview from './make-section-components/Preview';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from '../WikiContentsIndex';
+import EditorBox from './make-section-components/EditorBox';
 
 const Main = styled.div`
   width: 890px;
@@ -30,16 +28,6 @@ const ListCardWrap = styled.div`
   justify-content: space-between;
   height: fit-content;
   width: 100%;
-`;
-
-const EditorType = styled.div`
-  display: flex;
-`;
-
-const EditorTypeBtn = styled.button`
-  width: 80px;
-  background-color: white;
-  border: 1px solid gray;
 `;
 
 const RuleDiv = styled.div`
@@ -137,23 +125,8 @@ const initialDocData = {
 
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState(false);
-  const [inputStatus, setInputStatus] = useState('editor');
   const [docRule, setDocRule] = useState(false);
   const [docData, dispatch] = useReducer(docDataReducer, initialDocData);
-
-  const editorTypes = [
-    { name: 'editor', text: '편집기', component: <Editor docData={docData} dispatch={dispatch} /> },
-    { name: 'preview', text: '미리보기', component: <Preview docData={docData} /> },
-    {
-      name: 'editorWithPreview',
-      text: '동시보기',
-      component: <EditorWithPreview docData={docData} dispatch={dispatch} />,
-    },
-  ];
-
-  const handleBtn = (e) => {
-    setInputStatus(e.target.value);
-  };
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -189,18 +162,7 @@ const MakeSection = ({ history }) => {
         <DocCard docData={docData} dispatch={dispatch} />
       </ListCardWrap>
       <div>
-        <EditorType>
-          {editorTypes.map((type) => (
-            <div key={type.name}>
-              <EditorTypeBtn onClick={handleBtn} value={type.name}>
-                {type.text}
-              </EditorTypeBtn>
-            </div>
-          ))}
-        </EditorType>
-        {editorTypes.map((type) => (
-          <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
-        ))}
+        <EditorBox docData={docData} dispatch={dispatch} />
       </div>
 
       <RuleDiv>
