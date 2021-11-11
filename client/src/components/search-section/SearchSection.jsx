@@ -7,7 +7,7 @@ import Loading from '../Loading';
 import ResultView from './search-section-components/ResultView';
 
 const Main = styled.div`
-  width: 1115px;
+  width: 890px;
   min-height: 1200px;
   height: 100%;
   background: white;
