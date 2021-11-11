@@ -4,10 +4,12 @@ import styled from "styled-components";
 const HeaderBox = styled.div`
     background: #E5E5E5;
     border-radius: 10px 10px 0px 0px;
-    width: 1114px;
+    width: 889px;
     height: 76px;
     position: relative;
     border-bottom: 2px solid #BBBBBB;
+    border-left: 1px solid #d7d7d7;
+    border-right: 1px solid #d7d7d7;
 `;
 
 const HeaderTitle = styled.div`

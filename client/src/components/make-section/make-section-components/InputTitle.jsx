@@ -57,6 +57,7 @@ const Input = styled.input`
   background-color: #F6F6F6;
   outline: none;
   font-size: 16px;
+  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const GenWrap = styled.div`
@@ -72,6 +73,7 @@ const GenInput = styled.input`
   background-color: #F6F6F6;
   outline: none;
   font-size: 16px;
+  &:focus::-webkit-input-placeholder {color:transparent; }
 `;
 
 const GenBtnWrap = styled.div`
@@ -137,7 +139,6 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
   }
 
   const titleCheckHandler = async () => {
-    // if(docData.generation && docData.boostcamp_id && docData.name)
     const result = await fetch(`/documents/search?generation=${docData.generation}&boostcamp_id=${docData.boostcamp_id}&name=${docData.name}`);
     const data = await result.json();
     if(data.result.length === 0) setCanMake(true);
