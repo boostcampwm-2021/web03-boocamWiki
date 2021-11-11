@@ -77,14 +77,14 @@ const ResultFooter = ({ resultCount }) => {
             {'<'}
           </StyledLink>
         </IndexDiv>
-        {new Array(MAX_PAGE_LENGTH).fill(0).map((_, idx) => {
+        {new Array(maxPage < MAX_PAGE_LENGTH ? maxPage : MAX_PAGE_LENGTH).fill(0).map((_, idx) => {
           let currentIdx;
           if (query.offset > Math.ceil(MAX_PAGE_LENGTH / 2)) {
             currentIdx = query.offset + 2 > maxPage ? maxPage - 4 + idx : query.offset + idx - 2;
           } else {
             currentIdx = idx + 1;
           }
-          return currentIdx >= 1 && currentIdx <= maxPage ? (
+          return (
             <IndexDiv key={currentIdx}>
               <StyledLink
                 to={`${pathname}?${Object.entries(query)
@@ -94,8 +94,6 @@ const ResultFooter = ({ resultCount }) => {
                 {currentIdx}
               </StyledLink>
             </IndexDiv>
-          ) : (
-            <></>
           );
         })}
         <IndexDiv>
