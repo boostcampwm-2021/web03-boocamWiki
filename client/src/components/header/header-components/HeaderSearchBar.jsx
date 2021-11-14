@@ -5,6 +5,7 @@ import search from '../../../resource/img/search.svg';
 import drop from '../../../resource/img/drop.svg';
 import SelectModal from '../../select-modal/SelectModal';
 import { SelectTgContext, SelectTypeContext } from '../../../App';
+import { BREAK_POINT_TABLET } from '../../../magic-number';
 
 const SearchBar = styled.div`
   display: flex;
@@ -18,7 +19,7 @@ const SearchBar = styled.div`
   background: white;
   border-radius: 10px;
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     width: calc(100% - 20px);
     top: 65px;
     left: 10px;

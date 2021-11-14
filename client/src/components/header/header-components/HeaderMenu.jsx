@@ -4,24 +4,25 @@ import styled from 'styled-components';
 import recent from '../../../resource/img/recent.svg';
 import rank from '../../../resource/img/rank.svg';
 import map from '../../../resource/img/map.svg';
+import { BREAK_POINT_MOBILE } from '../../../magic-number';
 
 const NavMenu = styled.div`
   position: absolute;
-  left: 160px;
+  left: 150px;
   width: 383px;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
     width: 129px;
     left: 145px;
   }
 `;
 
 const MenuText = styled.p`
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
     display: none;
   }
 `;

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import MainHeader from '../SectionTitle';
 import Loading from '../Loading';
 import MdParser from '../MdParser';
+import { BREAK_POINT_MOBILE, BREAK_POINT_TABLET } from '../../magic-number';
 
 const Main = styled.div`
   width: 100%;
@@ -13,7 +14,10 @@ const Main = styled.div`
   outline: 1px solid #d7d7d7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  margin-right: 20px;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    max-width: ${BREAK_POINT_TABLET};
+  }
 `;
 
 const MainSection = () => {

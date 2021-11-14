@@ -4,6 +4,7 @@ import Logo from './header-components/Logo';
 import HeaderMenu from './header-components/HeaderMenu';
 import HeaderSearchBar from './header-components/HeaderSearchBar';
 import HeaderUser from './header-components/HeaderUser';
+import { BREAK_POINT_TABLET } from '../../magic-number';
 
 const HeaderBar = styled.div`
   width: 100%;
@@ -13,7 +14,7 @@ const HeaderBar = styled.div`
   justify-content: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
 
-  @media only screen and (max-width: 1024px) {
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     height: 120px;
   }
 `;
