@@ -49,7 +49,7 @@ const CanText = styled.div`
   height: 9px;
   color: ${(props) => props.color};
   font-weight: normal;
-  font-size: 10px;
+  font-size: 12px;
   text-align: center;
 `;
 

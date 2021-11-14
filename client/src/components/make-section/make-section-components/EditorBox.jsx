@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import EditorWithPreview from './EditorWithPreview';
 import Editor from './Editor';
 import Preview from './Preview';
 
 const TotalBox = styled.div`
   width: 868px;
-  height: 401px;
-  border: 2px solid #D7D7D7;
+  height: 500px;
+  border: 2px solid #d7d7d7;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -21,10 +21,10 @@ const BoxHeader = styled.div`
   display: flex;
   justify-content: flex-start;
   margin-bottom: 10px;
-  background: #F6F6F6;
-  border-left: 2px solid #D7D7D7;
-  border-right: 2px solid #D7D7D7;
-  border-bottom: 2px solid #D7D7D7;
+  background: #f6f6f6;
+  border-left: 2px solid #d7d7d7;
+  border-right: 2px solid #d7d7d7;
+  border-bottom: 2px solid #d7d7d7;
   border-radius: 5px 5px 0px 0px;
   padding-top: 7px;
   padding-left: 9px;
@@ -41,21 +41,21 @@ const EditorTypeLabel = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #F6F6F6;
-  border-bottom: 2px solid #D7D7D7;
+  background-color: #f6f6f6;
+  border-bottom: 2px solid #d7d7d7;
 `;
 
 const EditorTypeRadio = styled.input`
-  &:checked + label{
+  &:checked + label {
     background-color: white;
-    border: 2px solid #D7D7D7;
+    border: 2px solid #d7d7d7;
     border-bottom: 2px solid white;
     border-radius: 5px 5px 0px 0px;
   }
   display: none;
 `;
 
-const EditorBox = ({docData, dispatch}) => {
+const EditorBox = ({ docData, dispatch }) => {
   const [inputStatus, setInputStatus] = useState('editor');
 
   const editorTypes = [
@@ -75,19 +75,26 @@ const EditorBox = ({docData, dispatch}) => {
   return (
     <TotalBox>
       <BoxHeader>
-          {editorTypes.map((type) => (
+        {editorTypes.map((type) => (
           <div key={type.name}>
-              <EditorTypeRadio type='radio' id={type.name} name='typeRadio' value={type.name} onChange={handleBtn} checked={inputStatus === type.name} />
-              <EditorTypeLabel htmlFor={type.name}>{type.text}</EditorTypeLabel>
+            <EditorTypeRadio
+              type="radio"
+              id={type.name}
+              name="typeRadio"
+              value={type.name}
+              onChange={handleBtn}
+              checked={inputStatus === type.name}
+            />
+            <EditorTypeLabel htmlFor={type.name}>{type.text}</EditorTypeLabel>
           </div>
-          ))}
+        ))}
       </BoxHeader>
 
       {editorTypes.map((type) => (
-          <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
+        <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
       ))}
     </TotalBox>
-  )
-}
+  );
+};
 
 export default EditorBox;
