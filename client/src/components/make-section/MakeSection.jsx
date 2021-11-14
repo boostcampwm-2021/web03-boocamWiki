@@ -4,7 +4,7 @@ import MainHeader from '../SectionTitle';
 import Title from './make-section-components/InputTitle';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
-import WikiContentsIndex from '../WikiContentsIndex';
+import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 
