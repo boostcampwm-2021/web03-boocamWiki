@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import user from '../../../resource/img/user.svg';
 import SelectModal from '../../select-modal/SelectModal';
+import { SelectTgContext } from '../../../App';
 
 const UserBtn = styled.button`
   position: absolute;
@@ -19,20 +20,17 @@ const UserSVG = styled.img`
 `;
 
 const HeaderUser = () => {
-  const [isUserModalOn, setIsUserModalOn] = useState(false);
-
-  const clickHandler = ({ target }) => {
-    setIsUserModalOn(!isUserModalOn);
-    const classList = target.className.split(' ');
-    if (classList.includes('ModalRow')) {
-      console.log(target.innerHTML);
-    }
-  };
+  const { isUserInfoOn } = useContext(SelectTgContext);
 
   return (
-    <UserBtn onClick={clickHandler}>
-      <SelectModal content={['로그인']} isModalOn={isUserModalOn} translateX="70" />
-      <UserSVG src={user} />
+    <UserBtn className="TgSelect SelectUserInfo">
+      <SelectModal
+        className="SelectUserInfo"
+        content={['로그인']}
+        isSelectOn={isUserInfoOn}
+        move={{ top: '55px', left: '0px', translateX: '-70%' }}
+      />
+      <UserSVG src={user} className="TgSelect SelectUserInfo" />
     </UserBtn>
   );
 };

@@ -33,7 +33,7 @@ const MainSection = () => {
       setLoading(false);
     };
 
-    getContent();
+    // getContent();
   }, []);
 
   return (
