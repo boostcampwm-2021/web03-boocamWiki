@@ -68,6 +68,18 @@ const GenWrap = styled.div`
   justify-content: space-between;
 `;
 
+const TypeInput = styled.input`
+  width: 80px;
+  height: 23px;
+  border: none;
+  background-color: #f6f6f6;
+  outline: none;
+  font-size: 16px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
 const GenInput = styled.input`
   width: 80px;
   height: 23px;
@@ -191,7 +203,7 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
       <TextInputWrap>
         <Text>분류</Text>
         <GenWrap className="TgSelect SelectPeopleType">
-          <GenInput
+          <TypeInput
             type="text"
             className="TgSelect SelectPeopleType"
             value={memberType}
