@@ -7,7 +7,7 @@ import { Utils } from '../../../../utils';
 const Flexed = styled.div`
   display: flex;
   justify-content: space-between;
-  align-content: center;
+  align-items: center;
   padding: 0px 8px;
   cursor: pointer;
   height: 100%;

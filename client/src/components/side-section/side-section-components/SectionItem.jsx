@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { SectionListGenerator } from './SectionListGenerator';
 
 const Side = styled.div`
-  width: 339px;
+  width: 290px;
   height: 489px;
   background: white;
   margin-bottom: 20px;

@@ -6,15 +6,14 @@ import Loading from '../Loading';
 import MdParser from '../MdParser';
 
 const Main = styled.div`
-  width: 890px;
+  width: 100%;
+  max-width: 990px;
   min-height: 1000px;
   background: white;
-  border: 1px solid #d7d7d7;
-  box-sizing: border-box;
+  outline: 1px solid #d7d7d7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  margin-right: 50px;
-  margin-top: 8px;
+  margin-right: 20px;
 `;
 
 const MainSection = () => {
