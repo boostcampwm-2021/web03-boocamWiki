@@ -17,6 +17,12 @@ const SearchBar = styled.div`
   padding: 10px 12px;
   background: white;
   border-radius: 10px;
+
+  @media only screen and (max-width: 1024px) {
+    width: calc(100% - 20px);
+    top: 65px;
+    left: 10px;
+  }
 `;
 
 const SearchTypeWrapper = styled.div`

@@ -7,24 +7,39 @@ import map from '../../../resource/img/map.svg';
 
 const NavMenu = styled.div`
   position: absolute;
-  left: 140px;
-  width: 408px;
+  left: 160px;
+  width: 383px;
   height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    width: 129px;
+    left: 145px;
+  }
+`;
+
+const MenuText = styled.p`
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const MenuImg = styled.img`
-  width: 36px;
-  height: 36px;
+  width: 28px;
+  height: 28px;
 `;
 
 const Menu = styled.div`
-  width: 125px;
+  width: 113px;
   &:hover {
     cursor: pointer;
     box-shadow: 0px 4px white;
+  }
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -33,10 +48,11 @@ const aTagStyle = {
   color: 'white',
   fontFamily: 'Noto Sans KR',
   fontWeight: 500,
-  fontSize: '24px',
+  fontSize: '22px',
   display: 'flex',
   lineHeight: '35px',
   alignItems: 'center',
+  justifyContent: 'space-between',
 };
 
 const HeaderMenu = () => {
@@ -45,19 +61,19 @@ const HeaderMenu = () => {
       <Menu>
         <Link to="/makedocs" style={aTagStyle}>
           <MenuImg src={recent} />
-          문서작성
+          <MenuText>문서작성</MenuText>
         </Link>
       </Menu>
-      <Menu>
+      <Menu style={{ transform: 'translateX(-2%)' }}>
         <Link to="/" style={aTagStyle}>
           <MenuImg src={rank} />
-          각종순위
+          <MenuText>각종순위</MenuText>
         </Link>
       </Menu>
       <Menu>
         <Link to="/" style={aTagStyle}>
           <MenuImg src={map} />
-          위치정보
+          <MenuText>위치정보</MenuText>
         </Link>
       </Menu>
     </NavMenu>

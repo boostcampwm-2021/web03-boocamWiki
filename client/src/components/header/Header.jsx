@@ -7,17 +7,21 @@ import HeaderUser from './header-components/HeaderUser';
 
 const HeaderBar = styled.div`
   width: 100%;
-  height: 70px;
+  height: 60px;
   background: #e8a20c;
   display: flex;
   justify-content: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3);
+
+  @media only screen and (max-width: 1024px) {
+    height: 120px;
+  }
 `;
 
 const HeaderContainer = styled.div`
-  padding: 10px;
+  padding: 5px;
   position: relative;
-  max-width: 1200px;
+  max-width: 1300px;
   width: 100%;
 `;
 
