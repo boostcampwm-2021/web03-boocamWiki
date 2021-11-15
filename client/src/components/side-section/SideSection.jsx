@@ -3,10 +3,16 @@ import styled from 'styled-components';
 import SectionItem from './side-section-components/SectionItem';
 import { FetchingRecent, RecentItem } from './side-section-components/recents/RecentItem';
 import { FetchingTopView, TopViewItem } from './side-section-components/top-views/TopViewItem';
+import { BREAK_POINT_TABLET } from '../../magic-number';
 
 const SideArea = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    display: none;
+  }
 `;
 
 const SideSection = () => {

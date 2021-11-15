@@ -4,19 +4,25 @@ import MainHeader from '../SectionTitle';
 import Title from './make-section-components/InputTitle';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
-import WikiContentsIndex from '../WikiContentsIndex';
+import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
+import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
+import { BREAK_POINT_TABLET } from '../../magic-number';
 
 const Main = styled.div`
-  width: 890px;
-  height: 100%;
+  width: 100%;
+  max-width: 990px;
   background: white;
-  border: 1px solid #d7d7d7;
-  box-sizing: border-box;
+  outline: 1px solid #d7d7d7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  margin-right: 50px;
-  margin-top: 8px;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    max-width: ${BREAK_POINT_TABLET};
+  }
+`;
+
+const MainContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,54 +82,6 @@ const CancelBtn = styled.button`
   }
 `;
 
-const docDataReducer = (state, action) => {
-  switch (action.type) {
-    case 'INPUT_TITLE':
-      return { ...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name };
-    case 'INPUT_BOOSTCAMP_ID':
-      return { ...state, boostcamp_id: action.boostcamp_id };
-    case 'INPUT_GENERATION':
-      return { ...state, generation: action.generation };
-    case 'INPUT_NAME':
-      return { ...state, name: action.name };
-    case 'INPUT_CONTENT':
-      return { ...state, content: action.content };
-    case 'INPUT_CLASSIFICATION':
-      return { ...state, classification: action.classification };
-    case 'INPUT_USER_IMAGE':
-      return { ...state, user_image: action.user_image };
-    case 'INPUT_NICKNAME':
-      return { ...state, nickname: action.nickname };
-    case 'INPUT_LOCATION':
-      return { ...state, location: action.location };
-    case 'INPUT_LANGUAGE':
-      return { ...state, language: action.language };
-    case 'INPUT_MBTI':
-      return { ...state, mbti: action.mbti };
-    case 'INPUT_FIELD':
-      return { ...state, field: action.field };
-    case 'INPUT_LINK':
-      return { ...state, link: action.link };
-    default:
-      return state;
-  }
-};
-
-const initialDocData = {
-  generation: 0,
-  boostcamp_id: '',
-  name: '',
-  content: '',
-  nickname: null,
-  location: null,
-  language: null,
-  user_image: null,
-  mbti: null,
-  field: null,
-  link: null,
-  classification: 'camper',
-};
-
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState(false);
   const [docRule, setDocRule] = useState(false);
@@ -156,29 +114,30 @@ const MakeSection = ({ history }) => {
   return (
     <Main>
       <MainHeader title="문서 생성" />
+      <MainContent>
+        <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
 
-      <Title setCanMake={setCanMake} canMake={canMake} docData={docData} dispatch={dispatch} />
+        <ListCardWrap>
+          <WikiContentsIndex title="목차 미리보기" text={docData.content} />
+          <DocCard docData={docData} dispatch={dispatch} />
+        </ListCardWrap>
 
-      <ListCardWrap>
-        <WikiContentsIndex title="목차 미리보기" text={docData.content} />
-        <DocCard docData={docData} dispatch={dispatch} />
-      </ListCardWrap>
+        <div>
+          <EditorBox docData={docData} dispatch={dispatch} />
+        </div>
 
-      <div>
-        <EditorBox docData={docData} dispatch={dispatch} />
-      </div>
+        <RuleDiv>
+          <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} />
+          작성자는 아래 규정에 동의합니다.
+        </RuleDiv>
 
-      <RuleDiv>
-        <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} />
-        작성자는 아래 규정에 동의합니다.
-      </RuleDiv>
+        <ButtonWrap>
+          <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
+          <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
+        </ButtonWrap>
 
-      <ButtonWrap>
-        <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
-        <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
-      </ButtonWrap>
-
-      <MakePageRule />
+        <MakePageRule />
+      </MainContent>
     </Main>
   );
 };

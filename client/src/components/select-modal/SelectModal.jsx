@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-const ModalContainer = styled.div``;
+const SelectContainer = styled.div``;
 
-const ModalWrapper = styled.div`
+const SelectWrapper = styled.div`
   width: 165px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px rgba(204, 204, 204, 0.25);
   border-radius: 10px;
   position: absolute;
-  left: 0;
-  transform: translateX(-${(props) => props.translateX || '0'}%);
-  top: 55px;
+  top: ${(props) => props.move.top || '0px'};
+  left: ${(props) => props.move.left || '0px'};
+  transform: translateX(${(props) => props.move.translateX || '0'});
   z-index: 2;
 `;
 
-const ModalRow = styled.div`
+const SelectRow = styled.div`
   font-family: Noto Sans KR;
   font-weight: 500;
   font-size: 16px;
@@ -34,7 +34,7 @@ const ModalRow = styled.div`
   }
 `;
 
-const ModalBackground = styled.div`
+const SelectBackground = styled.div`
   position: fixed;
   left: 0;
   top: 0;
@@ -45,7 +45,7 @@ const ModalBackground = styled.div`
   cursor: default;
 `;
 
-const SelectModal = ({ content, isModalOn, translateX }) => {
+const SelectModal = ({ className, content, isSelectOn, move }) => {
   const [first, last] = [0, content.length - 1];
   const [target, setTarget] = useState();
 
@@ -64,17 +64,16 @@ const SelectModal = ({ content, isModalOn, translateX }) => {
 
   return (
     <>
-      {isModalOn && (
-        <ModalContainer>
-          <ModalBackground />
-          <ModalWrapper translateX={translateX}>
+      {isSelectOn && (
+        <SelectContainer>
+          <SelectWrapper move={move}>
             {content.map((value, idx) => (
-              <ModalRow key={value} className="ModalRow" borderRadius={checkFloor(idx)}>
+              <SelectRow key={value} className={'SelectRow'.concat(' ', className)} borderRadius={checkFloor(idx)}>
                 {value}
-              </ModalRow>
+              </SelectRow>
             ))}
-          </ModalWrapper>
-        </ModalContainer>
+          </SelectWrapper>
+        </SelectContainer>
       )}
     </>
   );
