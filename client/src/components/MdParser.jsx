@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import rehypeIndex from 'rehype-indexes';
 
 import styled from 'styled-components';
 
@@ -39,7 +40,9 @@ const MdParserContainer = styled.div`
 const MdParser = ({ content }) => {
   return (
     <MdParserContainer>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypeIndex, { mode: 'document' }]]}>
+        {content}
+      </ReactMarkdown>
     </MdParserContainer>
   );
 };
