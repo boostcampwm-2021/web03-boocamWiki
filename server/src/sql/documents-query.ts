@@ -1,5 +1,5 @@
 import db from '../services/db-pool';
-import { DocumentsCreate, DocumentsSearch } from '../types/apiInterface';
+import { DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
 
 function getObjectKey(arg: any) {
   return Object.entries(arg)
@@ -15,23 +15,25 @@ function getObjectValue(arg: any) {
     .toString();
 }
 
-export async function getTopViewedDoc({ count }: { count: number }) {
+export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
-    `SELECT generation, boostcamp_id, name, SUM(count) FROM view ` +
+    `SELECT generation, boostcamp_id, name, SUM(count) as total_count FROM view ` +
     `WHERE DATE(created_at) > CURDATE() - INTERVAL 1 WEEK ` +
     `GROUP BY generation, boostcamp_id, name ORDER BY SUM(count) DESC LIMIT ${count}`;
-  let [result] = await db.pool.query(getQuery);
-  return result;
+  const [result] = await db.pool.query(getQuery);
+  return result as DocumentsView[];
 }
 
-export async function createDoc(params: DocumentsCreate) {
-  let query = `INSERT INTO document(${Object.entries(params)
+export async function createDoc(params: DocumentsCreate): Promise<void> {
+  const query = `INSERT INTO document(${Object.entries(params)
     .map(([key]) => key)
     .toString()}) VALUES(${Object.entries(params)
-    .map(([key, value]) => `'${value}'`)
+    .map(([, value]) => `'${value}'`)
     .toString()})`;
   const result = await db.pool.query(query);
-  return result;
+  if (result?.affectedRows === 0) {
+    throw new Error('Insert does not executed');
+  }
 }
 
 export async function updateDoc(params: DocumentsCreate) {
@@ -111,16 +113,16 @@ export async function increaseViewCount(params: DocumentsSearch) {
   return result;
 }
 
-export async function getRecentUpdatedDoc({ count }: { count: number }) {
-  let query =
-    `SELECT generation, boostcamp_id, name, MAX(created_at) FROM \`update\` ` +
+export async function getRecentUpdatedDoc({ count }: { count: number }): Promise<DocumentsRecent[]> {
+  const query =
+    `SELECT generation, boostcamp_id, name, MAX(created_at) as recent_created_at FROM \`update\` ` +
     `GROUP BY generation, boostcamp_id, name ORDER BY MAX(created_at) DESC LIMIT ${count}`;
-  let [result] = await db.pool.query(query);
-  return result;
+  const [result] = await db.pool.query(query);
+  return result as DocumentsRecent[];
 }
 
 export async function updateRecentDoc(params: DocumentsCreate) {
-  let query =
+  const query =
     'INSERT INTO `update` ' +
     `(${Object.entries(params)
       .map(([key]) => key)

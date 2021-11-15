@@ -13,28 +13,37 @@ import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
 
 const router = express.Router();
 router.get('/recents', async (req: express.Request, res: express.Response) => {
-  const defaultCount = 20;
-  let count = parseInt(req.query.count?.toString()) || defaultCount;
-  let result = await getRecentUpdatedDoc({ count: count });
-  res.status(200);
-  res.json({ msg: 'OK', result: result });
+  try {
+    const defaultCount = 20;
+    const count = parseInt(req.query.count?.toString()) || defaultCount;
+    const result = await getRecentUpdatedDoc({ count: count });
+    res.status(200).json({ result, msg: 'OK' });
+  } catch (err) {
+    res.status(404).json({ result: [], msg: 'fail' });
+  }
 });
 
 router.get('/ranks', async (req: express.Request, res: express.Response) => {
   const defaultCount = 20;
-  const count = parseInt(req.query.count.toString()) || defaultCount;
-  let result = await getTopViewedDoc({ count: count });
-  res.status(200);
-  res.json({ msg: 'OK', result: result });
+  try {
+    const count = parseInt(req.query.count.toString()) || defaultCount;
+    const result = await getTopViewedDoc({ count: count });
+    res.status(200).json({ result, msg: 'OK' });
+  } catch (err) {
+    res.status(404).json({ result: [], msg: 'fail' });
+  }
 });
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-  console.log(req.body);
-  let result = await createDoc(req.body);
-  res.status(200).json({ msg: 'OK', result: result });
-  let query: DocumentsCreate = req.body;
-  query.user_id = 'zoeas';
-  OnDocCreate(query);
+  try {
+    await createDoc(req.body);
+    res.status(200).json({ msg: 'OK' });
+    const query: DocumentsCreate = req.body;
+    query.user_id = 'zoeas';
+    OnDocCreate(query);
+  } catch (err) {
+    return res.status(404).json({ msg: 'fail' });
+  }
 });
 
 router.put('/', async (req: express.Request, res: express.Response) => {
