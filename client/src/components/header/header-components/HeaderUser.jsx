@@ -4,21 +4,6 @@ import user from '../../../resource/img/user.svg';
 import SelectModal from '../../select-modal/SelectModal';
 import { SelectTgContext } from '../../../App';
 
-const UserBtn = styled.button`
-  position: absolute;
-  right: 10px;
-  background: #e8a20c;
-  border: none;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const UserSVG = styled.img`
-  width: 50px;
-  height: 50px;
-`;
-
 const HeaderUser = () => {
   const { isUserInfoOn } = useContext(SelectTgContext);
 
@@ -34,5 +19,20 @@ const HeaderUser = () => {
     </UserBtn>
   );
 };
+
+const UserBtn = styled.button`
+  position: absolute;
+  right: 10px;
+  background: #e8a20c;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const UserSVG = styled.img`
+  width: 50px;
+  height: 50px;
+`;
 
 export default HeaderUser;

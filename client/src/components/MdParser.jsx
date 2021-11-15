@@ -5,6 +5,16 @@ import rehypeIndex from 'rehype-indexes';
 
 import styled from 'styled-components';
 
+const MdParser = ({ content }) => {
+  return (
+    <MdParserContainer>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypeIndex, { mode: 'document' }]]}>
+        {content}
+      </ReactMarkdown>
+    </MdParserContainer>
+  );
+};
+
 const MdParserContainer = styled.div`
   height: 100%;
 
@@ -36,15 +46,5 @@ const MdParserContainer = styled.div`
     }
   }
 `;
-
-const MdParser = ({ content }) => {
-  return (
-    <MdParserContainer>
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypeIndex, { mode: 'document' }]]}>
-        {content}
-      </ReactMarkdown>
-    </MdParserContainer>
-  );
-};
 
 export default MdParser;

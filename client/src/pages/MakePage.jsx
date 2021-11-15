@@ -1,19 +1,13 @@
 import React from 'react';
-import Header from '../components/header/Header';
+import PageLayout from './common/PageLayout';
 import MakeSection from '../components/make-section/MakeSection';
-import SideSection from '../components/side-section/SideSection';
-
-import style from '../styles/scss/Page.module.scss';
 
 const MakePage = ({ history }) => {
   return (
-    <div className={style.PageContainer}>
-      <Header />
-      <div className={style.SectionWrapper}>
-        <MakeSection history={history} />
-        <SideSection />
-      </div>
-    </div>
+    <PageLayout>
+      <MakeSection history={history} />
+    </PageLayout>
   );
 };
+
 export default MakePage;

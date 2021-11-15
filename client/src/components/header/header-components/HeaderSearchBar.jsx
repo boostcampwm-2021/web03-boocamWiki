@@ -7,6 +7,53 @@ import SelectModal from '../../select-modal/SelectModal';
 import { SelectTgContext, SelectTypeContext } from '../../../App';
 import { BREAK_POINT_TABLET } from '../../../magic-number';
 
+const searchTypeMap = {
+  기수: 'generation',
+  캠퍼번호: 'boostcamp_id',
+  이름: 'name',
+  내용: 'content',
+};
+
+const HeaderSearchBar = () => {
+  const history = useHistory();
+  const searchInput = useRef();
+  const searchBtn = useRef();
+  // const [searchType, setSearchType] = useState('이름');
+  const { isSearchTypeOn } = useContext(SelectTgContext);
+  const { searchType } = useContext(SelectTypeContext);
+
+  const submitEvent = (e) => {
+    e.preventDefault();
+    const searchValue = searchInput.current.value;
+    history.push(`/search?${searchTypeMap[searchType]}=${searchValue}`);
+  };
+
+  const keyPressEvent = (e) => {
+    if (e.key === 'Enter') {
+      searchBtn.current.click();
+    }
+  };
+
+  return (
+    <SearchBar>
+      <SearchTypeWrapper className="TgSelect SelectSearchType">
+        <SearchType className="TgSelect SelectSearchType">{searchType}</SearchType>
+        <SelectModal
+          className="SelectSearchType"
+          content={Object.keys(searchTypeMap)}
+          isSelectOn={isSearchTypeOn}
+          move={{ top: '55px', left: '0px', translateX: '-20%' }}
+        />
+        <DropIcon src={drop} className="TgSelect SelectSearchType" />
+      </SearchTypeWrapper>
+      <SearchInput autocomplete="off" type="text" onKeyPress={keyPressEvent} ref={searchInput} />
+      <SearchBtn onClick={submitEvent} ref={searchBtn}>
+        <SearchSVG src={search} />
+      </SearchBtn>
+    </SearchBar>
+  );
+};
+
 const SearchBar = styled.div`
   display: flex;
   justify-content: space-between;
@@ -78,52 +125,5 @@ const SearchSVG = styled.img`
   width: 30px;
   height: 30px;
 `;
-
-const searchTypeMap = {
-  기수: 'generation',
-  캠퍼번호: 'boostcamp_id',
-  이름: 'name',
-  내용: 'content',
-};
-
-const HeaderSearchBar = () => {
-  const history = useHistory();
-  const searchInput = useRef();
-  const searchBtn = useRef();
-  // const [searchType, setSearchType] = useState('이름');
-  const { isSearchTypeOn } = useContext(SelectTgContext);
-  const { searchType } = useContext(SelectTypeContext);
-
-  const submitEvent = (e) => {
-    e.preventDefault();
-    const searchValue = searchInput.current.value;
-    history.push(`/search?${searchTypeMap[searchType]}=${searchValue}`);
-  };
-
-  const keyPressEvent = (e) => {
-    if (e.key === 'Enter') {
-      searchBtn.current.click();
-    }
-  };
-
-  return (
-    <SearchBar>
-      <SearchTypeWrapper className="TgSelect SelectSearchType">
-        <SearchType className="TgSelect SelectSearchType">{searchType}</SearchType>
-        <SelectModal
-          className="SelectSearchType"
-          content={Object.keys(searchTypeMap)}
-          isSelectOn={isSearchTypeOn}
-          move={{ top: '55px', left: '0px', translateX: '-20%' }}
-        />
-        <DropIcon src={drop} className="TgSelect SelectSearchType" />
-      </SearchTypeWrapper>
-      <SearchInput autocomplete="off" type="text" onKeyPress={keyPressEvent} ref={searchInput} />
-      <SearchBtn onClick={submitEvent} ref={searchBtn}>
-        <SearchSVG src={search} />
-      </SearchBtn>
-    </SearchBar>
-  );
-};
 
 export default HeaderSearchBar;

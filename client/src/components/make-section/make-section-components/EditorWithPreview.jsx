@@ -1,13 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
 import MdParser from '../../MdParser';
+import { flexBox } from '../../../styles/styled-components/mixin';
+
+const EditorWithPreview = ({ docData, docDispatch }) => {
+  const changeHandler = (e) => {
+    docDispatch({
+      type: 'INPUT_CONTENT',
+      content: e.target.value,
+    });
+  };
+  return (
+    <EditorWrap>
+      <Editor onChange={changeHandler} value={docData.content} />
+      <Preview>
+        <MdParser content={docData.content} />
+      </Preview>
+    </EditorWrap>
+  );
+};
 
 const EditorWrap = styled.div`
-  display: flex;
+  ${flexBox({})}
 `;
 
 const Editor = styled.textarea`
-  width: 424px;
+  width: 50%;
   height: 432px;
   resize: none;
   background: #f6f6f6;
@@ -24,29 +42,12 @@ const Editor = styled.textarea`
 `;
 
 const Preview = styled.div`
-  width: 424px;
+  width: 50%;
   height: 432px;
   overflow: auto;
   border: 1px solid #d7d7d7;
   box-sizing: border-box;
   border-radius: 0px 10px 10px 0px;
 `;
-
-const EditorWithPreview = ({ docData, dispatch }) => {
-  const changeHandler = (e) => {
-    dispatch({
-      type: 'INPUT_CONTENT',
-      content: e.target.value,
-    });
-  };
-  return (
-    <EditorWrap>
-      <Editor onChange={changeHandler} value={docData.content} />
-      <Preview>
-        <MdParser content={docData.content} />
-      </Preview>
-    </EditorWrap>
-  );
-};
 
 export default EditorWithPreview;

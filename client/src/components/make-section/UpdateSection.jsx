@@ -1,17 +1,16 @@
-import React, { useState, useRef, useReducer } from 'react';
-import styled from 'styled-components';
-import Title from './make-section-components/InputTitle';
+import React, { useEffect, useState, useReducer } from "react";
+import styled from "styled-components";
+import MainSection from "../common/MainSection";
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
-import MainSection from '../common/MainSection'
+import { Utils } from "../../utils";
 import { BREAK_POINT_MOBILE } from '../../magic-number';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
-import { font, flexBox } from '../../styles/styled-components/mixin';
+import { font, flexBox } from "../../styles/styled-components/mixin";
 
-const MakeSection = ({ history }) => {
-  const [canMake, setCanMake] = useState(false);
+const UpdateSection = ({history, generation, boostcampId, name}) => {
   const [docRule, setDocRule] = useState(false);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
 
@@ -21,8 +20,7 @@ const MakeSection = ({ history }) => {
   };
 
   const addDocument = async () => {
-    if (!canMake) alert('생성 가능 여부를 확인해주세요');
-    else if (!docRule) alert('규정에 동의해주세요');
+    if (!docRule) alert('규정에 동의해주세요');
     else {
       await fetch('/documents', {
         method: 'POST',
@@ -39,11 +37,14 @@ const MakeSection = ({ history }) => {
     history.goBack();
   };
 
-  return (
-    <MainSection title="문서 작성">
-      <MainContent>
-        <Title setCanMake={setCanMake} canMake={canMake} docData={docData} docDispatch={docDispatch} />
+  useEffect(() => {
+    // 문서 정보 받아와서 docData에 데이터 추가하기
+    console.log('hello');
+  }, [])
 
+  return (
+    <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
+      <MainContent>
         <ListCardWrap>
           <WikiContentsIndex title="목차 미리보기" text={docData.content} />
           <DocCard docData={docData} docDispatch={docDispatch} />
@@ -64,8 +65,8 @@ const MakeSection = ({ history }) => {
         <MakePageRule />
       </MainContent>
     </MainSection>
-  );
-};
+  )
+}
 
 const MainContent = styled.div`
   ${flexBox({direction: "column", alignItems: 'center'})};
@@ -121,4 +122,4 @@ const CancelBtn = styled.button`
   }
 `;
 
-export default MakeSection;
+export default UpdateSection;

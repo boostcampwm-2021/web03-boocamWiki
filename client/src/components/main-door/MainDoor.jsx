@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import MainHeader from '../SectionTitle';
+import MainSection from '../common/MainSection';
 import Loading from '../Loading';
 import MdParser from '../MdParser';
-import { BREAK_POINT_MOBILE, BREAK_POINT_TABLET } from '../../magic-number';
 
-const Main = styled.div`
-  width: 100%;
-  max-width: 990px;
-  min-height: 1000px;
-  background: white;
-  outline: 1px solid #d7d7d7;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
 
-  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
-    max-width: ${BREAK_POINT_TABLET};
-  }
-`;
-
-const MainSection = () => {
+const MainDoor = () => {
   const [content, setContent] = useState();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -40,12 +25,11 @@ const MainSection = () => {
   }, []);
 
   return (
-    <Main>
-      <MainHeader title="대문" />
+    <MainSection title="대문">
       {loading && <Loading />}
       {!loading && <MdParser content={content} />}
-    </Main>
+    </MainSection>
   );
 };
 
-export default MainSection;
+export default MainDoor;

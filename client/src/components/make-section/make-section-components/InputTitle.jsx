@@ -1,143 +1,18 @@
-import { React, useRef, useState, useContext } from 'react';
+import { React, useRef, useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import genDownBtn from '../../../resource/img/genDownBtn.svg';
 import genUpBtn from '../../../resource/img/genUpBtn.svg';
 import SelectModal from '../../select-modal/SelectModal';
 import { SelectTgContext, SelectTypeContext } from '../../../App';
+import { font, flexBox } from '../../../styles/styled-components/mixin';
 
-const DownLine = styled.div`
-  border: 1px solid #d7d7d7;
-  width: 0.1px;
-  height: 44px;
-`;
+const PEOPLE_TYPE = {
+  '캠퍼': 'camper',
+  '마스터': 'master',
+  '운영진': 'manager',
+}
 
-const TitleWrap = styled.div`
-  width: 635px;
-  height: 66px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f6f6f6;
-  border: 1px solid #d7d7d7;
-  border-radius: 15px;
-  margin-top: 20px;
-  position: relative;
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: bold;
-`;
-
-const TextInputWrap = styled.div`
-  width: 100px;
-  height: 44px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-left: 15px;
-`;
-
-const Text = styled.div`
-  width: 100px;
-  height: 17px;
-  color: #e8a20c;
-  font-size: 12px;
-`;
-
-const CanText = styled.div`
-  width: 94px;
-  height: 9px;
-  color: ${(props) => props.color};
-  font-weight: normal;
-  font-size: 12px;
-  text-align: center;
-`;
-
-const Input = styled.input`
-  width: 100px;
-  height: 23px;
-  border: none;
-  background-color: #f6f6f6;
-  outline: none;
-  font-size: 16px;
-`;
-
-const GenWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TypeInput = styled.input`
-  width: 80px;
-  height: 23px;
-  border: none;
-  background-color: #f6f6f6;
-  outline: none;
-  font-size: 16px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const GenInput = styled.input`
-  width: 80px;
-  height: 23px;
-  border: none;
-  background-color: #f6f6f6;
-  outline: none;
-  font-size: 16px;
-`;
-
-const GenBtnWrap = styled.div`
-  width: 12px;
-  height: 18px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-const GenBtn = styled.img`
-  width: 12px;
-  height: 6px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const ValidationWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const ValidationBtn = styled.button`
-  width: 94px;
-  height: 34px;
-  background-color: #f45452;
-  color: white;
-  border: none;
-  border-radius: 11px;
-  font-size: 18px;
-  margin-left: 15px;
-  margin-right: 10px;
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const PeopleTypeSelect = styled.select`
-  width: 93px;
-  height: 23px;
-  font-size: 15px;
-  font-weight: normal;
-  border: none;
-  background-color: #f6f6f6;
-  color: #888888;
-  outline: none;
-`;
-
-const Title = ({ canMake, setCanMake, docData, dispatch }) => {
+const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const id = useRef(docData.boostcamp_id);
   const name = useRef(docData.name);
   const { memberType } = useContext(SelectTypeContext);
@@ -145,7 +20,7 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
 
   const changeData = () => {
     if (canMake) setCanMake(false);
-    dispatch({
+    docDispatch({
       type: 'INPUT_TITLE',
       generation: docData.classification === 'camper' ? docData.generation : 0,
       boostcamp_id: docData.classification === 'camper' ? id.current.value : docData.classification,
@@ -163,7 +38,7 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
   };
 
   const valueDispatch = (generationValue, idValue, nameValue) => {
-    dispatch({
+    docDispatch({
       type: 'INPUT_TITLE',
       generation: generationValue,
       boostcamp_id: idValue,
@@ -171,32 +46,34 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
     });
   };
 
-  const peopleTypeHandler = (e) => {
-    const peopleType = e.target.value;
-    if (peopleType === 'camper') valueDispatch(0, '', name.current.value);
-    else if (peopleType === 'master') valueDispatch(0, 'master', name.current.value);
-    else valueDispatch(0, 'manager', name.current.value);
-
-    dispatch({
-      type: 'INPUT_CLASSIFICATION',
-      classification: peopleType,
-    });
-  };
-
   const genBtnHandler = (e) => {
     if (e.target.id === 'up') {
-      dispatch({
+      docDispatch({
         type: 'INPUT_GENERATION',
         generation: docData.generation + 1,
       });
     } else {
       if (docData.generation - 1 < 1) return;
-      dispatch({
+      docDispatch({
         type: 'INPUT_GENERATION',
         generation: docData.generation - 1,
       });
     }
   };
+
+  useEffect(() => {
+    if(!memberType) return;
+    const peopleType = PEOPLE_TYPE[memberType];
+
+    if (peopleType === 'camper') valueDispatch(0, '', name.current.value);
+    else if (peopleType === 'master') valueDispatch(0, 'master', name.current.value);
+    else valueDispatch(0, 'manager', name.current.value);
+
+    docDispatch({
+      type: 'INPUT_CLASSIFICATION',
+      classification: peopleType,
+    });
+  }, [memberType])
 
   return (
     <TitleWrap>
@@ -215,7 +92,7 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
         </GenWrap>
         <SelectModal
           className="SelectPeopleType"
-          content={['캠퍼', '마스터', '운영진']}
+          content={Object.keys(PEOPLE_TYPE)}
           isSelectOn={isPeopleTypeOn}
           move={{ top: '70px', left: '0px' }}
         />
@@ -274,5 +151,126 @@ const Title = ({ canMake, setCanMake, docData, dispatch }) => {
     </TitleWrap>
   );
 };
+
+const DownLine = styled.div`
+  border: 1px solid #d7d7d7;
+  width: 0.1px;
+  height: 44px;
+`;
+
+const TitleWrap = styled.div`
+  ${flexBox({justifyContent: 'space-between', alignItems: 'center'})};
+  ${font({size: '12px',weight: "bold"})};
+  width: 635px;
+  height: 66px;
+  background-color: #f6f6f6;
+  border: 1px solid #d7d7d7;
+  border-radius: 15px;
+  margin-top: 20px;
+  position: relative;
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+  font-weight: bold;
+`;
+
+const TextInputWrap = styled.div`
+  ${flexBox({direction: 'column', justifyContent: 'space-around'})};
+  width: 100px;
+  height: 44px;
+  margin-left: 15px;
+`;
+
+const Text = styled.div`
+  width: 100px;
+  height: 17px;
+  color: #e8a20c;
+`;
+
+const CanText = styled.div`
+  width: 94px;
+  height: 9px;
+  color: ${(props) => props.color};
+  font-weight: normal;
+  text-align: center;
+`;
+
+const Input = styled.input`
+  width: 100px;
+  height: 23px;
+  border: none;
+  background-color: #f6f6f6;
+  outline: none;
+  font-size: 16px;
+`;
+
+const GenWrap = styled.div`
+  ${flexBox({justifyContent: 'space-between', alignItems: 'center'})};
+`;
+
+const TypeInput = styled.input`
+  width: 80px;
+  height: 23px;
+  border: none;
+  background-color: #f6f6f6;
+  outline: none;
+  font-size: 16px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const GenInput = styled.input`
+  width: 80px;
+  height: 23px;
+  border: none;
+  background-color: #f6f6f6;
+  outline: none;
+  font-size: 16px;
+`;
+
+const GenBtnWrap = styled.div`
+  ${flexBox({direction: 'column', justifyContent: 'space-between'})};  
+  width: 12px;
+  height: 18px;
+`;
+
+const GenBtn = styled.img`
+  width: 12px;
+  height: 6px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ValidationWrap = styled.div`
+  ${flexBox({direction: 'column', alignItems: 'center'})};  
+`;
+
+const ValidationBtn = styled.button`
+  width: 94px;
+  height: 34px;
+  background-color: #f45452;
+  color: white;
+  border: none;
+  border-radius: 11px;
+  font-size: 18px;
+  margin-left: 15px;
+  margin-right: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const PeopleTypeSelect = styled.select`
+  width: 93px;
+  height: 23px;
+  font-size: 15px;
+  font-weight: normal;
+  border: none;
+  background-color: #f6f6f6;
+  color: #888888;
+  outline: none;
+`;
 
 export default Title;

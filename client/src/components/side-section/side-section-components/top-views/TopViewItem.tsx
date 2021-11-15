@@ -4,6 +4,24 @@ import styled from 'styled-components';
 import { IDocument } from '../../../../types/api-document';
 import { Utils } from '../../../../utils';
 
+export const TopViewItem = (arg: IDocument): JSX.Element => {
+  const { name, boostcampId, generation } = arg;
+  return (
+    <StyledLink to={`/w/${generation}_${boostcampId}_${name}`}>
+      <Flexed>
+        <TitleP>{Utils.docTitleGen({ generation, boostcampId, name })}</TitleP>
+      </Flexed>
+    </StyledLink>
+  );
+};
+
+export const FetchingTopView = async ({ maxLength }: { maxLength: number }): Promise<IDocument[]> => {
+  const result = await fetch(`/documents/ranks?count=${maxLength}`);
+  const list = await result.json();
+  return list;
+};
+
+
 const Flexed = styled.div`
   display: flex;
   justify-content: space-between;
@@ -33,20 +51,3 @@ const StyledLink = styled(Link)`
     text-decoration: none;
   }
 `;
-
-export const TopViewItem = (arg: IDocument): JSX.Element => {
-  const { name, boostcampId, generation } = arg;
-  return (
-    <StyledLink to={`/w/${generation}_${boostcampId}_${name}`}>
-      <Flexed>
-        <TitleP>{Utils.docTitleGen({ generation, boostcampId, name })}</TitleP>
-      </Flexed>
-    </StyledLink>
-  );
-};
-
-export const FetchingTopView = async ({ maxLength }: { maxLength: number }): Promise<IDocument[]> => {
-  const result = await fetch(`/documents/ranks?count=${maxLength}`);
-  const list = await result.json();
-  return list;
-};
