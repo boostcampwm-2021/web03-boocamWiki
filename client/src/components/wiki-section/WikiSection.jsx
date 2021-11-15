@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import MainSection from '../common/MainSection'
 import Loading from '../Loading';
@@ -14,6 +14,10 @@ const WikiSection = ({ generation, boostcampId, name, location }) => {
   const [loading, setLoading] = useState(true);
   const history = useHistory();
   const id = generation + boostcampId + name;
+
+  // const updateDoc = () => {
+  //   history.push(`/updatedocs/${generation}_${boostcampId}_${name}`);
+  // }
 
   useEffect(() => {
     const getContent = async () => {
@@ -38,6 +42,10 @@ const WikiSection = ({ generation, boostcampId, name, location }) => {
             <WikiContentsIndex title="목차" text={docData.content} />
             <WikiCard docData={docData} name={name} />
           </Padd>
+          <Link to={`/updatedocs/${generation}_${boostcampId}_${name}`}>
+            <input type='button' value='수정' />
+          </Link>
+          
 
           <MdParser content={docData.content} />
         </>

@@ -23,13 +23,14 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
     if (!docRule) alert('규정에 동의해주세요');
     else {
       await fetch('/documents', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(docData),
       }).then((res) => res.json());
-      history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
+      // history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
+      history.goBack();
     }
   };
 
@@ -39,7 +40,16 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
 
   useEffect(() => {
     // 문서 정보 받아와서 docData에 데이터 추가하기
-    console.log('hello');
+    const getContent = async () => {
+      const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
+      if (res.status !== 200){
+        history.push('/error');
+      }
+      const { result } = await res.json();
+      docDispatch({type: 'INPUT_DOC_DATA', ...result[0] })
+    }
+
+    getContent();
   }, [])
 
   return (
