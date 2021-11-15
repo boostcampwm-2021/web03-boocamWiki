@@ -3,68 +3,18 @@ import styled from 'styled-components';
 import EditorWithPreview from './EditorWithPreview';
 import Editor from './Editor';
 import Preview from './Preview';
+import { flexBox, font } from '../../../styles/styled-components/mixin';
 
-const TotalBox = styled.div`
-  width: 868px;
-  height: 500px;
-  border: 2px solid #d7d7d7;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 21px;
-`;
-
-const BoxHeader = styled.div`
-  width: 868px;
-  height: 43px;
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-  background: #f6f6f6;
-  border-left: 2px solid #d7d7d7;
-  border-right: 2px solid #d7d7d7;
-  border-bottom: 2px solid #d7d7d7;
-  border-radius: 5px 5px 0px 0px;
-  padding-top: 7px;
-  padding-left: 9px;
-`;
-
-const EditorTypeLabel = styled.label`
-  width: 81px;
-  height: 36px;
-  color: #222222;
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f6f6f6;
-  border-bottom: 2px solid #d7d7d7;
-`;
-
-const EditorTypeRadio = styled.input`
-  &:checked + label {
-    background-color: white;
-    border: 2px solid #d7d7d7;
-    border-bottom: 2px solid white;
-    border-radius: 5px 5px 0px 0px;
-  }
-  display: none;
-`;
-
-const EditorBox = ({ docData, dispatch }) => {
+const EditorBox = ({ docData, docDispatch }) => {
   const [inputStatus, setInputStatus] = useState('editor');
 
   const editorTypes = [
-    { name: 'editor', text: '편집기', component: <Editor docData={docData} dispatch={dispatch} /> },
+    { name: 'editor', text: '편집기', component: <Editor docData={docData} docDispatch={docDispatch} /> },
     { name: 'preview', text: '미리보기', component: <Preview docData={docData} /> },
     {
       name: 'editorWithPreview',
       text: '동시보기',
-      component: <EditorWithPreview docData={docData} dispatch={dispatch} />,
+      component: <EditorWithPreview docData={docData} docDispatch={docDispatch} />,
     },
   ];
 
@@ -91,10 +41,56 @@ const EditorBox = ({ docData, dispatch }) => {
       </BoxHeader>
 
       {editorTypes.map((type) => (
-        <div key={type.name}>{type.name === inputStatus ? type.component : <></>}</div>
+        <EditorWrapper key={type.name}>{type.name === inputStatus ? type.component : <></>}</EditorWrapper>
       ))}
     </TotalBox>
   );
 };
+
+const TotalBox = styled.div`
+  ${flexBox({direction: 'column', alignItems:'center'})};
+  width: 100%;
+  height: 500px;
+  outline: 2px solid #d7d7d7;
+  border-radius: 10px;
+  margin-top: 21px;
+`;
+
+const BoxHeader = styled.div`
+  ${flexBox({})}
+  width: 100%;
+  height: 43px;
+  margin-bottom: 10px;
+  background: #f6f6f6;
+  border-radius: 10px 10px 0px 0px;
+  border-bottom: 2px solid #d7d7d7;
+  padding-top: 7px;
+  padding-left: 9px;
+`;
+
+const EditorTypeLabel = styled.label`
+  ${flexBox({justifyContent: 'center', alignItems: 'center'})};
+  ${font({size: "16px", weight: "500"})};
+  width: 81px;
+  height: 36px;
+  color: #222222;
+  background-color: #f6f6f6;
+  border-bottom: 2px solid #d7d7d7;
+`;
+
+const EditorTypeRadio = styled.input`
+  &:checked + label {
+    background-color: white;
+    border: 2px solid #d7d7d7;
+    border-bottom: 2px solid white;
+    border-radius: 5px 5px 0px 0px;
+  }
+  display: none;
+`;
+
+const EditorWrapper = styled.div`
+  width: 100%;
+  padding: 0 10px;
+`;
 
 export default EditorBox;

@@ -3,57 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
 
-const FooterContainer = styled.div`
-  display: flex;
-  flex-direction: row-reverse;
-  margin-top: 15px;
-`;
-
-const IndexDivContainer = styled.div`
-  border: 1px solid #bbbbbb;
-  border-radius: 10px;
-  overflow: hidden;
-`;
-
-const IndexDiv = styled.div`
-  float: left;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 36px;
-  font-size: 18px;
-  color: #0055fb;
-  cursor: pointer;
-
-  :not(:first-of-type) {
-    border-left: 1px solid #bbbbbb;
-  }
-  :hover {
-    background-color: #f6f6f6;
-  }
-`;
-
-const StyledLink = styled(Link)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  color: #0055fb;
-  font-style: normal;
-  font-weight: normal;
-  text-decoration: none;
-  outline: none;
-
-  :hover,
-  :active {
-    text-decoration: none;
-  }
-`;
-
 const ResultFooter = ({ resultCount }) => {
   const { pathname, search } = useLocation();
   const query = queryString.parse(search);
@@ -115,4 +64,56 @@ const ResultFooter = ({ resultCount }) => {
     </FooterContainer>
   );
 };
+
+const FooterContainer = styled.div`
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 15px;
+`;
+
+const IndexDivContainer = styled.div`
+  border: 1px solid #bbbbbb;
+  border-radius: 10px;
+  overflow: hidden;
+`;
+
+const IndexDiv = styled.div`
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 36px;
+  font-size: 18px;
+  color: #0055fb;
+  cursor: pointer;
+
+  :not(:first-of-type) {
+    border-left: 1px solid #bbbbbb;
+  }
+  :hover {
+    background-color: #f6f6f6;
+  }
+`;
+
+const StyledLink = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: #0055fb;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  outline: none;
+
+  :hover,
+  :active {
+    text-decoration: none;
+  }
+`;
+
 export default ResultFooter;

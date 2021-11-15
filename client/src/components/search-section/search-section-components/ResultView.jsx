@@ -4,10 +4,6 @@ import ResultSummary from './ResultSummary';
 import ResultContent from './ResultContent';
 import ResultFooter from './ResultFooter';
 
-const ResultViewDiv = styled.div`
-  padding: 30px 20px;
-`;
-
 const ResultView = ({ type, value, result, resultCount }) => {
   return (
     <ResultViewDiv>
@@ -17,5 +13,9 @@ const ResultView = ({ type, value, result, resultCount }) => {
     </ResultViewDiv>
   );
 };
+
+const ResultViewDiv = styled.div`
+  padding: 30px 20px;
+`;
 
 export default ResultView;

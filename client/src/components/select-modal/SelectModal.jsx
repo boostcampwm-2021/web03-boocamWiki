@@ -1,6 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+const SelectModal = ({ className, content, isSelectOn, move }) => {
+  const [first, last] = [0, content.length - 1];
+  const [target, setTarget] = useState();
+
+  const checkFloor = (idx) => {
+    if (idx === first && idx === last) {
+      return '10px';
+    }
+    if (idx === first) {
+      return '10px 10px 0 0';
+    }
+    if (idx === last) {
+      return `0 0 10px 10px`;
+    }
+    return '0';
+  };
+
+  return (
+    <>
+      {isSelectOn && (
+        <SelectContainer>
+          <SelectWrapper move={move}>
+            {content.map((value, idx) => (
+              <SelectRow key={value} className={'SelectRow'.concat(' ', className)} borderRadius={checkFloor(idx)}>
+                {value}
+              </SelectRow>
+            ))}
+          </SelectWrapper>
+        </SelectContainer>
+      )}
+    </>
+  );
+};
+
 const SelectContainer = styled.div``;
 
 const SelectWrapper = styled.div`
@@ -44,39 +78,5 @@ const SelectBackground = styled.div`
   background: transparent;
   cursor: default;
 `;
-
-const SelectModal = ({ className, content, isSelectOn, move }) => {
-  const [first, last] = [0, content.length - 1];
-  const [target, setTarget] = useState();
-
-  const checkFloor = (idx) => {
-    if (idx === first && idx === last) {
-      return '10px';
-    }
-    if (idx === first) {
-      return '10px 10px 0 0';
-    }
-    if (idx === last) {
-      return `0 0 10px 10px`;
-    }
-    return '0';
-  };
-
-  return (
-    <>
-      {isSelectOn && (
-        <SelectContainer>
-          <SelectWrapper move={move}>
-            {content.map((value, idx) => (
-              <SelectRow key={value} className={'SelectRow'.concat(' ', className)} borderRadius={checkFloor(idx)}>
-                {value}
-              </SelectRow>
-            ))}
-          </SelectWrapper>
-        </SelectContainer>
-      )}
-    </>
-  );
-};
 
 export default SelectModal;

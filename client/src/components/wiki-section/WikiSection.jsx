@@ -1,35 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import MainHeader from '../SectionTitle';
+import MainSection from '../common/MainSection'
 import Loading from '../Loading';
 import MdParser from '../MdParser';
 import { Utils } from '../../utils';
 import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
 import WikiCard from './wiki-section-components/WikiCard';
 
-const Main = styled.div`
-  width: 890px;
-  min-height: 1200px;
-  height: 100%;
-  background: white;
-  border: 1px solid #d7d7d7;
-  box-sizing: border-box;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  margin-right: 50px;
-  margin-top: 8px;
-`;
 
-const Padd = styled.div`
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const WikiSection = ({ generation, boostcampId, name }) => {
+const WikiSection = ({ generation, boostcampId, name, location }) => {
   const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -50,8 +30,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
   }, [id]);
 
   return (
-    <Main>
-      <MainHeader title={Utils.docTitleGen({ name, boostcampId, generation }, 0)} />
+    <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
       {loading && <Loading />}
       {!loading && (
         <>
@@ -63,7 +42,16 @@ const WikiSection = ({ generation, boostcampId, name }) => {
           <MdParser content={docData.content} />
         </>
       )}
-    </Main>
+    </MainSection>
   );
 };
+
+const Padd = styled.div`
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: space-between;
+`;
+
 export default WikiSection;

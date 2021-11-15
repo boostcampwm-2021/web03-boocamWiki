@@ -1,20 +1,13 @@
 import React from 'react';
-import Header from '../components/header/Header';
-import MainSection from '../components/main-section/MainSection';
-import SideSection from '../components/side-section/SideSection';
-import SelectModal from '../components/select-modal/SelectModal';
-
-import style from '../styles/scss/Page.module.scss';
+import MainSection from '../components/main-door/MainDoor';
+import PageLayout from './common/PageLayout'
 
 const MakePage = () => {
   return (
-    <div className={style.PageContainer}>
-      <Header />
-      <div className={style.SectionWrapper}>
-        <MainSection />
-        <SideSection />
-      </div>
-    </div>
+    <PageLayout >
+      <MainSection />
+    </PageLayout>
   );
 };
+
 export default MakePage;

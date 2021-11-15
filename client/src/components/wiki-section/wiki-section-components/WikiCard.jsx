@@ -1,6 +1,45 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+const cardData = [
+  {name: '별명', key: 'nickname'},
+  {name: '지역', key: 'location'},
+  {name: '주언어', key: 'language'},
+  {name: 'MBTI', key: 'mbti'},
+  {name: '분야', key: 'field'},
+  {name: '링크', key: 'link'},
+]
+
+const WikiCard = ({docData, name}) => {
+  const [card, setCard] = useState(false);
+
+  useEffect(() => {
+    if(docData.user_image !== 'null' && docData.user_image !== '') setCard(true);
+    else if(docData.nickname !== 'null' && docData.nickname !== '') setCard(true);
+    else if(docData.location !== 'null' && docData.location !== '') setCard(true);
+    else if(docData.language !== 'null' && docData.language !== '') setCard(true);
+    else if(docData.mbti !== 'null' && docData.mbti !== '') setCard(true);
+    else if(docData.field !== 'null' && docData.field !== '') setCard(true);
+    else if(docData.link !== 'null' && docData.link !== '') setCard(true);
+    else setCard(false);
+  }, [docData])
+  
+
+  return (
+    <CardBox background={card ? '#DDEEAA' : 'white'} display={card ? 'block' : 'none'}>
+      {card && <CardOwner>{name}</CardOwner>}
+      {docData.user_image !== 'null' && <CardImg src={docData.user_image} />}
+      {cardData.map((item) => (
+        (docData[item.key] !== 'null' && docData[item.key] !== '') &&
+        <CardDataWrap key={item.name}>
+          <CardDataName>{item.name}</CardDataName>
+          <CardDataText>{docData[item.key]}</CardDataText>
+        </CardDataWrap>
+      ))}
+    </CardBox>
+  )
+}
+
 const CardBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,44 +97,5 @@ const CardDataText = styled.div`
   background-color: white;
   outline: none;
 `;
-
-const cardData = [
-  {name: '별명', key: 'nickname'},
-  {name: '지역', key: 'location'},
-  {name: '주언어', key: 'language'},
-  {name: 'MBTI', key: 'mbti'},
-  {name: '분야', key: 'field'},
-  {name: 'SNS 링크', key: 'link'},
-]
-
-const WikiCard = ({docData, name}) => {
-  const [card, setCard] = useState(false);
-
-  useEffect(() => {
-    if(docData.user_image !== 'null') setCard(true);
-    else if(docData.nickname !== 'null') setCard(true);
-    else if(docData.location !== 'null') setCard(true);
-    else if(docData.language !== 'null') setCard(true);
-    else if(docData.mbti !== 'null') setCard(true);
-    else if(docData.field !== 'null') setCard(true);
-    else if(docData.link !== 'null') setCard(true);
-    else setCard(false);
-  }, [docData])
-  
-
-  return (
-    <CardBox background={card ? '#DDEEAA' : 'white'} display={card ? 'block' : 'none'}>
-      {card && <CardOwner>{name}</CardOwner>}
-      {docData.user_image !== 'null' && <CardImg src={docData.user_image} />}
-      {cardData.map((item) => (
-        docData[item.key] !== 'null' &&
-        <CardDataWrap key={item.name}>
-          <CardDataName>{item.name}</CardDataName>
-          <CardDataText>{docData[item.key]}</CardDataText>
-        </CardDataWrap>
-      ))}
-    </CardBox>
-  )
-}
 
 export default WikiCard;

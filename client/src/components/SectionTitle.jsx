@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const MainHeader = ({ title }) => {
+  return (
+    <HeaderBox>
+      <HeaderTitle>{title}</HeaderTitle>
+    </HeaderBox>
+  );
+};
+
 const HeaderBox = styled.div`
   background: #e5e5e5;
   border-radius: 10px 10px 0px 0px;
@@ -22,13 +30,5 @@ const HeaderTitle = styled.div`
   font-size: 36px;
   line-height: 76px;
 `;
-
-const MainHeader = ({ title }) => {
-  return (
-    <HeaderBox>
-      <HeaderTitle>{title}</HeaderTitle>
-    </HeaderBox>
-  );
-};
 
 export default MainHeader;

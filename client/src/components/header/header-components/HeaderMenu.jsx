@@ -6,6 +6,31 @@ import rank from '../../../resource/img/rank.svg';
 import map from '../../../resource/img/map.svg';
 import { BREAK_POINT_MOBILE } from '../../../magic-number';
 
+const HeaderMenu = () => {
+  return (
+    <NavMenu>
+      <Menu>
+        <Link to="/makedocs" style={aTagStyle}>
+          <MenuImg src={recent} />
+          <MenuText>문서작성</MenuText>
+        </Link>
+      </Menu>
+      <Menu style={{ transform: 'translateX(-2%)' }}>
+        <Link to="/" style={aTagStyle}>
+          <MenuImg src={rank} />
+          <MenuText>각종순위</MenuText>
+        </Link>
+      </Menu>
+      <Menu>
+        <Link to="/" style={aTagStyle}>
+          <MenuImg src={map} />
+          <MenuText>위치정보</MenuText>
+        </Link>
+      </Menu>
+    </NavMenu>
+  );
+};
+
 const NavMenu = styled.div`
   position: absolute;
   left: 150px;
@@ -54,31 +79,6 @@ const aTagStyle = {
   lineHeight: '35px',
   alignItems: 'center',
   justifyContent: 'space-between',
-};
-
-const HeaderMenu = () => {
-  return (
-    <NavMenu>
-      <Menu>
-        <Link to="/makedocs" style={aTagStyle}>
-          <MenuImg src={recent} />
-          <MenuText>문서작성</MenuText>
-        </Link>
-      </Menu>
-      <Menu style={{ transform: 'translateX(-2%)' }}>
-        <Link to="/" style={aTagStyle}>
-          <MenuImg src={rank} />
-          <MenuText>각종순위</MenuText>
-        </Link>
-      </Menu>
-      <Menu>
-        <Link to="/" style={aTagStyle}>
-          <MenuImg src={map} />
-          <MenuText>위치정보</MenuText>
-        </Link>
-      </Menu>
-    </NavMenu>
-  );
 };
 
 export default HeaderMenu;

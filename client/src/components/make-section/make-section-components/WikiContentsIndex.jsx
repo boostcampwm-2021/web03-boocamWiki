@@ -2,14 +2,24 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import rehypeIndexes from 'rehype-indexes';
+import { font, flexBox } from '../../../styles/styled-components/mixin';
+
+const WikiContentsIndex = ({ text, title }) => {
+  return (
+    <Index>
+      <Title>{title}</Title>
+      <Padd>
+        <ReactMarkdown rehypePlugins={[rehypeIndexes]}>{text}</ReactMarkdown>
+      </Padd>
+    </Index>
+  );
+};
 
 const Index = styled.div`
   h1,
   h2,
   h3 {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 23px;
+    ${font({size: "16px", weight: "400"})};
     width: fit-content;
     display: block;
     margin: 0px;
@@ -30,13 +40,10 @@ const Index = styled.div`
   border: 2px solid #d7d7d7;
   width: 350px;
   height: fit-content;
-  min-height: 598px;
 `;
 
 const Title = styled.div`
-  font-size: 20px;
-  font-weight: 500;
-  color: #222222;
+  ${font({size: "20px", weight: "500"})};
 `;
 const Padd = styled.div`
   margin-top: 12px;
@@ -45,16 +52,5 @@ const Padd = styled.div`
   white-space: normal;
   word-wrap: normal;
 `;
-
-const WikiContentsIndex = ({ text, title }) => {
-  return (
-    <Index>
-      <Title>{title}</Title>
-      <Padd>
-        <ReactMarkdown rehypePlugins={[rehypeIndexes]}>{text}</ReactMarkdown>
-      </Padd>
-    </Index>
-  );
-};
 
 export default WikiContentsIndex;

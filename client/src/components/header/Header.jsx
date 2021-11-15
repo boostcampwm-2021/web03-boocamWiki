@@ -6,6 +6,19 @@ import HeaderSearchBar from './header-components/HeaderSearchBar';
 import HeaderUser from './header-components/HeaderUser';
 import { BREAK_POINT_TABLET } from '../../magic-number';
 
+const Header = () => {
+  return (
+    <HeaderBar>
+      <HeaderContainer>
+        <Logo />
+        <HeaderMenu />
+        <HeaderSearchBar />
+        <HeaderUser />
+      </HeaderContainer>
+    </HeaderBar>
+  );
+};
+
 const HeaderBar = styled.div`
   width: 100%;
   height: 60px;
@@ -25,18 +38,5 @@ const HeaderContainer = styled.div`
   max-width: 1300px;
   width: 100%;
 `;
-
-const Header = () => {
-  return (
-    <HeaderBar>
-      <HeaderContainer>
-        <Logo />
-        <HeaderMenu />
-        <HeaderSearchBar />
-        <HeaderUser />
-      </HeaderContainer>
-    </HeaderBar>
-  );
-};
 
 export default Header;

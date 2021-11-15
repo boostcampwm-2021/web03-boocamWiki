@@ -1,87 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import DocCardPreview from "./DocCardPreview";
+import { BREAK_POINT_MOBILE } from '../../../magic-number';
 import noImg from '../../../resource/img/no-image.png';
-
-const CardBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 350px;
-  height: 598px;
-  background-color: #DDEEAA;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-`;
-
-const CardOwner = styled.input`
-  width: 350px;
-  height: 32px;
-  text-align: center;
-  font-weight: 500;
-  font-size: 20px;
-  background-color: #DDEEAA;
-  border: none;
-  margin-bottom: 9px;
-  outline: none;
-`;
-
-const CardImg = styled.img`
-  width: 342px;
-  height: 342px;
-  background: #F6F6F6;
-  margin-bottom: 6px;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const CardDataWrap = styled.div`
-  display: flex;
-  width: 348px;
-  height: 34px;
-`;
-
-const CardDataName = styled.div`
-  width: 68px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const CardDataInput = styled.input`
-  width: 278px;
-  height: 34px;
-  border: 1px solid #D7D7D7;
-  text-align: center;
-  outline: none;
-  &:focus::-webkit-input-placeholder {color:transparent; }
-`;
-
-const MbtiSelector = styled.select`
-  width: 278px;
-  height: 34px;
-  border: 1px solid #D7D7D7;
-  text-align: center;
-  outline: none;
-  display: flex;
-  justify-content: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-indent: 1px;
-  color: #888888;
-`;
-
-const CardSNS = styled.input`
-  width: 278px;
-  height: 34px;
-  border: 1px solid #D7D7D7;
-  background-color: white;
-`;
+import { flexBox } from "../../../styles/styled-components/mixin";
 
 const cardData = [
   {name: '별명', key: 'nickname'},
@@ -102,12 +23,12 @@ const dataValue = {
 
 const MBTI = ['ISTJ', 'ISTP', 'ESTP', 'ESTJ', 'ISFJ', 'ISFP', 'ESFP', 'ESFJ', 'INFJ', 'INFP', 'ENFP', 'ENFJ', 'INTJ', 'INTP', 'ENTP', 'ENTJ'];
 
-const DocCard = ({docData, dispatch}) => {
+const DocCard = ({docData, docDispatch}) => {
 
   const dataValueChange = (e) => {
     const changeData = { type: dataValue[e.target.id].type }
     changeData[e.target.id] = e.target.value;
-    dispatch(changeData);
+    docDispatch(changeData);
   }
 
   return (
@@ -135,5 +56,84 @@ const DocCard = ({docData, dispatch}) => {
     </CardBox>
   )
 }
+
+const CardBox = styled.div`
+  ${flexBox({direction: 'column', alignItems: 'center'})};
+  width: 350px;
+  height: 598px;
+  background-color: #DDEEAA;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+  font-family: Noto Sans KR;
+  font-style: normal;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px){
+    margin-top: 20px;
+  }
+`;
+
+const CardOwner = styled.input`
+  width: 350px;
+  height: 32px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+  background-color: #DDEEAA;
+  border: none;
+  margin-bottom: 9px;
+  outline: none;
+`;
+
+const CardImg = styled.img`
+  width: 342px;
+  height: 342px;
+  background: #F6F6F6;
+  margin-bottom: 6px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CardDataWrap = styled.div`
+  ${flexBox({})}
+  width: 348px;
+  height: 34px;
+`;
+
+const CardDataName = styled.div`
+  width: 68px;
+  height: 34px;
+  ${flexBox({justifyContent: 'center', alignItems: 'center'})}
+`;
+
+const CardDataInput = styled.input`
+  width: 278px;
+  height: 34px;
+  border: 1px solid #D7D7D7;
+  text-align: center;
+  outline: none;
+  &:focus::-webkit-input-placeholder {color:transparent; }
+`;
+
+const MbtiSelector = styled.select`
+  ${flexBox({justifyContent: 'center', alignItems: 'center'})}
+  width: 278px;
+  height: 34px;
+  border: 1px solid #D7D7D7;
+  text-align: center;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  color: #888888;
+`;
+
+const CardSNS = styled.input`
+  width: 278px;
+  height: 34px;
+  border: 1px solid #D7D7D7;
+  background-color: white;
+`;
 
 export default DocCard;

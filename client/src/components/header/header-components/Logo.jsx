@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../../resource/img/logo2.png';
 
+const Logo = () => {
+  return (
+    <Link to="/">
+      <LogoBtn src={logo} />
+    </Link>
+  );
+};
+
 const LogoBtn = styled.img`
   width: 115px;
   height: 60px;
@@ -13,13 +21,5 @@ const LogoBtn = styled.img`
     cursor: pointer;
   }
 `;
-
-const Logo = () => {
-  return (
-    <Link to="/">
-      <LogoBtn src={logo} />
-    </Link>
-  );
-};
 
 export default Logo;

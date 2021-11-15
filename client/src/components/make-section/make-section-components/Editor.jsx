@@ -1,8 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import { font } from '../../../styles/styled-components/mixin';
+
+const Editor = ({ docData, docDispatch }) => {
+  const changeHandler = (e) => {
+    docDispatch({
+      type: 'INPUT_CONTENT',
+      content: e.target.value,
+    });
+  };
+  return <EditorBox onChange={changeHandler} value={docData.content} />;
+};
 
 const EditorBox = styled.textarea`
-  width: 848px;
+  ${font({size: "16px", weight: "500"})};
+  width: 100%;
   height: 432px;
   resize: none;
   background: #f6f6f6;
@@ -11,21 +23,6 @@ const EditorBox = styled.textarea`
   border-radius: 10px;
   outline: none;
   padding: 10px;
-
-  font-family: Noto Sans KR;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
 `;
-
-const Editor = ({ docData, dispatch }) => {
-  const changeHandler = (e) => {
-    dispatch({
-      type: 'INPUT_CONTENT',
-      content: e.target.value,
-    });
-  };
-  return <EditorBox onChange={changeHandler} value={docData.content} />;
-};
 
 export default Editor;
