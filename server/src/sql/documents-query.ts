@@ -1,18 +1,23 @@
+import { param } from 'express-validator';
 import db from '../services/db-pool';
-import { DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
+import { Document, DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
 
-function getObjectKey(arg: any) {
+function getObjectKey(arg: object): string[] {
   return Object.entries(arg)
-    .filter(([, value]) => value)
-    .map(([key]) => key)
-    .toString();
+    .filter(([, value]) => value !== undefined && value !== null)
+    .map(([key]) => key);
 }
 
-function getObjectValue(arg: any) {
+function getObjectValue(arg: object): string[] {
   return Object.entries(arg)
-    .filter(([, value]) => value)
-    .map(([, value]) => `\'${value}\'`)
-    .toString();
+    .filter(([, value]) => value !== undefined && value !== null)
+    .map(([, value]) => `\'${value}\'`);
+}
+
+function getDocumentKeyValue(arg: Document, stringTypeList: String[]): String[] {
+  return Object.entries(arg)
+    .filter(([, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => `${key}=${!stringTypeList.includes(key) ? `'${value}'` : value}`);
 }
 
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
@@ -74,10 +79,7 @@ export async function getCount(params: Partial<DocumentsSearch>): Promise<number
   const query =
     'SELECT count(*) as count ' +
     'FROM `document` ' +
-    `WHERE ${Object.entries({ generation, boostcamp_id, name })
-      .filter(([, value]) => value)
-      .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
-      .join(' AND ')}` +
+    `WHERE ${getDocumentKeyValue({ generation, boostcamp_id, name }, ['generation']).join(' AND ')}` +
     (content
       ? `${
           [generation, boostcamp_id, name].every((el) => el === undefined) ? '' : ' AND'
@@ -87,14 +89,11 @@ export async function getCount(params: Partial<DocumentsSearch>): Promise<number
   return result;
 }
 
-export async function getDoc(params: DocumentsSearch) {
+export async function getDoc(params: Document) {
   const [result] = await db.pool.query(
     'SELECT created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link, classification ' +
       'FROM `document` ' +
-      `WHERE ${Object.entries(params)
-        .filter(([, value]) => value)
-        .map(([key, value]) => `${key}=${key === 'generation' ? value : `'${value}'`}`)
-        .join(' AND ')}`,
+      `WHERE ${getDocumentKeyValue(params, ['generation']).join(' AND ')}`,
   );
   return result;
 }
@@ -104,7 +103,9 @@ export async function increaseViewCount(params: DocumentsSearch) {
   const searchQuery = `SELECT * from view ` + whereClause;
   let [result] = await db.pool.query(searchQuery);
   if (result.length == 0) {
-    const insertQuery = `INSERT INTO view(${getObjectKey(params)}, count) VALUES (${getObjectValue(params)}, 1)`;
+    const insertQuery = `INSERT INTO view(${getObjectKey(params).join(', ')}, count) VALUES (${getObjectValue(
+      params,
+    ).join(', ')}, 1)`;
     [result] = await db.pool.query(insertQuery);
   } else {
     const updateQuery = `UPDATE view SET count=count+1 ` + whereClause;
@@ -121,16 +122,14 @@ export async function getRecentUpdatedDoc({ count }: { count: number }): Promise
   return result as DocumentsRecent[];
 }
 
-export async function updateRecentDoc(params: DocumentsCreate) {
+export async function updateRecentDoc(params: DocumentsCreate): Promise<void> {
   const query =
     'INSERT INTO `update` ' +
-    `(${Object.entries(params)
-      .map(([key]) => key)
-      .toString()})` +
+    `(${getObjectKey(params).join(', ')})` +
     ' VALUES ' +
-    `( ${Object.entries(params)
-      .map(([key, value]) => `'${value}'`)
-      .toString()})`;
+    `(${getObjectValue(params).join(', ')})`;
   const [result] = await db.pool.query(query);
-  return result;
+  if (result?.affectedRows === 0) {
+    throw new Error('Insert does not executed');
+  }
 }

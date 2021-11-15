@@ -75,16 +75,16 @@ router.get('/count', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
+  const { generation, boostcamp_id, name }: Partial<DocumentsSearch> = req.query;
   try {
-    const result = await getDoc({ generation, boostcamp_id, name, content, offset, limit });
+    const result = await getDoc({ generation, boostcamp_id, name });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
-
     OnDocViewed(req.query as unknown as DocumentsSearch);
     return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
+    console.error(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
