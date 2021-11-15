@@ -5,12 +5,13 @@ import genUpBtn from '../../../resource/img/genUpBtn.svg';
 import SelectModal from '../../select-modal/SelectModal';
 import { SelectTgContext, SelectTypeContext } from '../../../App';
 import { font, flexBox } from '../../../styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '../../../magic-number';
 
 const PEOPLE_TYPE = {
-  '캠퍼': 'camper',
-  '마스터': 'master',
-  '운영진': 'manager',
-}
+  캠퍼: 'camper',
+  마스터: 'master',
+  운영진: 'manager',
+};
 
 const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const id = useRef(docData.boostcamp_id);
@@ -62,7 +63,7 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   };
 
   useEffect(() => {
-    if(!memberType) return;
+    if (!memberType) return;
     const peopleType = PEOPLE_TYPE[memberType];
 
     if (peopleType === 'camper') valueDispatch(0, '', name.current.value);
@@ -73,13 +74,21 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
       type: 'INPUT_CLASSIFICATION',
       classification: peopleType,
     });
-  }, [memberType])
+  }, [memberType]);
 
   return (
     <TitleWrap>
       <TextInputWrap>
         <Text>분류</Text>
         <GenWrap className="TgSelect SelectPeopleType">
+          <div style={{ position: 'relative', top: '-40px', left: '-15px' }}>
+            <SelectModal
+              className="SelectPeopleType"
+              content={Object.keys(PEOPLE_TYPE)}
+              isSelectOn={isPeopleTypeOn}
+              move={{ top: '70px', left: '0px' }}
+            />
+          </div>
           <TypeInput
             type="text"
             className="TgSelect SelectPeopleType"
@@ -90,12 +99,6 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
           />
           <GenBtn src={genDownBtn} className="TgSelect SelectPeopleType" id="down" />
         </GenWrap>
-        <SelectModal
-          className="SelectPeopleType"
-          content={Object.keys(PEOPLE_TYPE)}
-          isSelectOn={isPeopleTypeOn}
-          move={{ top: '70px', left: '0px' }}
-        />
       </TextInputWrap>
 
       <DownLine />
@@ -156,11 +159,15 @@ const DownLine = styled.div`
   border: 1px solid #d7d7d7;
   width: 0.1px;
   height: 44px;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    display: none;
+  }
 `;
 
 const TitleWrap = styled.div`
-  ${flexBox({justifyContent: 'space-between', alignItems: 'center'})};
-  ${font({size: '12px',weight: "bold"})};
+  ${flexBox({ justifyContent: 'space-between', alignItems: 'center' })};
+  ${font({ size: '12px', weight: 'bold' })};
   width: 635px;
   height: 66px;
   background-color: #f6f6f6;
@@ -172,13 +179,26 @@ const TitleWrap = styled.div`
   font-family: Noto Sans KR;
   font-style: normal;
   font-weight: bold;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ direction: 'column', justifyContent: 'space-between', alignItems: 'center' })};
+    width: 350px;
+    height: fit-content;
+    padding-bottom: 5px;
+  }
 `;
 
 const TextInputWrap = styled.div`
-  ${flexBox({direction: 'column', justifyContent: 'space-around'})};
+  ${flexBox({ direction: 'column', justifyContent: 'space-around' })};
   width: 100px;
   height: 44px;
   margin-left: 15px;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ justifyContent: 'space-between', alignItems: 'center' })};
+    width: 200px;
+    height: 50px;
+  }
 `;
 
 const Text = styled.div`
@@ -189,7 +209,6 @@ const Text = styled.div`
 
 const CanText = styled.div`
   width: 94px;
-  height: 9px;
   color: ${(props) => props.color};
   font-weight: normal;
   text-align: center;
@@ -205,7 +224,7 @@ const Input = styled.input`
 `;
 
 const GenWrap = styled.div`
-  ${flexBox({justifyContent: 'space-between', alignItems: 'center'})};
+  ${flexBox({ justifyContent: 'space-between', alignItems: 'center' })};
 `;
 
 const TypeInput = styled.input`
@@ -230,7 +249,7 @@ const GenInput = styled.input`
 `;
 
 const GenBtnWrap = styled.div`
-  ${flexBox({direction: 'column', justifyContent: 'space-between'})};  
+  ${flexBox({ direction: 'column', justifyContent: 'space-between' })};
   width: 12px;
   height: 18px;
 `;
@@ -244,7 +263,7 @@ const GenBtn = styled.img`
 `;
 
 const ValidationWrap = styled.div`
-  ${flexBox({direction: 'column', alignItems: 'center'})};  
+  ${flexBox({ direction: 'column', alignItems: 'center' })};
 `;
 
 const ValidationBtn = styled.button`
@@ -260,17 +279,6 @@ const ValidationBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
-`;
-
-const PeopleTypeSelect = styled.select`
-  width: 93px;
-  height: 23px;
-  font-size: 15px;
-  font-weight: normal;
-  border: none;
-  background-color: #f6f6f6;
-  color: #888888;
-  outline: none;
 `;
 
 export default Title;
