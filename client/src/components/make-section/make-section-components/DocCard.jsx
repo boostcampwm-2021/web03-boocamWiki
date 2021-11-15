@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BREAK_POINT_MOBILE } from '../../../magic-number';
 import noImg from '../../../resource/img/no-image.png';
@@ -34,20 +34,25 @@ const DocCard = ({docData, docDispatch}) => {
   return (
     <CardBox>
 
-      <CardOwner type='text' placeholder={docData.name === '' ? '이름을 입력하세요' : docData.name} readOnly />
+      <CardOwner type='text' placeholder={docData.name} readOnly />
 
-      <CardImg src={docData.user_image !== null ? docData.user_image : noImg} />
+      <CardImg src={(docData.user_image === null || docData.user_image === 'null') ? noImg : docData.user_image} />
 
       {cardData.map((item) => (
         <CardDataWrap key={item.name}>
           <CardDataName>{item.name}</CardDataName>
-          <CardDataInput placeholder='입력하세요' onChange={dataValueChange} id={item.key} autoComplete='off' />
+          <CardDataInput 
+            placeholder='입력하세요'
+            onChange={dataValueChange} 
+            id={item.key}
+            autoComplete='off' 
+            value={(docData[item.key] === 'null' || !docData[item.key]) ? '' : docData[item.key]} />
         </CardDataWrap>
       ))}
 
       <CardDataWrap>
         <CardDataName>MBTI</CardDataName>
-        <MbtiSelector defaultValue='default' onChange={dataValueChange} id='mbti'>
+        <MbtiSelector value={(docData.mbti === 'null' || docData.mbti === null) ? 'default' : docData.mbti} onChange={dataValueChange} id='mbti'>
           <option value='default' disabled style={{color: '#888888'}}>선택하세요</option>
           {MBTI.map((type) => (<option key={type} value={type}>{type}</option>))}
         </MbtiSelector>

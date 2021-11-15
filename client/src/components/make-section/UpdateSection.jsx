@@ -19,9 +19,10 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
     else setDocRule(false);
   };
 
-  const addDocument = async () => {
+  const updateDocument = async () => {
     if (!docRule) alert('규정에 동의해주세요');
     else {
+      console.log(docData);
       await fetch('/documents', {
         method: 'PUT',
         headers: {
@@ -29,7 +30,6 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
         },
         body: JSON.stringify(docData),
       }).then((res) => res.json());
-      // history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
       history.goBack();
     }
   };
@@ -46,7 +46,21 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
         history.push('/error');
       }
       const { result } = await res.json();
-      docDispatch({type: 'INPUT_DOC_DATA', ...result[0] })
+      const updateData = {
+        type: 'INPUT_UPDATE_DATA',
+        name,
+        generation,
+        boostcamp_id: boostcampId,
+        content: result[0].content,
+        field: result[0].field,
+        language: result[0].language,
+        link: result[0].link,
+        location: result[0].location,
+        mbti: result[0].mbti,
+        nickname: result[0].nickname,
+        user_image: result[0].user_image,
+      }
+      docDispatch(updateData);
     }
 
     getContent();
@@ -68,7 +82,7 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
         </RuleDiv>
 
         <ButtonWrap>
-          <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
+          <SubmitBtn onClick={updateDocument}>등록</SubmitBtn>
           <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
         </ButtonWrap>
 
