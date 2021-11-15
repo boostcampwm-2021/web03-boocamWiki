@@ -58,7 +58,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
           <Padd>
             <WikiContentsIndex title="목차" text={docData.content} />
             <WikiCard docData={docData} name={name} />
-          </Padd> 
+          </Padd>
 
           <MdParser content={docData.content} />
         </>

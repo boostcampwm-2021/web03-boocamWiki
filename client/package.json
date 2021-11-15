@@ -19,6 +19,7 @@
     "react-markdown": "^7.1.0",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "rehype-indexes": "^0.0.20",
     "remark": "^14.0.1",
     "remark-gfm": "^3.0.0",
     "strip-markdown": "^5.0.0",

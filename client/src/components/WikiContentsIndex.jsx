@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
+import rehypeIndexes from 'rehype-indexes';
 
 const Index = styled.div`
+  h1,
   h2,
-  h3,
-  h4 {
+  h3 {
     font-size: 16px;
     font-weight: 400;
     line-height: 23px;
@@ -13,14 +14,17 @@ const Index = styled.div`
     display: block;
     margin: 0px;
   }
-  h2 {
+  h1 {
     padding-left: 0px;
   }
-  h3 {
+  h2 {
     padding-left: 20px;
   }
-  h4 {
+  h3 {
     padding-left: 40px;
+  }
+  a {
+    margin-right: 4px;
   }
   padding: 12px 20px 18px 0;
   border: 2px solid #d7d7d7;
@@ -43,9 +47,7 @@ const WikiContentsIndex = ({ text, title }) => {
     <Index>
       <Title> {title}</Title>
       <Padd>
-        <ReactMarkdown allowedElements={['h1', 'h2', 'h3']} components={{ h1: 'h2', h2: 'h3', h3: 'h4' }}>
-          {text}
-        </ReactMarkdown>
+        <ReactMarkdown rehypePlugins={[rehypeIndexes]}>{text}</ReactMarkdown>
       </Padd>
     </Index>
   );
