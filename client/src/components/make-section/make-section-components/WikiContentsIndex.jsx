@@ -26,26 +26,30 @@ const Index = styled.div`
   a {
     margin-right: 4px;
   }
-  padding: 12px 20px 18px 0;
+  padding: 14px 20px;
   border: 2px solid #d7d7d7;
-  max-width: 350px;
+  width: 350px;
   height: fit-content;
+  min-height: 598px;
 `;
 
 const Title = styled.div`
-  font-size: 24px;
-  font-weight: 400;
-  margin-left: 14px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #222222;
 `;
 const Padd = styled.div`
   margin-top: 12px;
   padding-left: 20px;
+  width: 290px;
+  white-space: normal;
+  word-wrap: normal;
 `;
 
 const WikiContentsIndex = ({ text, title }) => {
   return (
     <Index>
-      <Title> {title}</Title>
+      <Title>{title}</Title>
       <Padd>
         <ReactMarkdown rehypePlugins={[rehypeIndexes]}>{text}</ReactMarkdown>
       </Padd>

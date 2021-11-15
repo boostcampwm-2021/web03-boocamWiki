@@ -5,7 +5,7 @@ import MainHeader from '../SectionTitle';
 import Loading from '../Loading';
 import MdParser from '../MdParser';
 import { Utils } from '../../utils';
-import WikiContentsIndex from '../WikiContentsIndex';
+import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
 import WikiCard from './wiki-section-components/WikiCard';
 
 const Main = styled.div`

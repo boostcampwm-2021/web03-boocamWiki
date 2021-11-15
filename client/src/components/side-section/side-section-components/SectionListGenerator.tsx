@@ -6,6 +6,10 @@ const Li = styled.li`
   list-style: none;
   height: 35px;
   border-bottom: 2px solid #d7d7d7;
+  // display: flex;
+  // align-items: center;
+  // justify-content: space-between;
+  // width: 280px;
 `;
 
 export function SectionListGenerator<T extends IDocument>({

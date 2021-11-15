@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import search from '../../../resource/img/search.svg';
 import drop from '../../../resource/img/drop.svg';
 import SelectModal from '../../select-modal/SelectModal';
+import { SelectTgContext, SelectTypeContext } from '../../../App';
+import { BREAK_POINT_TABLET } from '../../../magic-number';
 
 const SearchBar = styled.div`
   display: flex;
@@ -16,6 +18,12 @@ const SearchBar = styled.div`
   padding: 10px 12px;
   background: white;
   border-radius: 10px;
+
+  @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
+    width: calc(100% - 20px);
+    top: 65px;
+    left: 10px;
+  }
 `;
 
 const SearchTypeWrapper = styled.div`
@@ -82,8 +90,9 @@ const HeaderSearchBar = () => {
   const history = useHistory();
   const searchInput = useRef();
   const searchBtn = useRef();
-  const [searchType, setSearchType] = useState('이름');
-  const [isTypeModalOn, setIsTypeModalOn] = useState(false);
+  // const [searchType, setSearchType] = useState('이름');
+  const { isSearchTypeOn } = useContext(SelectTgContext);
+  const { searchType } = useContext(SelectTypeContext);
 
   const submitEvent = (e) => {
     e.preventDefault();
@@ -97,20 +106,17 @@ const HeaderSearchBar = () => {
     }
   };
 
-  const clickHandler = ({ target }) => {
-    setIsTypeModalOn(!isTypeModalOn);
-    const classList = target.className.split(' ');
-    if (classList.includes('ModalRow')) {
-      setSearchType(target.innerHTML);
-    }
-  };
-
   return (
     <SearchBar>
-      <SearchTypeWrapper onClick={clickHandler}>
-        <SearchType>{searchType}</SearchType>
-        <SelectModal content={Object.keys(searchTypeMap)} isModalOn={isTypeModalOn} translateX={20} />
-        <DropIcon src={drop} />
+      <SearchTypeWrapper className="TgSelect SelectSearchType">
+        <SearchType className="TgSelect SelectSearchType">{searchType}</SearchType>
+        <SelectModal
+          className="SelectSearchType"
+          content={Object.keys(searchTypeMap)}
+          isSelectOn={isSearchTypeOn}
+          move={{ top: '55px', left: '0px', translateX: '-20%' }}
+        />
+        <DropIcon src={drop} className="TgSelect SelectSearchType" />
       </SearchTypeWrapper>
       <SearchInput autocomplete="off" type="text" onKeyPress={keyPressEvent} ref={searchInput} />
       <SearchBtn onClick={submitEvent} ref={searchBtn}>
