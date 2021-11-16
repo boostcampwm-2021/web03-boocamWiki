@@ -56,6 +56,8 @@ export const docDataReducer = (state: DocData, action: any): DocData => {
       return { ...state, field: action.field };
     case 'INPUT_LINK':
       return { ...state, link: action.link };
+    case 'INPUT_UPDATE_DATA':
+      return {...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name, content: action.content, user_image: action.user_image, nickname: action.nickname, location: action.location, language: action.language, mbti: action.mbti, field: action.field, link: action.link };
     default:
       return state;
   }

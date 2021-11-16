@@ -1,6 +1,7 @@
 import * as express from 'express';
 import {
   createDoc,
+  updateDoc,
   getRecentUpdatedDoc,
   getTopViewedDoc,
   getSearchDoc,
@@ -34,6 +35,11 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   let query: DocumentsCreate = req.body;
   query.user_id = 'zoeas';
   OnDocCreate(query);
+});
+
+router.put('/', async (req: express.Request, res: express.Response) => {
+  let result = await updateDoc(req.body);
+  res.status(200).json({ msg: 'OK', result: result });
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {

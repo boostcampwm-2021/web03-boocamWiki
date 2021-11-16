@@ -34,6 +34,14 @@ export async function createDoc(params: DocumentsCreate) {
   return result;
 }
 
+export async function updateDoc(params: DocumentsCreate) {
+  let query = `UPDATE document SET ${Object.entries(params)
+      .map(([key, value]) => `${key}='${value}'`)
+      .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${params.name}'`;
+  const result = await db.pool.query(query);
+  return result;
+}
+
 export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSearch[]> {
   const { generation, boostcamp_id, name, content, offset = 0, limit = 8 } = params;
   if (Object.values(params).every((el) => el === undefined)) {

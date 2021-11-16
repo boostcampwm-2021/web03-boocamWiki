@@ -5,6 +5,7 @@ import MakePage from './pages/MakePage';
 import SearchPage from './pages/SearchPage';
 import ErrorPage from './pages/ErrorPage';
 import WikiPage from './pages/WikiPage';
+import UpdatePage from './pages/UpdatePage';
 import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
 import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
 import { selectHandler } from './event-handler/select-handler';
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/search" component={SearchPage} />
             <Route path="/error" component={ErrorPage} />
             <Route path="/w" component={WikiPage} />
+            <Route path="/updatedocs" component={UpdatePage} />
             <Route path="/" component={ErrorPage} />
           </Switch>
         </Router>

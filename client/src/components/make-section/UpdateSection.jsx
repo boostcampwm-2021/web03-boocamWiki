@@ -19,17 +19,18 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
     else setDocRule(false);
   };
 
-  const addDocument = async () => {
+  const updateDocument = async () => {
     if (!docRule) alert('규정에 동의해주세요');
     else {
+      console.log(docData);
       await fetch('/documents', {
-        method: 'POST',
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(docData),
       }).then((res) => res.json());
-      history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
+      history.goBack();
     }
   };
 
@@ -39,7 +40,30 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
 
   useEffect(() => {
     // 문서 정보 받아와서 docData에 데이터 추가하기
-    console.log('hello');
+    const getContent = async () => {
+      const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
+      if (res.status !== 200){
+        history.push('/error');
+      }
+      const { result } = await res.json();
+      const updateData = {
+        type: 'INPUT_UPDATE_DATA',
+        name,
+        generation,
+        boostcamp_id: boostcampId,
+        content: result[0].content,
+        field: result[0].field,
+        language: result[0].language,
+        link: result[0].link,
+        location: result[0].location,
+        mbti: result[0].mbti,
+        nickname: result[0].nickname,
+        user_image: result[0].user_image,
+      }
+      docDispatch(updateData);
+    }
+
+    getContent();
   }, [])
 
   return (
@@ -58,7 +82,7 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
         </RuleDiv>
 
         <ButtonWrap>
-          <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
+          <SubmitBtn onClick={updateDocument}>등록</SubmitBtn>
           <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
         </ButtonWrap>
 
