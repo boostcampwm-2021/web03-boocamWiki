@@ -14,7 +14,7 @@ const SearchSection = () => {
   const { generation, boostcamp_id, name, content, offset = 1 } = queryString.parse(search);
   const [searchType, searchValue] = Object.entries({ generation, boostcamp_id, name, content }).filter(
     ([, value]) => value !== undefined,
-  )[0];
+  )[0] ?? ['', ''];
 
   useEffect(() => {
     const getResultList = async () => {
