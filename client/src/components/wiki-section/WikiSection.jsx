@@ -14,10 +14,6 @@ const WikiSection = ({ generation, boostcampId, name, location }) => {
   const history = useHistory();
   const id = generation + boostcampId + name;
 
-  // const updateDoc = () => {
-  //   history.push(`/updatedocs/${generation}_${boostcampId}_${name}`);
-  // }
-
   useEffect(() => {
     const getContent = async () => {
       const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
@@ -33,7 +29,10 @@ const WikiSection = ({ generation, boostcampId, name, location }) => {
   }, [id]);
 
   return (
-    <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
+    <MainSection
+      title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}
+      documentMode={{ generation, boostcampId, name }}
+    >
       {loading && <Loading />}
       {!loading && (
         <>
@@ -41,9 +40,6 @@ const WikiSection = ({ generation, boostcampId, name, location }) => {
             <WikiContentsIndex title="목차" text={docData.content} />
             <WikiCard docData={docData} name={name} />
           </Padd>
-          <Link to={`/updatedocs/${generation}_${boostcampId}_${name}`}>
-            <input type="button" value="수정" />
-          </Link>
 
           <MdParser content={docData.content} />
         </>

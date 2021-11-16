@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import MainHeader from './SectionTitle';
 import { BREAK_POINT_TABLET } from '../../magic-number';
 
-const MainSection = ({ title, children }) => {
+const MainSection = ({ title, children, documentMode }) => {
   return (
     <Main>
-      <MainHeader title={title} />
+      <MainHeader title={title} documentMode={documentMode} />
       {children}
     </Main>
   );
