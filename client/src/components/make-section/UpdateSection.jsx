@@ -48,10 +48,12 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
       const { result } = await res.json();
       const {content, field, language, link, location, mbti, nickname, user_image} = result[0];
       const updateData = {
-        type: 'INPUT_UPDATE_DATA',
-        name, generation,
-        boostcamp_id: boostcampId,
-        content, field, language, link, location, mbti, nickname, user_image,
+        type: 'INPUT_DOC_DATA',
+        payload:{
+          name, generation,
+          boostcamp_id: boostcampId,
+          content, field, language, link, location, mbti, nickname, user_image,
+        },
       }
       docDispatch(updateData);
     }

@@ -21,10 +21,12 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const changeData = () => {
     if (canMake) setCanMake(false);
     docDispatch({
-      type: 'INPUT_TITLE',
-      generation: docData.classification === 'camper' ? docData.generation : 0,
-      boostcamp_id: docData.classification === 'camper' ? id.current.value : docData.classification,
-      name: name.current.value,
+      type: 'INPUT_DOC_DATA',
+      payload: {
+        generation: docData.classification === 'camper' ? docData.generation : 0,
+        boostcamp_id: docData.classification === 'camper' ? id.current.value : docData.classification,
+        name: name.current.value,
+      },
     });
   };
 
@@ -39,24 +41,30 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
 
   const valueDispatch = (generationValue, idValue, nameValue) => {
     docDispatch({
-      type: 'INPUT_TITLE',
-      generation: generationValue,
-      boostcamp_id: idValue,
-      name: nameValue,
+      type: 'INPUT_DOC_DATA',
+      payload:{
+        generation: generationValue,
+        boostcamp_id: idValue,
+        name: nameValue,
+      },
     });
   };
 
   const genBtnHandler = (e) => {
     if (e.target.id === 'up') {
       docDispatch({
-        type: 'INPUT_GENERATION',
-        generation: docData.generation + 1,
+        type: 'INPUT_DOC_DATA',
+        payload:{
+          generation: docData.generation + 1,
+        },
       });
     } else {
       if (docData.generation - 1 < 1) return;
       docDispatch({
-        type: 'INPUT_GENERATION',
-        generation: docData.generation - 1,
+        type: 'INPUT_DOC_DATA',
+        payload:{
+          generation: docData.generation - 1,
+        },
       });
     }
   };
@@ -70,8 +78,10 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
     else valueDispatch(0, 'manager', name.current.value);
 
     docDispatch({
-      type: 'INPUT_CLASSIFICATION',
-      classification: peopleType,
+      type: 'INPUT_DOC_DATA',
+      payload:{
+        classification: peopleType,
+      },
     });
   }, [memberType])
 
