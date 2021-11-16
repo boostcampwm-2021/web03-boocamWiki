@@ -32,16 +32,20 @@ const boostcampIdMap = {
   camper: '캠퍼',
 };
 
+const Flexed = styled.div`
+  ${flexBox({})}
+`;
+
 export const WikiCategory = ({ categories }) => {
   return (
     <Category>
       {' '}
       분류{' '}
       {categories.map((item) => (
-        <>
+        <Flexed key={item}>
           <Divider />
           <CategoryLink to="#">{boostcampIdMap[item]}</CategoryLink>
-        </>
+        </Flexed>
       ))}
     </Category>
   );
