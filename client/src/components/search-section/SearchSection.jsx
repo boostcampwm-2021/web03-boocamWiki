@@ -41,6 +41,12 @@ const SearchSection = () => {
       setSearchResult(resultList);
       const resultCount = await getResultCount();
       setSearchResultCount(resultCount);
+
+      if (searchType !== 'content' && resultList.length === 1 && resultCount === 1) {
+        const [{ generation, boostcamp_id: boostcampId, name }] = resultList;
+        history.push(`/w/${generation}_${boostcampId}_${name}`);
+      }
+
       setLoading(false);
     };
     getContent();
