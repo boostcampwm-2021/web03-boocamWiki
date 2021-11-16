@@ -29,7 +29,6 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
 });
 
 router.post('/', async (req: express.Request, res: express.Response) => {
-  console.log(req.body);
   let result = await createDoc(req.body);
   res.status(200).json({ msg: 'OK', result: result });
   let query: DocumentsCreate = req.body;

@@ -12,15 +12,6 @@ const cardData = [
   {name: '링크', key: 'link'}
 ]
 
-const dataValue = {
-  'nickname': { 'name': '별명', 'type': 'INPUT_NICKNAME' },
-  'location': { 'name': '지역', 'type': 'INPUT_LOCATION' },
-  'language': { 'name': '주언어', 'type': 'INPUT_LANGUAGE' },
-  'mbti': { 'name': 'MBTI', 'type': 'INPUT_MBTI' },
-  'field': { 'name': '분야', 'type': 'INPUT_FIELD' },
-  'link': { 'name': '링크', 'type': 'INPUT_LINK' }
-}
-
 const MBTI = ['ISTJ', 'ISTP', 'ESTP', 'ESTJ', 'ISFJ', 'ISFP', 'ESFP', 'ESFJ', 'INFJ', 'INFP', 'ENFP', 'ENFJ', 'INTJ', 'INTP', 'ENTP', 'ENTJ'];
 
 const DocCard = ({docData, docDispatch}) => {
