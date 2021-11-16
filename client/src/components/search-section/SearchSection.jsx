@@ -17,23 +17,32 @@ const SearchSection = () => {
   )[0];
 
   useEffect(() => {
-    const getContent = async () => {
-      setLoading(true);
-      let res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
-      let { result } = await res.json();
+    const getResultList = async () => {
+      const res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
       }
-      setSearchResult(result);
-      res = await fetch(`/documents/count?${searchType}=${searchValue}`);
-      result = (await res.json()).result;
+      const { result } = await res.json();
+      return result;
+    };
+
+    const getResultCount = async () => {
+      const res = await fetch(`/documents/count?${searchType}=${searchValue}`);
       if (res.status !== 200) {
         history.push('/error');
       }
-      setSearchResultCount(result);
-      setLoading(false);
+      const { result } = await res.json();
+      return result;
     };
 
+    const getContent = async () => {
+      setLoading(true);
+      const resultList = await getResultList();
+      setSearchResult(resultList);
+      const resultCount = await getResultCount();
+      setSearchResultCount(resultCount);
+      setLoading(false);
+    };
     getContent();
   }, [search]);
 
