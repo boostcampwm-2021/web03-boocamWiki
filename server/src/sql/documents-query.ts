@@ -35,7 +35,7 @@ export async function createDoc(params: DocumentsCreate) {
 }
 
 export async function updateDoc(params: DocumentsCreate) {
-  let query = `UPDATE document SET ${Object.entries(params)
+  const query = `UPDATE document SET ${Object.entries(params)
       .map(([key, value]) => `${key}='${value}'`)
       .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${params.name}'`;
   const result = await db.pool.query(query);
