@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import MainSection from '../common/MainSection'
-import Loading from '../Loading';
-import MdParser from '../MdParser';
+import MainSection from '../common/MainSection';
+import Loading from '../common/Loading';
+import MdParser from '../common/MdParser';
 import { Utils } from '../../utils';
 import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
 import WikiCard from './wiki-section-components/WikiCard';
-
 
 const WikiSection = ({ generation, boostcampId, name, location }) => {
   const [docData, setDocData] = useState();
@@ -43,9 +42,8 @@ const WikiSection = ({ generation, boostcampId, name, location }) => {
             <WikiCard docData={docData} name={name} />
           </Padd>
           <Link to={`/updatedocs/${generation}_${boostcampId}_${name}`}>
-            <input type='button' value='수정' />
+            <input type="button" value="수정" />
           </Link>
-          
 
           <MdParser content={docData.content} />
         </>

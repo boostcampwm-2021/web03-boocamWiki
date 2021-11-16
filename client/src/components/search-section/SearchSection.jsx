@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import MainSection from '../common/MainSection';
-import Loading from '../Loading';
+import Loading from '../common/Loading';
 import ResultView from './search-section-components/ResultView';
 
 const SearchSection = () => {
