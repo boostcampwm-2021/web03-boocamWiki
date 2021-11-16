@@ -30,6 +30,8 @@ export const initialDocData = {
 
 export const docDataReducer = (state: DocData, action: any): DocData => {
   switch (action.type) {
+    case 'INPUT_DATA':
+      return { ...state, ...action.payload }
     case 'INPUT_TITLE':
       return { ...state, generation: action.generation, boostcamp_id: action.boostcamp_id, name: action.name };
     case 'INPUT_BOOSTCAMP_ID':
