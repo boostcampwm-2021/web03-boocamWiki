@@ -35,15 +35,20 @@ const HeaderTitle = styled.div`
   font-weight: 500;
   font-size: 36px;
   line-height: 76px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const EditButton = styled.button`
-  padding: 10px 22px;
+  min-width: 78px;
+  padding: 10px 20px;
   font-size: 20px;
   margin-right: 10px;
   background: #bbb;
   border-radius: 11px;
   border: 0px;
+  cursor: pointer;
 `;
 
 export default MainHeader;
