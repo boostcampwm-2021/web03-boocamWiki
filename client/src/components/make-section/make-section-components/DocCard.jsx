@@ -26,8 +26,8 @@ const MBTI = ['ISTJ', 'ISTP', 'ESTP', 'ESTJ', 'ISFJ', 'ISFP', 'ESFP', 'ESFJ', 'I
 const DocCard = ({docData, docDispatch}) => {
 
   const dataValueChange = (e) => {
-    const changeData = { type: dataValue[e.target.id].type }
-    changeData[e.target.id] = e.target.value;
+    const changeData = { type: 'INPUT_DOC_DATA', payload: {} }
+    changeData.payload[e.target.id] = e.target.value;
     docDispatch(changeData);
   }
 
