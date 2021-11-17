@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { SectionListGenerator } from './SectionListGenerator';
 
 const recordToItem = (item) => {
-  const timetag = 'MAX(created_at)';
+  const timetag = 'recent_created_at';
   const date = new Date(item[timetag]);
   return {
     name: item.name,
