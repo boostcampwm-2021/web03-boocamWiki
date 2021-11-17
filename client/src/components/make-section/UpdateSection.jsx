@@ -22,7 +22,6 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
   const updateDocument = async () => {
     if (!docRule) alert('규정에 동의해주세요');
     else {
-      console.log(docData);
       await fetch('/documents', {
         method: 'PUT',
         headers: {
@@ -39,26 +38,20 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
   };
 
   useEffect(() => {
-    // 문서 정보 받아와서 docData에 데이터 추가하기
     const getContent = async () => {
       const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
       if (res.status !== 200){
         history.push('/error');
       }
       const { result } = await res.json();
+      const {content, field, language, link, location, mbti, nickname, user_image} = result[0];
       const updateData = {
-        type: 'INPUT_UPDATE_DATA',
-        name,
-        generation,
-        boostcamp_id: boostcampId,
-        content: result[0].content,
-        field: result[0].field,
-        language: result[0].language,
-        link: result[0].link,
-        location: result[0].location,
-        mbti: result[0].mbti,
-        nickname: result[0].nickname,
-        user_image: result[0].user_image,
+        type: 'INPUT_DOC_DATA',
+        payload:{
+          name, generation,
+          boostcamp_id: boostcampId,
+          content, field, language, link, location, mbti, nickname, user_image,
+        },
       }
       docDispatch(updateData);
     }

@@ -5,8 +5,10 @@ import { font } from '../../../styles/styled-components/mixin';
 const Editor = ({ docData, docDispatch }) => {
   const changeHandler = (e) => {
     docDispatch({
-      type: 'INPUT_CONTENT',
-      content: e.target.value,
+      type: 'INPUT_DOC_DATA',
+      payload: {
+        content: e.target.value
+      }
     });
   };
   return <EditorBox onChange={changeHandler} value={docData.content} />;
