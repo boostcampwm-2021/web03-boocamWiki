@@ -48,7 +48,7 @@ const EditorBox = ({ docData, docDispatch }) => {
 };
 
 const TotalBox = styled.div`
-  ${flexBox({direction: 'column', alignItems:'center'})};
+  ${flexBox({ direction: 'column', alignItems: 'center' })};
   width: 100%;
   height: 500px;
   outline: 2px solid #d7d7d7;
@@ -69,8 +69,8 @@ const BoxHeader = styled.div`
 `;
 
 const EditorTypeLabel = styled.label`
-  ${flexBox({justifyContent: 'center', alignItems: 'center'})};
-  ${font({size: "16px", weight: "500"})};
+  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
+  ${font({ size: '16px', weight: '500' })};
   width: 81px;
   height: 36px;
   color: #222222;
