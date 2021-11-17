@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import MainSection from '../common/MainSection';
-import Loading from '../Loading';
-import MdParser from '../MdParser';
-
+import Loading from '../common/Loading';
+import MdParser from '../common/MdParser';
 
 const MainDoor = () => {
   const [content, setContent] = useState();

@@ -1,6 +1,6 @@
 import React from 'react';
 import WikiSection from '../components/wiki-section/WikiSection';
-import PageLayout from './common/PageLayout'
+import PageLayout from './common/PageLayout';
 
 const getDocumentInfo = (pathname) => {
   const result = pathname.match(/\/w\/(?<generation>\d+)_(?<boostcampId>.+)_(?<name>.+)/);
