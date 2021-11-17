@@ -8,13 +8,41 @@ const EditorWithPreview = ({ docData, docDispatch }) => {
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
-        content: e.target.value
-      }
+        content: e.target.value,
+      },
     });
   };
+
+  const dropHandler = async (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (e.dataTransfer.items) {
+      const image = e.dataTransfer.items[0].getAsFile();
+      const datas = new FormData();
+      datas.append('image', image, image.name);
+      const result = await fetch('/images', {
+        method: 'POST',
+        body: datas,
+      });
+      const url = await result.json();
+      const imgUrl = `![사진](${url.imageLink})`;
+      const { selectionStart, selectionEnd } = e.target;
+      const prevContent = docData.content;
+      const content =
+        prevContent.substring(0, selectionStart) + imgUrl + prevContent.substring(selectionStart, prevContent.length);
+      docDispatch({
+        type: 'INPUT_DOC_DATA',
+        payload: {
+          content,
+        },
+      });
+    }
+  };
+
   return (
     <EditorWrap>
-      <Editor onChange={changeHandler} value={docData.content} />
+      <Editor onChange={changeHandler} value={docData.content} onDrop={dropHandler} />
       <Preview>
         <MdParser content={docData.content} />
       </Preview>

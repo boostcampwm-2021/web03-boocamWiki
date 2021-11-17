@@ -14,45 +14,38 @@ const Editor = ({ docData, docDispatch }) => {
     });
   };
 
-  const tmp = (e) => {
-    // console.log(e);
-    inputRef.current.focus();
-  };
-
   const dropHandler = async (e) => {
     e.stopPropagation();
     e.preventDefault();
 
-    console.log(inputRef.current.value);
-
-    // if (e.dataTransfer.items) {
-    //   const image = e.dataTransfer.items[0].getAsFile();
-    //   const datas = new FormData();
-    //   datas.append('image', image, image.name);
-    //   const result = await fetch('/images', {
-    //     method: 'POST',
-    //     body: datas,
-    //   });
-    //   const url = await result.json();
-    //   console.log(url);
-    //   // 커서 위치에 url 추가하는 로직 필요
-    // }
+    if (e.dataTransfer.items) {
+      const image = e.dataTransfer.items[0].getAsFile();
+      const datas = new FormData();
+      datas.append('image', image, image.name);
+      const result = await fetch('/images', {
+        method: 'POST',
+        body: datas,
+      });
+      const url = await result.json();
+      const imgUrl = `![사진](${url.imageLink})`;
+      const { selectionStart, selectionEnd } = e.target;
+      const prevContent = docData.content;
+      const content =
+        prevContent.substring(0, selectionStart) + imgUrl + prevContent.substring(selectionStart, prevContent.length);
+      docDispatch({
+        type: 'INPUT_DOC_DATA',
+        payload: {
+          content,
+        },
+      });
+    }
 
     // const { selectionStart, selectionEnd } = e.target;
     // console.log(selectionStart, selectionEnd);
     // console.log(docData.content.substring(selectionStart, selectionEnd));
   };
 
-  return (
-    <EditorBox
-      onChange={changeHandler}
-      onDragOver={tmp}
-      onDrop={dropHandler}
-      ref={inputRef}
-      value={docData.content}
-      isDragging
-    />
-  );
+  return <EditorBox onChange={changeHandler} onDrop={dropHandler} ref={inputRef} value={docData.content} isDragging />;
 };
 
 const EditorBox = styled.textarea`
