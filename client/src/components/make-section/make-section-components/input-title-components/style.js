@@ -1,11 +1,18 @@
 import styled from 'styled-components';
 import { flexBox } from '../../../../styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '../../../../magic-number';
 
 export const TextInputWrap = styled.div`
-  ${flexBox({direction: 'column', justifyContent: 'space-around'})};
+  ${flexBox({ direction: 'column', justifyContent: 'space-around' })};
   width: 100px;
   height: 44px;
   margin-left: 15px;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ justifyContent: 'space-between', alignItems: 'center' })};
+    width: 200px;
+    height: 50px;
+  }
 `;
 
 export const Text = styled.div`
@@ -16,7 +23,6 @@ export const Text = styled.div`
 
 export const CanText = styled.div`
   width: 94px;
-  height: 9px;
   color: ${(props) => props.color};
   font-weight: normal;
   text-align: center;
@@ -32,7 +38,7 @@ export const Input = styled.input`
 `;
 
 export const GenWrap = styled.div`
-  ${flexBox({justifyContent: 'space-between', alignItems: 'center'})};
+  ${flexBox({ justifyContent: 'space-between', alignItems: 'center' })};
 `;
 
 export const TypeInput = styled.input`
@@ -57,7 +63,7 @@ export const GenInput = styled.input`
 `;
 
 export const GenBtnWrap = styled.div`
-  ${flexBox({direction: 'column', justifyContent: 'space-between'})};  
+  ${flexBox({ direction: 'column', justifyContent: 'space-between' })};
   width: 12px;
   height: 18px;
 `;
@@ -71,7 +77,7 @@ export const GenBtn = styled.img`
 `;
 
 export const ValidationWrap = styled.div`
-  ${flexBox({direction: 'column', alignItems: 'center'})};  
+  ${flexBox({ direction: 'column', alignItems: 'center' })};
 `;
 
 export const ValidationBtn = styled.button`

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import MainSection from '../common/MainSection';
-import Loading from '../Loading';
+import Loading from '../common/Loading';
 import ResultView from './search-section-components/ResultView';
 
 const SearchSection = () => {
@@ -14,26 +14,41 @@ const SearchSection = () => {
   const { generation, boostcamp_id, name, content, offset = 1 } = queryString.parse(search);
   const [searchType, searchValue] = Object.entries({ generation, boostcamp_id, name, content }).filter(
     ([, value]) => value !== undefined,
-  )[0];
+  )[0] ?? ['', ''];
 
   useEffect(() => {
-    const getContent = async () => {
-      setLoading(true);
-      let res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
-      let { result } = await res.json();
+    const getResultList = async () => {
+      const res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
       }
-      setSearchResult(result);
-      res = await fetch(`/documents/count?${searchType}=${searchValue}`);
-      result = (await res.json()).result;
+      const { result } = await res.json();
+      return result;
+    };
+
+    const getResultCount = async () => {
+      const res = await fetch(`/documents/count?${searchType}=${searchValue}`);
       if (res.status !== 200) {
         history.push('/error');
       }
-      setSearchResultCount(result);
-      setLoading(false);
+      const { result } = await res.json();
+      return result;
     };
 
+    const getContent = async () => {
+      setLoading(true);
+      const resultList = await getResultList();
+      setSearchResult(resultList);
+      const resultCount = await getResultCount();
+      setSearchResultCount(resultCount);
+
+      if (searchType !== 'content' && resultList.length === 1 && resultCount === 1) {
+        const [{ generation, boostcamp_id: boostcampId, name }] = resultList;
+        history.push(`/w/${generation}_${boostcampId}_${name}`);
+      }
+
+      setLoading(false);
+    };
     getContent();
   }, [search]);
 
