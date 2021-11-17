@@ -7,12 +7,10 @@ const MainHeader = ({ title, documentMode }) => {
   return (
     <HeaderBox>
       <HeaderTitle>{title}</HeaderTitle>
-      {documentMode ? (
+      {documentMode && (
         <Link to={`/updatedocs/${documentMode.generation}_${documentMode.boostcampId}_${documentMode.name}`}>
           <EditButton>편집</EditButton>
         </Link>
-      ) : (
-        <></>
       )}
     </HeaderBox>
   );
