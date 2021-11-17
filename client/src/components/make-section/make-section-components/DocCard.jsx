@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { BREAK_POINT_MOBILE } from '../../../magic-number';
 import noImg from '../../../resource/img/no-image.png';
@@ -12,42 +12,38 @@ const cardData = [
   {name: '링크', key: 'link'}
 ]
 
-const dataValue = {
-  'nickname': { 'name': '별명', 'type': 'INPUT_NICKNAME' },
-  'location': { 'name': '지역', 'type': 'INPUT_LOCATION' },
-  'language': { 'name': '주언어', 'type': 'INPUT_LANGUAGE' },
-  'mbti': { 'name': 'MBTI', 'type': 'INPUT_MBTI' },
-  'field': { 'name': '분야', 'type': 'INPUT_FIELD' },
-  'link': { 'name': '링크', 'type': 'INPUT_LINK' }
-}
-
 const MBTI = ['ISTJ', 'ISTP', 'ESTP', 'ESTJ', 'ISFJ', 'ISFP', 'ESFP', 'ESFJ', 'INFJ', 'INFP', 'ENFP', 'ENFJ', 'INTJ', 'INTP', 'ENTP', 'ENTJ'];
 
 const DocCard = ({docData, docDispatch}) => {
 
   const dataValueChange = (e) => {
-    const changeData = { type: dataValue[e.target.id].type }
-    changeData[e.target.id] = e.target.value;
+    const changeData = { type: 'INPUT_DOC_DATA', payload: {} }
+    changeData.payload[e.target.id] = e.target.value;
     docDispatch(changeData);
   }
 
   return (
     <CardBox>
 
-      <CardOwner type='text' placeholder={docData.name === '' ? '이름을 입력하세요' : docData.name} readOnly />
+      <CardOwner type='text' placeholder={docData.name} readOnly />
 
-      <CardImg src={docData.user_image !== null ? docData.user_image : noImg} />
+      <CardImg src={(docData.user_image === null || docData.user_image === 'null') ? noImg : docData.user_image} />
 
       {cardData.map((item) => (
         <CardDataWrap key={item.name}>
           <CardDataName>{item.name}</CardDataName>
-          <CardDataInput placeholder='입력하세요' onChange={dataValueChange} id={item.key} autoComplete='off' />
+          <CardDataInput 
+            placeholder='입력하세요'
+            onChange={dataValueChange} 
+            id={item.key}
+            autoComplete='off' 
+            value={(docData[item.key] === 'null' || !docData[item.key]) ? '' : docData[item.key]} />
         </CardDataWrap>
       ))}
 
       <CardDataWrap>
         <CardDataName>MBTI</CardDataName>
-        <MbtiSelector defaultValue='default' onChange={dataValueChange} id='mbti'>
+        <MbtiSelector value={(docData.mbti === 'null' || docData.mbti === null) ? 'default' : docData.mbti} onChange={dataValueChange} id='mbti'>
           <option value='default' disabled style={{color: '#888888'}}>선택하세요</option>
           {MBTI.map((type) => (<option key={type} value={type}>{type}</option>))}
         </MbtiSelector>
