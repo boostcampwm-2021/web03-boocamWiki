@@ -44,6 +44,14 @@ const MdParserContainer = styled.div`
       margin-top: 10px;
       padding-inline-start: 30px;
     }
+    a,
+    a:visited,
+    a:link,
+    a:hover,
+    a:visited {
+      text-decoration: none;
+      color: #0055fb;
+    }
   }
 `;
 

@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import rehypeIndexes from 'rehype-indexes';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
+import { font } from '../../../styles/styled-components/mixin';
 
 const WikiContentsIndex = ({ text, title }) => {
   return (
@@ -19,7 +19,7 @@ const Index = styled.div`
   h1,
   h2,
   h3 {
-    ${font({size: "16px", weight: "400"})};
+    ${font({ size: '16px', weight: '400' })};
     width: fit-content;
     display: block;
     margin: 0px;
@@ -33,8 +33,14 @@ const Index = styled.div`
   h3 {
     padding-left: 40px;
   }
-  a {
+  a,
+  a:visited,
+  a:link,
+  a:hover,
+  a:visited {
     margin-right: 4px;
+    text-decoration: none;
+    color: #0055fb;
   }
   padding: 14px 20px;
   border: 2px solid #d7d7d7;
@@ -43,11 +49,10 @@ const Index = styled.div`
 `;
 
 const Title = styled.div`
-  ${font({size: "20px", weight: "500"})};
+  ${font({ size: '20px', weight: '500' })};
 `;
 const Padd = styled.div`
   margin-top: 12px;
-  padding-left: 20px;
   width: 290px;
   white-space: normal;
   word-wrap: normal;
