@@ -17,7 +17,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
+      const res = await fetch(`/api/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
       if (res.status !== 200) {
         history.push('/error');
       }

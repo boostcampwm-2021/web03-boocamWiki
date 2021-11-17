@@ -18,7 +18,7 @@ const SearchSection = () => {
 
   useEffect(() => {
     const getResultList = async () => {
-      const res = await fetch(`/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
+      const res = await fetch(`/api/documents/search?${searchType}=${searchValue}&offset=${offset - 1}`);
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
       }
@@ -27,7 +27,7 @@ const SearchSection = () => {
     };
 
     const getResultCount = async () => {
-      const res = await fetch(`/documents/count?${searchType}=${searchValue}`);
+      const res = await fetch(`/api/documents/count?${searchType}=${searchValue}`);
       if (res.status !== 200) {
         history.push('/error');
       }
