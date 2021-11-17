@@ -1,16 +1,16 @@
-import React, { useEffect, useState, useReducer } from "react";
-import styled from "styled-components";
-import MainSection from "../common/MainSection";
+import React, { useEffect, useState, useReducer } from 'react';
+import styled from 'styled-components';
+import MainSection from '../common/MainSection';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
-import { Utils } from "../../utils";
+import { Utils } from '../../utils';
 import { BREAK_POINT_MOBILE } from '../../magic-number';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
-import { font, flexBox } from "../../styles/styled-components/mixin";
+import { font, flexBox } from '../../styles/styled-components/mixin';
 
-const UpdateSection = ({history, generation, boostcampId, name}) => {
+const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
 
@@ -40,24 +40,32 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
   useEffect(() => {
     const getContent = async () => {
       const res = await fetch(`/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
-      if (res.status !== 200){
+      if (res.status !== 200) {
         history.push('/error');
       }
       const { result } = await res.json();
-      const {content, field, language, link, location, mbti, nickname, user_image} = result[0];
+      const { content, field, language, link, location, mbti, nickname, user_image } = result[0];
       const updateData = {
         type: 'INPUT_DOC_DATA',
-        payload:{
-          name, generation,
+        payload: {
+          name,
+          generation,
           boostcamp_id: boostcampId,
-          content, field, language, link, location, mbti, nickname, user_image,
+          content,
+          field,
+          language,
+          link,
+          location,
+          mbti,
+          nickname,
+          user_image,
         },
-      }
+      };
       docDispatch(updateData);
-    }
+    };
 
     getContent();
-  }, [])
+  }, []);
 
   return (
     <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
@@ -82,27 +90,27 @@ const UpdateSection = ({history, generation, boostcampId, name}) => {
         <MakePageRule />
       </MainContent>
     </MainSection>
-  )
-}
+  );
+};
 
 const MainContent = styled.div`
-  ${flexBox({direction: "column", alignItems: 'center'})};
+  ${flexBox({ direction: 'column', alignItems: 'center' })};
   padding: 0px 10px;
 `;
 
 const ListCardWrap = styled.div`
-  ${flexBox({justifyContent: 'space-between'})};
+  ${flexBox({ justifyContent: 'space-between' })};
   height: fit-content;
   width: 100%;
   margin-top: 22px;
 
-  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px){
-    ${flexBox({direction: 'column', alignItems: 'center'})};
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ direction: 'column', alignItems: 'center' })};
   }
 `;
 
 const RuleDiv = styled.div`
-  ${flexBox({alignItems: 'center'})};
+  ${flexBox({ alignItems: 'center' })};
   color: red;
   margin-bottom: 10px;
   margin-top: 20px;
@@ -111,7 +119,7 @@ const RuleDiv = styled.div`
 const ButtonWrap = styled.div``;
 
 const SubmitBtn = styled.button`
-  ${font({size: "24px", weight: "bold"})};
+  ${font({ size: '24px', weight: 'bold' })};
   width: 100px;
   height: 40px;
   color: white;
@@ -126,7 +134,7 @@ const SubmitBtn = styled.button`
 `;
 
 const CancelBtn = styled.button`
-  ${font({size: "24px", weight: "bold"})};
+  ${font({ size: '24px', weight: 'bold' })};
   width: 100px;
   height: 40px;
   color: white;

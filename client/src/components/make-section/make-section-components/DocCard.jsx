@@ -43,18 +43,15 @@ const DocCard = ({ docData, docDispatch }) => {
       const image = e.target.files[0];
       const datas = new FormData();
       datas.append('image', image, image.name);
-      const result = await fetch('/documents/image', {
+      const result = await fetch('/images', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
         body: datas,
       });
       const url = await result.json();
       docDispatch({
         type: 'INPUT_DOC_DATA',
         payload: {
-          user_image: url,
+          user_image: url.imageLink,
         },
       });
     }
