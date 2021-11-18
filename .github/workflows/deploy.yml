@@ -17,10 +17,13 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            cd woongs
-            cd javascript-p3-fleamarket
+            cd web03-boocamWiki
             git fetch
-            git pull origin develop
-            npm install
+            git pull origin
+            cd client
+            npm i
             npm run build
-            pm2 restart app.js
+            cd ../server
+            npm i
+            npm run build
+            docker exec docker_pm2_1 pm2 reload /dist/app.js
