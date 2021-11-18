@@ -5,7 +5,7 @@ import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
-import MainSection from '../common/MainSection'
+import MainSection from '../common/MainSection';
 import { BREAK_POINT_MOBILE } from '../../magic-number';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
@@ -24,7 +24,7 @@ const MakeSection = ({ history }) => {
     if (!canMake) alert('생성 가능 여부를 확인해주세요');
     else if (!docRule) alert('규정에 동의해주세요');
     else {
-      await fetch('/documents', {
+      await fetch('/api/documents', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -68,23 +68,23 @@ const MakeSection = ({ history }) => {
 };
 
 const MainContent = styled.div`
-  ${flexBox({direction: "column", alignItems: 'center'})};
+  ${flexBox({ direction: 'column', alignItems: 'center' })};
   padding: 0px 10px;
 `;
 
 const ListCardWrap = styled.div`
-  ${flexBox({justifyContent: 'space-between'})};
+  ${flexBox({ justifyContent: 'space-between' })};
   height: fit-content;
   width: 100%;
   margin-top: 22px;
 
-  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px){
-    ${flexBox({direction: 'column', alignItems: 'center'})};
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ direction: 'column', alignItems: 'center' })};
   }
 `;
 
 const RuleDiv = styled.div`
-  ${flexBox({alignItems: 'center'})};
+  ${flexBox({ alignItems: 'center' })};
   color: red;
   margin-bottom: 10px;
   margin-top: 20px;
@@ -93,7 +93,7 @@ const RuleDiv = styled.div`
 const ButtonWrap = styled.div``;
 
 const SubmitBtn = styled.button`
-  ${font({size: "24px", weight: "bold"})};
+  ${font({ size: '24px', weight: 'bold' })};
   width: 100px;
   height: 40px;
   color: white;
@@ -108,7 +108,7 @@ const SubmitBtn = styled.button`
 `;
 
 const CancelBtn = styled.button`
-  ${font({size: "24px", weight: "bold"})};
+  ${font({ size: '24px', weight: 'bold' })};
   width: 100px;
   height: 40px;
   color: white;

@@ -25,7 +25,7 @@ export const RecentItem = (arg: IDocument): JSX.Element => {
 };
 
 export const FetchingRecent = async ({ maxLength }: { maxLength: number }): Promise<IDocument[]> => {
-  const result = await fetch(`/documents/recents?count=${maxLength}`);
+  const result = await fetch(`/api/documents/recents?count=${maxLength}`);
   const list = await result.json();
   return list;
 };
