@@ -11,7 +11,7 @@ const MainDoor = () => {
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await fetch('/documents/?generation=0&boostcamp_id=J000&name=대문');
+      const res = await fetch('/api/documents/?generation=0&boostcamp_id=J000&name=대문');
       if (res.status !== 200) {
         history.push('/error');
       }

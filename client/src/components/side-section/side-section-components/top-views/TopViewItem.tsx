@@ -16,11 +16,10 @@ export const TopViewItem = (arg: IDocument): JSX.Element => {
 };
 
 export const FetchingTopView = async ({ maxLength }: { maxLength: number }): Promise<IDocument[]> => {
-  const result = await fetch(`/documents/ranks?count=${maxLength}`);
+  const result = await fetch(`/api/documents/ranks?count=${maxLength}`);
   const list = await result.json();
   return list;
 };
-
 
 const Flexed = styled.div`
   display: flex;

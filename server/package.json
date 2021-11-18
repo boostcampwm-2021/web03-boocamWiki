@@ -5,7 +5,6 @@
     "@types/node": "^16.11.6",
     "@typescript-eslint/eslint-plugin": "^5.2.0",
     "@typescript-eslint/parser": "^5.2.0",
-    "dotenv": "^10.0.0",
     "eslint": "^8.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.2",
@@ -18,12 +17,15 @@
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-validator": "^6.13.0",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.2"
   },
   "scripts": {
-    "start": "tsc-watch --onSuccess \" node dist/app.js\""
+    "start": "tsc-watch --onSuccess \" node dist/app.js\"",
+    "build": "tsc",
+    "postbuild": "cp package.json dist/package.json && cp package-lock.json dist/package-lock.json && cd dist && npm ci --production"
   }
 }

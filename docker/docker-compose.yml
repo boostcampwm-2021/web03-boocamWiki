@@ -1,0 +1,40 @@
+version: "3.1"
+
+services:
+  nginx:
+    image: nginx
+    networks:
+      boocam-wiki-net:
+        ipv4_address: 172.18.0.11
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/build:/usr/share/nginx/html
+      - ./nginx/nginx:/etc/nginx
+  pm2:
+    image: keymetrics/pm2
+    networks:
+      boocam-wiki-net:
+        ipv4_address: 172.18.0.12
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./node/dist:/dist
+    environment:
+      - DB_PORT=
+      - DB_HOST=
+      - DB_PASS=
+      - DB_USER=
+      - DB_DB=
+      - PORT=
+      - IMG_BUCKET_NAME=
+      - IMG_STORAGE_ENDPOINT=https://kr.object.ncloudstorage.com
+      - ACCESS_KEY=
+      - SECRET_KEY=
+
+    command: sh -c "pm2 start /dist/app.js -f && tail -f /dev/null"
+
+networks:
+  boocam-wiki-net:
+    external:
+      name: boocam_wiki

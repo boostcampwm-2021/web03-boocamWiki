@@ -19,6 +19,6 @@ export default async ({ app }: { app: express.Application }) => {
   app.use(express.json());
   app.use(morgan('dev'));
   app.use(express.urlencoded({ extended: false }));
-  app.use('/', router);
+  app.use('/api', router);
   return app;
 };
