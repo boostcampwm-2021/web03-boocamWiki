@@ -8,7 +8,7 @@ const EditorWithPreview = ({ docData, docDispatch }) => {
   return (
     <EditorWrap>
       <HalfEditor>
-        <Editor style={{ borderRadius: '10px 0px 0px 10px' }} docData={docData} docDispatch={docDispatch} />
+        <Editor docData={docData} docDispatch={docDispatch} />
       </HalfEditor>
       {/* <HalfEditor docData={docData} docDispatch={docDispatch} /> */}
       {/* <HalfEditor /> onChange={changeHandler} value={docData.content} onDrop={dropHandler} /> */}
@@ -25,9 +25,6 @@ const EditorWrap = styled.div`
 
 const HalfEditor = styled.div`
   width: 50%;
-  resize: none;
-  border-radius: 10px 0px 0px 10px;
-  outline: none;
 `;
 
 const Preview = styled.div`
