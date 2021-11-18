@@ -8,6 +8,8 @@ import { Utils } from '../../utils';
 import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
 import WikiCard from './wiki-section-components/WikiCard';
 import { WikiCategory } from './wiki-section-components/WikiCategory';
+import { BREAK_POINT_MOBILE } from '../../magic-number';
+import { flexBox } from '../../styles/styled-components/mixin';
 
 const WikiSection = ({ generation, boostcampId, name }) => {
   const [docData, setDocData] = useState();
@@ -56,6 +58,10 @@ const Padd = styled.div`
   margin-right: 10px;
   display: flex;
   justify-content: space-between;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ direction: 'column', alignItems: 'center' })};
+  }
 `;
 
 export default WikiSection;
