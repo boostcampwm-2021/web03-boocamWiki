@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { BREAK_POINT_MOBILE } from '../../../magic-number';
 import noImg from '../../../resource/img/no-image.png';
 import { flexBox } from '../../../styles/styled-components/mixin';
+import { fileUploadValidator } from '../../../utils/validator';
+import { getImgUrl, showErrorCode } from '../../../services/image-upload';
 
 const cardData = [
   { name: '별명', key: 'nickname' },
@@ -40,18 +42,16 @@ const DocCard = ({ docData, docDispatch }) => {
 
   const profileHandler = async (e) => {
     if (e.target.files && e.target.files[0]) {
-      const image = e.target.files[0];
-      const datas = new FormData();
-      datas.append('image', image, image.name);
-      const result = await fetch('/images', {
-        method: 'POST',
-        body: datas,
-      });
-      const url = await result.json();
+      const errorCode = fileUploadValidator(e.target.files);
+      if (errorCode > 0) {
+        showErrorCode(errorCode);
+        return;
+      }
+      const url = await getImgUrl(e.target.files[0], 1);
       docDispatch({
         type: 'INPUT_DOC_DATA',
         payload: {
-          user_image: url.imageLink,
+          user_image: url,
         },
       });
     }

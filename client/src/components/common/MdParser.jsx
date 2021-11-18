@@ -2,12 +2,17 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeIndex from 'rehype-indexes';
-
 import styled from 'styled-components';
 
 const MdParser = ({ content }) => {
+  const clickHandler = ({ target }) => {
+    const img = target.closest('img');
+    if (img) {
+      window.open(img.src);
+    }
+  };
   return (
-    <MdParserContainer>
+    <MdParserContainer onClick={clickHandler}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypeIndex, { mode: 'document' }]]}>
         {content}
       </ReactMarkdown>
@@ -17,6 +22,13 @@ const MdParser = ({ content }) => {
 
 const MdParserContainer = styled.div`
   height: 100%;
+
+  img {
+    max-width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 
   & {
     padding: 5px 20px;

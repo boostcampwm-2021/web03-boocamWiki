@@ -1,44 +1,50 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 const cardData = [
-  {name: '별명', key: 'nickname'},
-  {name: '지역', key: 'location'},
-  {name: '주언어', key: 'language'},
-  {name: 'MBTI', key: 'mbti'},
-  {name: '분야', key: 'field'},
-  {name: '링크', key: 'link'},
-]
+  { name: '별명', key: 'nickname' },
+  { name: '지역', key: 'location' },
+  { name: '주언어', key: 'language' },
+  { name: 'MBTI', key: 'mbti' },
+  { name: '분야', key: 'field' },
+  { name: '링크', key: 'link' },
+];
 
-const WikiCard = ({docData, name}) => {
+const WikiCard = ({ docData, name }) => {
   const [card, setCard] = useState(false);
 
   useEffect(() => {
-    if(docData.user_image !== 'null' && docData.user_image !== '') setCard(true);
-    else if(docData.nickname !== 'null' && docData.nickname !== '') setCard(true);
-    else if(docData.location !== 'null' && docData.location !== '') setCard(true);
-    else if(docData.language !== 'null' && docData.language !== '') setCard(true);
-    else if(docData.mbti !== 'null' && docData.mbti !== '') setCard(true);
-    else if(docData.field !== 'null' && docData.field !== '') setCard(true);
-    else if(docData.link !== 'null' && docData.link !== '') setCard(true);
+    if (docData.user_image !== 'null' && docData.user_image !== '') setCard(true);
+    else if (docData.nickname !== 'null' && docData.nickname !== '') setCard(true);
+    else if (docData.location !== 'null' && docData.location !== '') setCard(true);
+    else if (docData.language !== 'null' && docData.language !== '') setCard(true);
+    else if (docData.mbti !== 'null' && docData.mbti !== '') setCard(true);
+    else if (docData.field !== 'null' && docData.field !== '') setCard(true);
+    else if (docData.link !== 'null' && docData.link !== '') setCard(true);
     else setCard(false);
-  }, [docData])
-  
+  }, [docData]);
 
   return (
     <CardBox background={card ? '#DDEEAA' : 'white'} display={card ? 'block' : 'none'}>
       {card && <CardOwner>{name}</CardOwner>}
-      {docData.user_image !== 'null' && <CardImg src={docData.user_image} />}
-      {cardData.map((item) => (
-        (docData[item.key] !== 'null' && docData[item.key] !== '') &&
-        <CardDataWrap key={item.name}>
-          <CardDataName>{item.name}</CardDataName>
-          <CardDataText>{docData[item.key]}</CardDataText>
-        </CardDataWrap>
-      ))}
+      {docData.user_image !== 'null' && (
+        <a href={docData.user_image} target="_blank" rel="noreferrer">
+          <CardImg src={docData.user_image} />
+        </a>
+      )}
+      {cardData.map(
+        (item) =>
+          docData[item.key] !== 'null' &&
+          docData[item.key] !== '' && (
+            <CardDataWrap key={item.name}>
+              <CardDataName>{item.name}</CardDataName>
+              <CardDataText>{docData[item.key]}</CardDataText>
+            </CardDataWrap>
+          ),
+      )}
     </CardBox>
-  )
-}
+  );
+};
 
 const CardBox = styled.div`
   display: flex;
@@ -46,9 +52,9 @@ const CardBox = styled.div`
   align-items: center;
   width: 350px;
   height: fit-content;
-  background-color: ${props => props.background};
+  background-color: ${(props) => props.background};
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  display: ${props => props.display};
+  display: ${(props) => props.display};
 
   font-family: Noto Sans KR;
   font-style: normal;
@@ -62,7 +68,7 @@ const CardOwner = styled.div`
   text-align: center;
   font-weight: 500;
   font-size: 20px;
-  background-color: #DDEEAA;
+  background-color: #ddeeaa;
   border: none;
   margin-bottom: 9px;
 `;
@@ -70,7 +76,7 @@ const CardOwner = styled.div`
 const CardImg = styled.img`
   width: 342px;
   height: 342px;
-  background: #F6F6F6;
+  background: #f6f6f6;
   margin-bottom: 6px;
   margin-left: 4px;
 `;
@@ -92,7 +98,7 @@ const CardDataName = styled.div`
 const CardDataText = styled.div`
   width: 278px;
   height: 34px;
-  border: 1px solid #D7D7D7;
+  border: 1px solid #d7d7d7;
   text-align: center;
   background-color: white;
   outline: none;
