@@ -1,6 +1,8 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { font } from '../../../styles/styled-components/mixin';
+import { fileUploadValidator, fileSizeError, fileFormatError } from '../../../utils/validator';
+import { sendToStorage, showErrorCode } from '../../../services/image-upload';
 
 const Editor = ({ docData, docDispatch }) => {
   const inputRef = useRef(null);
@@ -14,35 +16,39 @@ const Editor = ({ docData, docDispatch }) => {
     });
   };
 
+  const fileDrops = (dataTransfer) => {
+    return dataTransfer.files.length > 0;
+  };
+
+  const appendImageLink = (imgUrl, target) => {
+    const { selectionStart, selectionEnd } = target;
+    const prevContent = docData.content;
+    const content =
+      prevContent.substring(0, selectionStart) + imgUrl + prevContent.substring(selectionStart, prevContent.length);
+
+    docDispatch({
+      type: 'INPUT_DOC_DATA',
+      payload: {
+        content,
+      },
+    });
+  };
+
   const dropHandler = async (e) => {
     e.stopPropagation();
-    e.preventDefault();
 
-    if (e.dataTransfer.items) {
-      const image = e.dataTransfer.items[0].getAsFile();
-      const datas = new FormData();
-      datas.append('image', image, image.name);
-      const result = await fetch('/images', {
-        method: 'POST',
-        body: datas,
-      });
-      const url = await result.json();
-      const imgUrl = `![사진](${url.imageLink})`;
-      const { selectionStart, selectionEnd } = e.target;
-      const prevContent = docData.content;
-      const content =
-        prevContent.substring(0, selectionStart) + imgUrl + prevContent.substring(selectionStart, prevContent.length);
-      docDispatch({
-        type: 'INPUT_DOC_DATA',
-        payload: {
-          content,
-        },
-      });
+    if (fileDrops(e.dataTransfer)) {
+      e.preventDefault();
+      const errorCode = fileUploadValidator(e.dataTransfer.files);
+      if (errorCode > 0) {
+        showErrorCode(errorCode);
+        return;
+      }
+
+      const resultUrl = await sendToStorage(e.dataTransfer.files);
+      const imgUrl = resultUrl.join('\n');
+      appendImageLink(imgUrl, e.target);
     }
-
-    // const { selectionStart, selectionEnd } = e.target;
-    // console.log(selectionStart, selectionEnd);
-    // console.log(docData.content.substring(selectionStart, selectionEnd));
   };
 
   return <EditorBox onChange={changeHandler} onDrop={dropHandler} ref={inputRef} value={docData.content} isDragging />;
