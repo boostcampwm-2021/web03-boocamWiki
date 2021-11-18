@@ -5,9 +5,11 @@ services:
     image: nginx
     networks:
       boocam-wiki-net:
-        ipv4_address: 172.18.0.11
+        ipv4_address: 172.16.238.11
     ports:
       - "80:80"
+      - "443:443"
+    restart: unless-stopped
     volumes:
       - ./nginx/build:/usr/share/nginx/html
       - ./nginx/nginx:/etc/nginx
@@ -15,9 +17,10 @@ services:
     image: keymetrics/pm2
     networks:
       boocam-wiki-net:
-        ipv4_address: 172.18.0.12
+        ipv4_address: 172.16.238.12
     ports:
       - "3001:3001"
+    restart: unless-stopped
     volumes:
       - ./node/dist:/dist
     environment:
@@ -31,10 +34,12 @@ services:
       - IMG_STORAGE_ENDPOINT=https://kr.object.ncloudstorage.com
       - ACCESS_KEY=
       - SECRET_KEY=
-
-    command: sh -c "pm2 start /dist/app.js -f && tail -f /dev/null"
+    command: sh -c "pm2 start /dist/app.js -f -i max && tail -f /dev/null"
 
 networks:
   boocam-wiki-net:
-    external:
-      name: boocam_wiki
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24
