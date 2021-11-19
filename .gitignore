@@ -2,6 +2,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,linux,node,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,node,react
 
+### docker yml file ###
+docker/*.yml
+
 ### Linux ###
 *~
 
