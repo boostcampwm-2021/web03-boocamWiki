@@ -2,7 +2,7 @@ name: auto deploy
 
 on:
   push:
-    branches: [deploy-test]
+    branches: [main]
 
 jobs:
   deploy:
