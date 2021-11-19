@@ -27,7 +27,7 @@ const HeaderBox = styled.div`
 `;
 
 const HeaderTitle = styled.div`
-  margin-left: 10px;
+  margin-left: 20px;
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 500;
