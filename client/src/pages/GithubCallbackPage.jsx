@@ -16,10 +16,15 @@ const GithubCallbackPage = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),
     });
+    const {
+      result: { accessToken, refreshToken },
+      msg,
+    } = await res.json();
+    window.sessionStorage.setItem('accessToken', accessToken);
+    window.localStorage.setItem('refreshToken', refreshToken);
     if (res.status === 200) {
       return history.push('/');
     }
-    const { msg } = await res.json();
     if (msg === 'nonexistent user') {
       return history.push('/join');
     }

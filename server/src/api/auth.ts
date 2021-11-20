@@ -1,5 +1,6 @@
 import * as express from 'express';
-import { getAccessToken, getUserInfo } from '../services/login';
+import { generateToken, getAccessToken, getUserInfo } from '../services/login';
+import { isExistUser } from '../sql/users-query';
 
 const router = express.Router();
 
@@ -7,11 +8,17 @@ router.post('/github', async (req: express.Request, res: express.Response) => {
   try {
     const { code } = req.body;
     const accessToken = await getAccessToken(code);
-    const userInformation = await getUserInfo(accessToken);
-    return res.status(200).json({ msg: 'success' });
+    const { login, node_id, name } = await getUserInfo(accessToken);
+    const userInfo = { login, node_id, name };
+    if (await isExistUser(userInfo.node_id)) {
+      const tokens = generateToken({ ...userInfo, validation: true });
+      return res.status(200).json({ result: { ...tokens }, msg: 'success' });
+    } else {
+      const tokens = generateToken({ ...userInfo, validation: false });
+      return res.status(404).json({ result: { ...tokens }, msg: 'nonexistent user' });
+    }
   } catch (err) {
-    console.error(err.message);
-    return res.status(404).json({ msg: 'fail' });
+    return res.status(404).json({ result: {}, msg: 'fail' });
   }
 });
 

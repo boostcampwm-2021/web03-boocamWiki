@@ -1,7 +1,9 @@
 import axios from 'axios';
+import * as jwt from 'jsonwebtoken';
 import config from '../config';
+import { GithubUserInfo } from '../types/apiInterface';
 
-export const getAccessToken = async (code: string): Promise<string> => {
+export async function getAccessToken(code: string): Promise<string> {
   if (code === undefined) {
     throw new Error('code is not existed');
   }
@@ -15,9 +17,9 @@ export const getAccessToken = async (code: string): Promise<string> => {
   const accessToken = searchParams.get('access_token');
 
   return accessToken;
-};
+}
 
-export const getUserInfo = async (accessToken: string): Promise<string> => {
+export async function getUserInfo(accessToken: string): Promise<GithubUserInfo> {
   if (accessToken === undefined) {
     throw new Error('accessToken is not existed');
   }
@@ -27,5 +29,21 @@ export const getUserInfo = async (accessToken: string): Promise<string> => {
       Authorization: `token ${accessToken}`,
     },
   });
-  return userInformation;
-};
+  return userInformation as GithubUserInfo;
+}
+
+type TokenPayload = { validation: boolean } & GithubUserInfo;
+
+export function generateAccessToken(TokenPayload: TokenPayload): string {
+  return jwt.sign({ ...TokenPayload }, config.ACCESS_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '15m' });
+}
+
+export function generateRefreshToken(node_id: string): string {
+  return jwt.sign({ node_id }, config.REFRESH_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '180 days' });
+}
+
+export function generateToken(TokenPayload: TokenPayload): { accessToken: string; refreshToken: string } {
+  const accessToken = generateAccessToken(TokenPayload);
+  const refreshToken = generateRefreshToken(TokenPayload.node_id);
+  return { accessToken, refreshToken };
+}
