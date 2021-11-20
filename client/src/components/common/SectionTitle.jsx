@@ -20,18 +20,18 @@ const HeaderBox = styled.div`
   background: #e5e5e5;
   border-radius: 10px 10px 0px 0px;
   width: 100%;
-  height: 76px;
+  height: 60px;
   position: relative;
   outline: 1px solid #d7d7d7;
   ${flexBox({ alignItems: 'center', justifyContent: 'space-between' })}
 `;
 
 const HeaderTitle = styled.div`
-  margin-left: 10px;
+  margin-left: 20px;
   font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 500;
-  font-size: 36px;
+  font-size: 28px;
   line-height: 76px;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -40,7 +40,7 @@ const HeaderTitle = styled.div`
 
 const EditButton = styled.button`
   min-width: 78px;
-  padding: 10px 20px;
+  padding: 5px 10px;
   font-size: 20px;
   margin-right: 10px;
   background: #bbb;

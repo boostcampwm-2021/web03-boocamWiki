@@ -2,7 +2,7 @@ name: auto deploy
 
 on:
   push:
-    branches: [deploy-test]
+    branches: [main]
 
 jobs:
   deploy:
@@ -27,3 +27,4 @@ jobs:
             npm i
             npm run build
             docker exec docker_pm2_1 pm2 reload /dist/app.js
+            docker exec docker_nginx_1 service nginx reload
