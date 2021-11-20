@@ -1,24 +1,6 @@
-import { param } from 'express-validator';
 import db from '../services/db-pool';
 import { Document, DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
-
-function getObjectKey(arg: object): string[] {
-  return Object.entries(arg)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key]) => key);
-}
-
-function getObjectValue(arg: object): string[] {
-  return Object.entries(arg)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([, value]) => `\'${value}\'`);
-}
-
-function getDocumentKeyValue(arg: Document, stringTypeList: String[]): String[] {
-  return Object.entries(arg)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key, value]) => `${key}=${!stringTypeList.includes(key) ? `'${value}'` : value}`);
-}
+import { getDocumentKeyValue, getObjectKey, getObjectValue } from '../services/util';
 
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
@@ -43,8 +25,10 @@ export async function createDoc(params: DocumentsCreate): Promise<void> {
 
 export async function updateDoc(params: DocumentsCreate) {
   const query = `UPDATE document SET ${Object.entries(params)
-      .map(([key, value]) => `${key}='${value}'`)
-      .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${params.name}'`;
+    .map(([key, value]) => `${key}='${value}'`)
+    .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${
+    params.name
+  }'`;
   const result = await db.pool.query(query);
   return result;
 }
