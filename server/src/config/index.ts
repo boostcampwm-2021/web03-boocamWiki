@@ -11,4 +11,6 @@ export default {
   ACCESS_KEY: process.env.ACCESS_KEY,
   SECRET_KEY: process.env.SECRET_KEY,
   IMG_BUCKET_NAME: process.env.IMG_BUCKET_NAME,
+  GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+  GITHUB_SECRET: process.env.GITHUB_SECRET,
 };

@@ -21,6 +21,10 @@ const MainDoor = () => {
     };
 
     getContent();
+
+    return () => {
+      setLoading(false);
+    };
   }, []);
 
   return (

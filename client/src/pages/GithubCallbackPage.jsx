@@ -11,15 +11,19 @@ const GithubCallbackPage = () => {
   const history = useHistory();
 
   const login = async (code) => {
-    const res = await fetch('/api/auth/github', { method: 'post', body: code });
+    const res = await fetch('/api/auth/github', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code }),
+    });
     if (res.status === 200) {
-      history.push('/');
+      return history.push('/');
     }
     const { msg } = await res.json();
     if (msg === 'nonexistent user') {
-      history.push('/join');
+      return history.push('/join');
     }
-    history.push('/error');
+    return history.push('/error');
   };
 
   useEffect(async () => {
