@@ -64,7 +64,7 @@ export const GenInput = styled.input`
 `;
 
 export const GenBtnWrap = styled.div`
-  ${flexBox({ justifyContent: 'center' })};
+  ${flexBox({ direction: 'column', justifyContent: 'space-between' })};
   width: 12px;
   height: 18px;
 `;
@@ -78,7 +78,7 @@ export const GenBtn = styled.img`
 `;
 
 export const ValidationWrap = styled.div`
-  ${flexBox({ direction: 'column', alignItems: 'center' })};
+  ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })};
 `;
 
 export const ValidationBtn = styled.button`
