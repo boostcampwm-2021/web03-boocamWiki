@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as jwt from 'jsonwebtoken';
 import config from '../config';
-import { GithubUserInfo } from '../types/apiInterface';
+import { GithubUserInfo, TokenPayload } from '../types/apiInterface';
 
 export async function getAccessToken(code: string): Promise<string> {
   if (code === undefined) {
@@ -31,8 +31,6 @@ export async function getUserInfo(accessToken: string): Promise<GithubUserInfo> 
   });
   return userInformation as GithubUserInfo;
 }
-
-type TokenPayload = { validation: boolean } & GithubUserInfo;
 
 export function generateAccessToken(TokenPayload: TokenPayload): string {
   return jwt.sign({ ...TokenPayload }, config.ACCESS_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '15m' });

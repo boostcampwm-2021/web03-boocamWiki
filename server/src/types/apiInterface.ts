@@ -42,3 +42,5 @@ export interface User {
   login: string;
   name: string | null;
 }
+
+export type TokenPayload = { validation: boolean; iat?: number; exp?: number } & GithubUserInfo;

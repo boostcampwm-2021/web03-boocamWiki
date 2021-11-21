@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { generateToken, getAccessToken, getUserInfo } from '../services/login';
 import { isExistUser } from '../sql/users-query';
+import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
 
@@ -16,6 +17,22 @@ router.post('/github', async (req: express.Request, res: express.Response) => {
     } else {
       const tokens = generateToken({ ...userInfo, validation: false });
       return res.status(404).json({ result: { ...tokens }, msg: 'nonexistent user' });
+    }
+  } catch (err) {
+    return res.status(404).json({ result: {}, msg: 'fail' });
+  }
+});
+
+router.post('/join', jwtAuthCheck, async (req: express.Request, res: express.Response) => {
+  try {
+    const { answer } = req.body;
+    if (answer === '210719') {
+      const { login, node_id, name } = req.jwt;
+      const userInfo = { login, node_id, name };
+      const tokens = generateToken({ ...userInfo, validation: true });
+      return res.status(200).json({ result: { ...tokens }, msg: 'success' });
+    } else {
+      return res.status(404).json({ result: {}, msg: 'wrong answer' });
     }
   } catch (err) {
     return res.status(404).json({ result: {}, msg: 'fail' });
