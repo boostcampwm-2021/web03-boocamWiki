@@ -1,6 +1,6 @@
 import React, { useState, useRef, useReducer } from 'react';
 import styled from 'styled-components';
-import Title from './make-section-components/InputTitle';
+import InputTitle from './make-section-components/InputTitle';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
@@ -54,7 +54,7 @@ const MakeSection = ({ history }) => {
       <MainContent onClick={closeAlert}>
         {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
 
-        <Title setCanMake={setCanMake} canMake={canMake} docData={docData} docDispatch={docDispatch} />
+        <InputTitle setCanMake={setCanMake} canMake={canMake} docData={docData} docDispatch={docDispatch} />
 
         <ListCardWrap>
           <WikiContentsIndex title="목차 미리보기" text={docData.content} />
@@ -105,7 +105,7 @@ const RuleDiv = styled.div`
 const ButtonWrap = styled.div``;
 
 const SubmitBtn = styled.button`
-  ${font({ size: '24px', weight: 'bold' })};
+  ${font({ size: '20px', weight: 'normal' })};
   width: 100px;
   height: 40px;
   color: white;
@@ -120,7 +120,7 @@ const SubmitBtn = styled.button`
 `;
 
 const CancelBtn = styled.button`
-  ${font({ size: '24px', weight: 'bold' })};
+  ${font({ size: '20px', weight: 'normal' })};
   width: 100px;
   height: 40px;
   color: white;

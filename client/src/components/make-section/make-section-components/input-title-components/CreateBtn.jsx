@@ -12,7 +12,7 @@ const CreateBtn = ({ titleCheckHandler, canMake }) => {
       canText = { text: '이미 존재합니다', color: '#F45452' };
       break;
     default:
-      canText = { text: '중복 확인해 주세요', color: '#888888' };
+      canText = { text: '값을 입력 하세요', color: '#888888' };
       break;
   }
 
