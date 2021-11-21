@@ -11,7 +11,7 @@ import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
 
 const MakeSection = ({ history }) => {
-  const [canMake, setCanMake] = useState(false);
+  const [canMake, setCanMake] = useState();
   const [docRule, setDocRule] = useState(false);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
 

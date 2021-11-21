@@ -66,6 +66,10 @@ const Menu = styled.div`
 
   @media only screen and (max-width: 768px) {
     width: 100%;
+    &:hover {
+      cursor: pointer;
+      box-shadow: none;
+    }
   }
 `;
 
