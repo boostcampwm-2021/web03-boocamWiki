@@ -14,13 +14,18 @@ const SelectTgContext = createContext(selectTgInitState);
 const SelectTypeContext = createContext(selectTypeInitState);
 
 const App = () => {
-  const [SelectTgState, selectTgDispatch] = useReducer(selectTgReducer, selectTgInitState);
+  const [SelectTgState, SelectTgDispatch] = useReducer(selectTgReducer, selectTgInitState);
   const [SelectTypeState, SelectTypeDispatch] = useReducer(selectTypeReducer, selectTypeInitState);
+  const closeSelectALl = (event: any) => {
+    SelectTgDispatch({ type: 'allOff' });
+  };
 
   useEffect(() => {
     document.addEventListener('click', (event) => {
-      selectHandler(event, selectTgDispatch, SelectTypeDispatch);
+      selectHandler(event, SelectTgDispatch, SelectTypeDispatch);
     });
+
+    document.addEventListener('wheel', closeSelectALl);
   }, []);
 
   return (
