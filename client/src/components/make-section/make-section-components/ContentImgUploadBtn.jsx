@@ -6,12 +6,15 @@ import { getImgUrl, showErrorCode } from '../../../services/image-upload';
 
 const ContentImgUploadBtn = ({ docData, docDispatch }) => {
   const appendImageLink = (imgUrl, target) => {
-    const { selectionStart, selectionEnd } = target;
+    const { selectionStart, selectionEnd } = document.querySelector('textarea');
     if (selectionStart !== selectionEnd) return;
     const prevContent = !docData.content ? '' : docData.content;
-    const content = `${prevContent.substring(0, selectionStart)}![${
-      target.files[0].name
-    }](${imgUrl})${prevContent.substring(selectionStart, prevContent.length)}`;
+
+    const markdownImg = `![${target.files[0].name}](${imgUrl})`;
+    const content =
+      prevContent.substring(0, selectionStart) +
+      markdownImg +
+      prevContent.substring(selectionStart, prevContent.length);
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
@@ -27,7 +30,6 @@ const ContentImgUploadBtn = ({ docData, docDispatch }) => {
         showErrorCode(errorCode);
         return;
       }
-      console.log('hello');
       const url = await getImgUrl(e.target.files[0], 1);
       appendImageLink(url, e.target);
     }

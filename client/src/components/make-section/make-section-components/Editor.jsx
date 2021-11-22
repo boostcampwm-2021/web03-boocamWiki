@@ -52,7 +52,15 @@ const Editor = ({ docData, docDispatch }) => {
     }
   };
 
-  return <EditorBox onChange={changeHandler} onDrop={dropHandler} ref={inputRef} value={docData.content} isDragging />;
+  return (
+    <EditorBox
+      onChange={changeHandler}
+      onDrop={dropHandler}
+      ref={inputRef}
+      value={docData.content ? docData.content : ''}
+      isDragging
+    />
+  );
 };
 
 const EditorBox = styled.textarea`
