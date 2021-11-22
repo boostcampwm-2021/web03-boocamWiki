@@ -1,22 +1,20 @@
 import db from '../services/db-pool';
+
 import {
   Document,
   DocumentsCreate,
   DocumentsRecent,
   DocumentsSearch,
-  DocumentsUpdate,
   DocumentsView,
+  DocumentsUpdate,
 } from '../types/apiInterface';
 import {
   getDocumentKeyValue,
-  getDocumentsCreateKV,
-  getDocumentsUpdateKV,
   getObjectKey,
   getObjectValue,
-} from './helper';
-
-import { Document, DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
-// import { getDocumentKeyValue, getObjectKey, getObjectValue } from '../services/util';
+  getDocumentsCreateObj,
+  getDocumentsUpdateObj,
+} from '../services/util';
 
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
@@ -28,7 +26,7 @@ export async function getTopViewedDoc({ count }: { count: number }): Promise<Doc
 }
 
 export async function createDoc(params: DocumentsCreate): Promise<void> {
-  const obj = getDocumentsCreateKV(params);
+  const obj = getDocumentsCreateObj(params);
   const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj).join(', ')})`;
   const result = await db.pool.query(query);
   if (result?.affectedRows === 0) {
@@ -37,7 +35,7 @@ export async function createDoc(params: DocumentsCreate): Promise<void> {
 }
 
 export async function updateDoc(params: DocumentsCreate) {
-  const obj = getDocumentsCreateKV(params);
+  const obj = getDocumentsCreateObj(params);
   const query = `UPDATE document SET ${Object.entries(obj)
     .map(([key, value]) => `${key}='${value}'`)
     .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${
@@ -123,7 +121,7 @@ export async function getRecentUpdatedDoc({ count }: { count: number }): Promise
 }
 
 export async function updateRecentDoc(params: DocumentsUpdate): Promise<void> {
-  const obj = getDocumentsUpdateKV(params);
+  const obj = getDocumentsUpdateObj(params);
   const query =
     'INSERT INTO `update` ' + `(${getObjectKey(obj).join(', ')})` + ' VALUES ' + `(${getObjectValue(obj).join(', ')})`;
   const [result] = await db.pool.query(query);

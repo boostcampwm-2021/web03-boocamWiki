@@ -5,6 +5,7 @@ import { WordManager } from '../../../../resource/message';
 import { TextInputWrap, Text, GenWrap, GenInput, GenBtnWrap, GenBtn } from './style';
 
 const Generation = ({ docData, changeData, genBtnHandler }) => {
+  const { generation } = docData;
   return (
     <TextInputWrap>
       <Text>기수</Text>
