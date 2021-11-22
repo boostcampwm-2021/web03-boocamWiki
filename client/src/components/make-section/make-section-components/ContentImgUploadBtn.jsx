@@ -9,10 +9,9 @@ const ContentImgUploadBtn = ({ docData, docDispatch }) => {
     const { selectionStart, selectionEnd } = target;
     if (selectionStart !== selectionEnd) return;
     const prevContent = !docData.content ? '' : docData.content;
-    const content = `![${target.files[0].name}](${
-      prevContent.substring(0, selectionStart) + imgUrl + prevContent.substring(selectionStart, prevContent.length)
-    })`;
-
+    const content = `${prevContent.substring(0, selectionStart)}![${
+      target.files[0].name
+    }](${imgUrl})${prevContent.substring(selectionStart, prevContent.length)}`;
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
