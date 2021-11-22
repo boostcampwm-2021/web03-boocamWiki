@@ -1,18 +1,14 @@
 import { param } from 'express-validator';
 import db from '../services/db-pool';
-import { Document, DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
-
-function getObjectKey(arg: object): string[] {
-  return Object.entries(arg)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key]) => key);
-}
-
-function getObjectValue(arg: object): string[] {
-  return Object.entries(arg)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([, value]) => `\'${value}\'`);
-}
+import {
+  Document,
+  DocumentsCreate,
+  DocumentsRecent,
+  DocumentsSearch,
+  DocumentsUpdate,
+  DocumentsView,
+} from '../types/apiInterface';
+import { getDocumentsCreateKV, getDocumentsUpdateKV, getObjectKey, getObjectValue } from './helper';
 
 function getDocumentKeyValue(arg: Document, stringTypeList: String[]): String[] {
   return Object.entries(arg)
@@ -30,11 +26,8 @@ export async function getTopViewedDoc({ count }: { count: number }): Promise<Doc
 }
 
 export async function createDoc(params: DocumentsCreate): Promise<void> {
-  const query = `INSERT INTO document(${Object.entries(params)
-    .map(([key]) => key)
-    .toString()}) VALUES(${Object.entries(params)
-    .map(([, value]) => `'${value}'`)
-    .toString()})`;
+  const obj = getDocumentsCreateKV(params);
+  const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj).join(', ')})`;
   const result = await db.pool.query(query);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
@@ -42,9 +35,12 @@ export async function createDoc(params: DocumentsCreate): Promise<void> {
 }
 
 export async function updateDoc(params: DocumentsCreate) {
-  const query = `UPDATE document SET ${Object.entries(params)
-      .map(([key, value]) => `${key}='${value}'`)
-      .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${params.name}'`;
+  const obj = getDocumentsCreateKV(params);
+  const query = `UPDATE document SET ${Object.entries(obj)
+    .map(([key, value]) => `${key}='${value}'`)
+    .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${
+    params.name
+  }'`;
   const result = await db.pool.query(query);
   return result;
 }
@@ -91,7 +87,7 @@ export async function getCount(params: Partial<DocumentsSearch>): Promise<number
 
 export async function getDoc(params: Document) {
   const [result] = await db.pool.query(
-    'SELECT created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link, classification ' +
+    'SELECT created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link ' +
       'FROM `document` ' +
       `WHERE ${getDocumentKeyValue(params, ['generation']).join(' AND ')}`,
   );
@@ -122,12 +118,10 @@ export async function getRecentUpdatedDoc({ count }: { count: number }): Promise
   return result as DocumentsRecent[];
 }
 
-export async function updateRecentDoc(params: DocumentsCreate): Promise<void> {
+export async function updateRecentDoc(params: DocumentsUpdate): Promise<void> {
+  const obj = getDocumentsUpdateKV(params);
   const query =
-    'INSERT INTO `update` ' +
-    `(${getObjectKey(params).join(', ')})` +
-    ' VALUES ' +
-    `(${getObjectValue(params).join(', ')})`;
+    'INSERT INTO `update` ' + `(${getObjectKey(obj).join(', ')})` + ' VALUES ' + `(${getObjectValue(obj).join(', ')})`;
   const [result] = await db.pool.query(query);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');

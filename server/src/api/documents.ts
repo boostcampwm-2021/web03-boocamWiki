@@ -9,7 +9,7 @@ import {
   getCount,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
-import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
+import { DocumentsSearch, DocumentsCreate, DocumentsUpdate } from '../types/apiInterface';
 
 const router = express.Router();
 router.get('/recents', async (req: express.Request, res: express.Response) => {
@@ -36,11 +36,12 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
 
 router.post('/', async (req: express.Request, res: express.Response) => {
   try {
-    await createDoc(req.body);
+    const createQuery: DocumentsCreate = req.body;
+    await createDoc(createQuery);
     res.status(200).json({ msg: 'OK' });
-    const query: DocumentsCreate = req.body;
-    query.user_id = 'zoeas';
-    OnDocCreate(query);
+    const updateQuery: DocumentsUpdate = req.body;
+    updateQuery.user_id = 'zoeas';
+    OnDocCreate(updateQuery);
   } catch (err) {
     return res.status(404).json({ msg: 'fail' });
   }

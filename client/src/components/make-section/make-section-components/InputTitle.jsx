@@ -25,7 +25,7 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
       type: 'INPUT_DOC_DATA',
       payload: {
         generation: isCamper(docData) ? docData.generation : 0,
-        boostcamp_id: isCamper(docData) ? id.current.value : docData.memberType,
+        boostcamp_id: isCamper(docData) ? id.current.value : docData.boostcamp_id,
         name: name.current.value,
       },
     });
