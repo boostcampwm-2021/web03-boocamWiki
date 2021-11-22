@@ -24,6 +24,8 @@ const MdParserContainer = styled.div`
   height: 100%;
 
   img {
+    width: fit-content;
+    height: fit-content;
     max-width: 100%;
     &:hover {
       cursor: pointer;
