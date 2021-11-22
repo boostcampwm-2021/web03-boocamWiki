@@ -1,0 +1,10 @@
+@import './global.scss';
+
+.PageContainer {
+  width: 100%;
+}
+
+.SectionWrapper {
+  @include FlexBox($direction: row, $align-items: flex-start);
+  padding: 20px 0 40px 0;
+}

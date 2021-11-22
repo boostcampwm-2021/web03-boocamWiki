@@ -1,0 +1,30 @@
+name: auto deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ssh connect & production
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd web03-boocamWiki
+            git fetch
+            git pull origin
+            cd client
+            npm i
+            npm run build
+            cd ../server
+            npm i
+            npm run build
+            docker exec docker_pm2_1 pm2 reload /dist/app.js
+            docker exec docker_nginx_1 service nginx reload

@@ -9,8 +9,8 @@
 
 ## 🧲 Link
 
-| [디자인](https://www.figma.com/file/ViFwoe5JSjijrbdXxHTH0T/Untitled?node-id=0%3A1) | [기획서](https://www.notion.so/Boocam-Wiki-2996ca2ad89946418585959417d4a72b) | [WBS](https://docs.google.com/spreadsheets/d/14jd9if0431Ih4VC7_v_LaDh-YgCqnmm6TNrp20yRdKQ/edit#gid=0)|
-|---|---|---|
+| [디자인](https://www.figma.com/file/ViFwoe5JSjijrbdXxHTH0T/Untitled?node-id=0%3A1) | [기획서](https://kimsuky.notion.site/Boocam-Wiki-059da23a27bf4df68570170bcb519ac6) | [WBS](https://docs.google.com/spreadsheets/d/14jd9if0431Ih4VC7_v_LaDh-YgCqnmm6TNrp20yRdKQ/edit#gid=0) | [ERD](https://kimsuky.notion.site/ERD-f890216d2a4e437cbba3c53f93c62e9e) | [그라운드룰](https://github.com/boostcampwm-2021/web03-boocamWiki/wiki#%ED%8C%80-%EA%B7%B8%EB%9D%BC%EC%9A%B4%EB%93%9C-%EB%A3%B0) |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 
 ## 🎉기획 의도
 
@@ -23,40 +23,37 @@
 ![Frame 1](https://user-images.githubusercontent.com/66904178/139255656-f9fbdd3c-1928-4a82-a035-7c4b5c187c83.png)
 
 ## 🛠기술 스택
-| <center>분류</center> | <center>기술 스택</center> |
-|:---|:---:|
-| language | <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>  |
-| Code Rule | <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=white"/> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=Prettier&logoColor=white"/> |
-| FE |<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled components&logoColor=white"/> <img src="https://img.shields.io/badge/Webpack-8DD6F9?style=flat-square&logo=Webpack&logoColor=white"/> <img src="https://img.shields.io/badge/Babel-F9DC3E?style=flat-square&logo=Babel&logoColor=white"/>|
-| BE |<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=JavaScript&logoColor=white"/> |
-| DB | <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=Redis&logoColor=white"/> <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=flat-square&logo=Sequelize&logoColor=white"/>
-| CI/CD | <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=GitHubActions&logoColor=white"/> |
-| Web Server | <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/> |
-| Version Control | <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/> |
-| Test | <img src="https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=Jest&logoColor=white"/> |
-| Container | <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/> |
-| Common | <img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white"/> |
 
+| <center>분류</center> |                                                                                                                                                                                                         <center>기술 스택</center>                                                                                                                                                                                                          |
+| :-------------------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| language              |                                                                                                         <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>                                                                                                         |
+| Code Rule             |                                                                                                               <img src="https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=ESLint&logoColor=white"/> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=flat-square&logo=Prettier&logoColor=white"/>                                                                                                               |
+| FE                    | <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled components&logoColor=white"/> <img src="https://img.shields.io/badge/Webpack-8DD6F9?style=flat-square&logo=Webpack&logoColor=white"/> <img src="https://img.shields.io/badge/Babel-F9DC3E?style=flat-square&logo=Babel&logoColor=white"/> |
+| BE                    |                                                                                                             <img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=JavaScript&logoColor=white"/>                                                                                                              |
+| DB                    |                                                             <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/Redis-DC382D?style=flat-square&logo=Redis&logoColor=white"/> <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=flat-square&logo=Sequelize&logoColor=white"/>                                                             |
+| CI/CD                 |                                                                                                                                                           <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?style=flat-square&logo=GitHubActions&logoColor=white"/>                                                                                                                                                            |
+| Web Server            |                                                                                                                                                                     <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/>                                                                                                                                                                     |
+| Version Control       |                                                                                                                    <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=white"/> <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>                                                                                                                    |
+| Test                  |                                                                                                                                                                      <img src="https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=Jest&logoColor=white"/>                                                                                                                                                                      |
+| Container             |                                                                                                                                                                    <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/>                                                                                                                                                                    |
+| Common                |                                                                                                                                                                 <img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=Socket.io&logoColor=white"/>                                                                                                                                                                 |
 
 ## 👓 TBD
+
 <img src="https://img.shields.io/badge/SonarQube-4E9BCD?style=flat-square&logo=SonarQube&logoColor=white"/>
 
-
 ## 🦁 **베어그릴스 (생존전문) 팀** 🐯
+
 **그룹프로젝트...**
 
 ![image](https://user-images.githubusercontent.com/53328838/139226460-cd4f832c-f587-4645-825b-a724c09def9c.png)
 
-~~*사실은 우리가...*~~
-
+~~_사실은 우리가..._~~
 
 ## 🙆‍♂️팀구성원 소개🙆‍
-|[<img src="https://github.com/0xsuky.png" width="100px">](https://github.com/0xsuky)|[<img src="https://github.com/wil953742.png" width="100px">](https://github.com/wil953742)|[<img src="https://github.com/LeeKwang-min.png" width="100px">](https://github.com/LeeKwang-min)|[<img src="https://github.com/ingyeoking13.png" width="100px">](https://github.com/ingyeoking13)|
-|:---:|:---:|:---:|:---:|
-|[J038 김영수](https://github.com/0xsuky) | [J045 김웅일](https://github.com/wil953742) | [J138 이광민](https://github.com/LeeKwang-min) | [J187 정요한](https://github.com/ingyeoking13)
 
+| [<img src="https://github.com/0xsuky.png" width="100px">](https://github.com/0xsuky) | [<img src="https://github.com/wil953742.png" width="100px">](https://github.com/wil953742) | [<img src="https://github.com/LeeKwang-min.png" width="100px">](https://github.com/LeeKwang-min) | [<img src="https://github.com/ingyeoking13.png" width="100px">](https://github.com/ingyeoking13) |
+| :----------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------: |
+|                       [J038 김영수](https://github.com/0xsuky)                       |                        [J045 김웅일](https://github.com/wil953742)                         |                          [J138 이광민](https://github.com/LeeKwang-min)                          |                          [J187 정요한](https://github.com/ingyeoking13)                          |
 
-## 👨‍✈️ 팀 그라운드 룰 📜
-
-![image](https://user-images.githubusercontent.com/18030634/139003208-13e74e9b-e67a-4251-8be2-1d68877808c6.png)
-
+#test

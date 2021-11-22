@@ -1,0 +1,148 @@
+import React, { useState, useRef, useReducer } from 'react';
+import styled from 'styled-components';
+import InputTitle from './make-section-components/InputTitle';
+import MakePageRule from './make-section-components/MakePageRule';
+import DocCard from './make-section-components/DocCard';
+import WikiContentsIndex from './make-section-components/WikiContentsIndex';
+import EditorBox from './make-section-components/EditorBox';
+import MainSection from '../common/MainSection';
+import AlertModal from '../custom-alert/AlertModal';
+import { BREAK_POINT_MOBILE } from '../../magic-number';
+import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
+import { font, flexBox } from '../../styles/styled-components/mixin';
+
+const MakeSection = ({ history }) => {
+  const [canMake, setCanMake] = useState();
+  const [docRule, setDocRule] = useState(false);
+  const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
+  const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
+  const checkBoxRef = useRef(null);
+
+  const handleRule = (e) => {
+    if (e.target.checked) setDocRule(true);
+    else setDocRule(false);
+  };
+
+  const addDocument = async () => {
+    if (!canMake) setAlertState({ isAlertOn: true, msg: '생성가능 여부를 확인해주세요' });
+    else if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요' });
+    else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요' });
+    else {
+      await fetch('/api/documents', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(docData),
+      }).then((res) => res.json());
+      history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
+    }
+  };
+
+  const closeAlert = ({ target }) => {
+    const classList = target.className.split(' ');
+    if (classList.includes('close-alert')) {
+      setAlertState({ ...alertState, isAlertOn: false });
+    }
+  };
+
+  const cancelAddDoc = () => {
+    history.goBack();
+  };
+
+  const clickCheckBox = (e) => {
+    const checkBox = checkBoxRef.current;
+    checkBox.checked = !checkBox.checked;
+  };
+
+  return (
+    <MainSection title="문서 작성">
+      <MainContent onClick={closeAlert}>
+        {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
+
+        <InputTitle setCanMake={setCanMake} canMake={canMake} docData={docData} docDispatch={docDispatch} />
+
+        <ListCardWrap>
+          <WikiContentsIndex title="목차 미리보기" text={docData.content} />
+          <DocCard docData={docData} docDispatch={docDispatch} />
+        </ListCardWrap>
+
+        <EditorBox docData={docData} docDispatch={docDispatch} />
+
+        <RuleDiv>
+          <input type="checkbox" style={{ margin: '11px 10px 9px 10px' }} onChange={handleRule} ref={checkBoxRef} />
+          <RuleTxt onClick={clickCheckBox}>작성자는 아래 규정에 동의합니다.</RuleTxt>
+        </RuleDiv>
+
+        <ButtonWrap>
+          <SubmitBtn onClick={addDocument}>등록</SubmitBtn>
+          <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
+        </ButtonWrap>
+
+        <MakePageRule />
+      </MainContent>
+    </MainSection>
+  );
+};
+
+const MainContent = styled.div`
+  ${flexBox({ direction: 'column', alignItems: 'center' })};
+  padding: 0px 10px;
+`;
+
+const ListCardWrap = styled.div`
+  ${flexBox({ justifyContent: 'space-between' })};
+  height: fit-content;
+  width: 100%;
+  margin-top: 22px;
+
+  @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+    ${flexBox({ direction: 'column', alignItems: 'center' })};
+  }
+`;
+
+const RuleDiv = styled.div`
+  ${flexBox({ alignItems: 'center' })};
+  color: #222222;
+  margin-bottom: 10px;
+  margin-top: 20px;
+`;
+
+const RuleTxt = styled.p`
+  &:hover {
+    cursor: default;
+  }
+`;
+
+const ButtonWrap = styled.div``;
+
+const SubmitBtn = styled.button`
+  ${font({ size: '20px', weight: 'normal' })};
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: #0055fb;
+  border-radius: 11px;
+  text-align: center;
+  border: none;
+  margin-right: 20px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CancelBtn = styled.button`
+  ${font({ size: '20px', weight: 'normal' })};
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: #f45452;
+  border-radius: 11px;
+  text-align: center;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export default MakeSection;
