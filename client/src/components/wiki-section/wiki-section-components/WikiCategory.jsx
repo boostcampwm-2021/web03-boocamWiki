@@ -31,7 +31,6 @@ const Flexed = styled.div`
 `;
 
 export const WikiCategory = ({ categories }) => {
-  console.log(categories);
   return (
     <Category>
       {' '}
