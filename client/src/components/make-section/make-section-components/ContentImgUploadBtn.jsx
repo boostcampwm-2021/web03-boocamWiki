@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { font, flexBox } from '../../../styles/styled-components/mixin';
 import { fileUploadValidator } from '../../../utils/validator';
 import { getImgUrl, showErrorCode } from '../../../services/image-upload';
 
@@ -45,7 +46,17 @@ const UploadBtn = styled.input`
 `;
 
 const UploadLabel = styled.label`
-  border: 1px solid red;
+  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
+  ${font({ size: '13px', weight: '500' })};
+  width: 80px;
+  height: 30px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default ContentImgUploadBtn;
