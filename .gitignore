@@ -3,9 +3,11 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,linux,node,react
 
 ### docker files ###
+docker/
 docker/*.yml
-docker/nginx/build/
+docker/nginx/
 docker/node/dist/
+docker/certbot/
 
 ### Linux ###
 *~
