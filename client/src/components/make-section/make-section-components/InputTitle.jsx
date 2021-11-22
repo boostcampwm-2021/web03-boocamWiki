@@ -21,6 +21,7 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const { memberType } = useContext(SelectTypeContext);
 
   const changeData = () => {
+    setCanMake();
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {

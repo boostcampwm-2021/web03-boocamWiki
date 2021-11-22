@@ -16,6 +16,7 @@ const MakeSection = ({ history }) => {
   const [docRule, setDocRule] = useState(false);
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
+  const checkBoxRef = useRef(null);
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -49,6 +50,11 @@ const MakeSection = ({ history }) => {
     history.goBack();
   };
 
+  const clickCheckBox = (e) => {
+    const checkBox = checkBoxRef.current;
+    checkBox.checked = !checkBox.checked;
+  };
+
   return (
     <MainSection title="문서 작성">
       <MainContent onClick={closeAlert}>
@@ -64,8 +70,8 @@ const MakeSection = ({ history }) => {
         <EditorBox docData={docData} docDispatch={docDispatch} />
 
         <RuleDiv>
-          <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} />
-          작성자는 아래 규정에 동의합니다.
+          <input type="checkbox" style={{ margin: '11px 10px 9px 10px' }} onChange={handleRule} ref={checkBoxRef} />
+          <RuleTxt onClick={clickCheckBox}>작성자는 아래 규정에 동의합니다.</RuleTxt>
         </RuleDiv>
 
         <ButtonWrap>
@@ -97,9 +103,15 @@ const ListCardWrap = styled.div`
 
 const RuleDiv = styled.div`
   ${flexBox({ alignItems: 'center' })};
-  color: red;
+  color: #222222;
   margin-bottom: 10px;
   margin-top: 20px;
+`;
+
+const RuleTxt = styled.p`
+  &:hover {
+    cursor: default;
+  }
 `;
 
 const ButtonWrap = styled.div``;
