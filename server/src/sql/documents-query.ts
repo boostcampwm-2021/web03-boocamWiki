@@ -15,6 +15,9 @@ import {
   getObjectValue,
 } from './helper';
 
+import { Document, DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
+// import { getDocumentKeyValue, getObjectKey, getObjectValue } from '../services/util';
+
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
     `SELECT generation, boostcamp_id, name, SUM(count) as total_count FROM view ` +

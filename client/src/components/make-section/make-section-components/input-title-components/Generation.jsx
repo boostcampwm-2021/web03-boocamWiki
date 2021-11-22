@@ -14,9 +14,9 @@ const Generation = ({ docData, changeData, genBtnHandler }) => {
             <GenInput
               type="text"
               onChange={changeData}
-              placeholder={docData.generation !== 0 ? docData.generation : '선택하세요'}
+              value={generation < 1 ? '' : generation}
+              placeholder="선택하세요"
               readOnly
-              autoComplete="off"
             />
             <GenBtnWrap>
               <GenBtn src={genUpBtn} id="up" onClick={genBtnHandler} />

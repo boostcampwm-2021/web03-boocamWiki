@@ -20,7 +20,7 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   };
 
   const changeData = () => {
-    if (canMake) setCanMake(false);
+    setCanMake();
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
@@ -32,6 +32,11 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   };
 
   const titleCheckHandler = async () => {
+    if (!docData.classification || docData.generation < 0 || !docData.boostcamp_id || !docData.name) {
+      setCanMake();
+      return;
+    }
+
     const result = await fetch(
       `/api/documents/search?generation=${docData.generation}&boostcamp_id=${docData.boostcamp_id}&name=${docData.name}`,
     );
@@ -40,16 +45,16 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
     else setCanMake(false);
   };
 
-  const genBtnHandler = (e) => {
-    if (e.target.id === 'up') {
+  const genBtnHandler = ({ target }) => {
+    if (target.id === 'up') {
       docDispatch({
         type: 'INPUT_DOC_DATA',
         payload: {
-          generation: docData.generation + 1,
+          generation: docData.generation < 1 ? 1 : docData.generation + 1,
         },
       });
     } else {
-      if (docData.generation - 1 < 1) return;
+      if (docData.generation <= 1) return;
       docDispatch({
         type: 'INPUT_DOC_DATA',
         payload: {
@@ -93,8 +98,8 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
 };
 
 const DownLine = styled.div`
-  border: 1px solid #d7d7d7;
-  width: 0.1px;
+  width: 1px;
+  background-color: #d7d7d7;
   height: 44px;
 
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
@@ -106,7 +111,7 @@ const TitleWrap = styled.div`
   ${flexBox({ justifyContent: 'space-between', alignItems: 'center' })};
   ${font({ size: '12px', weight: 'bold' })};
   width: 635px;
-  height: 66px;
+  height: 70px;
   background-color: #f6f6f6;
   border: 1px solid #d7d7d7;
   border-radius: 15px;

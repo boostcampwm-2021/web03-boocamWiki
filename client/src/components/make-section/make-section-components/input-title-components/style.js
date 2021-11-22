@@ -26,6 +26,7 @@ export const CanText = styled.div`
   color: ${(props) => props.color};
   font-weight: normal;
   text-align: center;
+  margin-top: 3px;
 `;
 
 export const Input = styled.input`
@@ -77,19 +78,18 @@ export const GenBtn = styled.img`
 `;
 
 export const ValidationWrap = styled.div`
-  ${flexBox({ direction: 'column', alignItems: 'center' })};
+  ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })};
 `;
 
 export const ValidationBtn = styled.button`
   width: 94px;
   height: 34px;
-  background-color: #f45452;
+  background-color: #e8a20c;
   color: white;
   border: none;
   border-radius: 11px;
   font-size: 18px;
-  margin-left: 15px;
-  margin-right: 10px;
+  margin: 3px 10px 0 15px;
   &:hover {
     cursor: pointer;
   }

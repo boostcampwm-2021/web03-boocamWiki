@@ -17,10 +17,10 @@ interface DocData {
 }
 
 export const initialDocData = {
-  generation: 0,
-  boostcamp_id: '',
-  name: '',
-  content: '',
+  generation: -1,
+  boostcamp_id: null,
+  name: null,
+  content: null,
   nickname: null,
   location: null,
   language: null,
