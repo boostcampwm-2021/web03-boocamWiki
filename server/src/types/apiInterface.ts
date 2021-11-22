@@ -29,3 +29,11 @@ export interface DocumentsView extends Document {
 export interface DocumentsRecent extends Document {
   recent_created_at: String;
 }
+
+export interface GithubUserInfo {
+  login: string;
+  node_id: string;
+  avatar_url: string;
+}
+
+export type TokenPayload = { validation: boolean; iat?: number; exp?: number } & GithubUserInfo;

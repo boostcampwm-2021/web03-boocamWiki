@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchSection from '../components/search-section/SearchSection';
-import PageLayout from './common/PageLayout'
-
+import PageLayout from './common/PageLayout';
 
 const SearchPage = () => {
   return (

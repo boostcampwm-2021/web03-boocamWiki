@@ -1,14 +1,20 @@
 import React, { useEffect, useReducer, createContext } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import * as dotenv from 'dotenv';
 import MainPage from './pages/MainPage';
 import MakePage from './pages/MakePage';
 import SearchPage from './pages/SearchPage';
 import ErrorPage from './pages/ErrorPage';
 import WikiPage from './pages/WikiPage';
 import UpdatePage from './pages/UpdatePage';
+import LoginPage from './pages/LoginPage';
+import GithubCallbackPage from './pages/GithubCallbackPage';
+import JoinPage from './pages/JoinPage';
 import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
 import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
 import { selectHandler } from './event-handler/select-handler';
+
+dotenv.config();
 
 const SelectTgContext = createContext(selectTgInitState);
 const SelectTypeContext = createContext(selectTypeInitState);
@@ -39,6 +45,9 @@ const App = () => {
             <Route path="/error" component={ErrorPage} />
             <Route path="/w" component={WikiPage} />
             <Route path="/updatedocs" component={UpdatePage} />
+            <Route path="/login" component={LoginPage} />
+            <Route path="/join" component={JoinPage} />
+            <Route path="/auth/github/callback" component={GithubCallbackPage} />
             <Route path="/" component={ErrorPage} />
           </Switch>
         </Router>

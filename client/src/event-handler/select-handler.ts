@@ -18,7 +18,11 @@ export const selectHandler = (
     if (classList.includes('SelectSearchType')) {
       SelectTypeDispatch({ type: 'inputSearchType', value: event.target.innerHTML });
     } else if (classList.includes('SelectUserInfo')) {
-      // 로그인, 로그아웃, 정보수정 등등 관련 처리
+      if (event.target.innerText === '로그인') {
+        window.location.replace(
+          `https://www.github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GITHUB_CALLBACK_URL}`,
+        );
+      }
     } else if (classList.includes('SelectPeopleType')) {
       SelectTypeDispatch({ type: 'inputMemberType', value: event.target.innerHTML });
     } else {
