@@ -38,7 +38,7 @@ export const WikiCategory = ({ categories }) => {
       {categories.map((item) => (
         <Flexed key={item}>
           <Divider />
-          <CategoryLink to="#">{item}</CategoryLink>
+          <CategoryLink to={`/c/${item}`}>{item}</CategoryLink>
         </Flexed>
       ))}
     </Category>

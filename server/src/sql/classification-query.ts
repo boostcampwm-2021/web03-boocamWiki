@@ -18,3 +18,13 @@ export async function updateClassification(param: DocumentsClassification) {
     return result;
   });
 }
+
+export async function getDocumentsWithClassification(param: string) {
+  const query =
+    `SELECT doc.boostcamp_id as boostcamp_id, doc.generation as generation, doc.name as name ` +
+    `FROM document as doc JOIN document_classification as cl ON ` +
+    `doc.generation = cl.generation AND doc.boostcamp_id = cl.boostcamp_id AND ` +
+    `doc.name = cl.name WHERE cl.classification_id = ?`;
+  const [result] = await db.pool.query(query, param);
+  return result;
+}

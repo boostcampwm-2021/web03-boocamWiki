@@ -10,6 +10,7 @@ import UpdatePage from './pages/UpdatePage';
 import LoginPage from './pages/LoginPage';
 import GithubCallbackPage from './pages/GithubCallbackPage';
 import JoinPage from './pages/JoinPage';
+import CategoryPage from './pages/CategoryPage';
 import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
 import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
 import { selectHandler } from './event-handler/select-handler';
@@ -44,6 +45,7 @@ const App = () => {
             <Route path="/search" component={SearchPage} />
             <Route path="/error" component={ErrorPage} />
             <Route path="/w" component={WikiPage} />
+            <Route path="/c" component={CategoryPage} />
             <Route path="/updatedocs" component={UpdatePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/join" component={JoinPage} />
