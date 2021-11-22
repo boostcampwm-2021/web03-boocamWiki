@@ -2,7 +2,6 @@ import { fileSizeError, fileFormatError } from '../utils/validator';
 
 export const getImgUrl = async (item, type = 0) => {
   const image = item;
-  console.log(item);
   const datas = new FormData();
   datas.append('image', image, image.name);
   const result = await fetch('/api/images', {
