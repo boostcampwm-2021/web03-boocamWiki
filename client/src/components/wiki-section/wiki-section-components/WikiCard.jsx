@@ -10,32 +10,36 @@ const cardData = [
   { name: '링크', key: 'link' },
 ];
 
+function isEmpty(str) {
+  const result = !str || str.length === 0;
+  return result;
+}
+
 const WikiCard = ({ docData, name }) => {
   const [card, setCard] = useState(false);
 
   useEffect(() => {
-    if (docData.user_image !== 'null' && docData.user_image !== '') setCard(true);
-    else if (docData.nickname !== 'null' && docData.nickname !== '') setCard(true);
-    else if (docData.location !== 'null' && docData.location !== '') setCard(true);
-    else if (docData.language !== 'null' && docData.language !== '') setCard(true);
-    else if (docData.mbti !== 'null' && docData.mbti !== '') setCard(true);
-    else if (docData.field !== 'null' && docData.field !== '') setCard(true);
-    else if (docData.link !== 'null' && docData.link !== '') setCard(true);
+    if (!isEmpty(docData.user_image)) setCard(true);
+    else if (!isEmpty(docData.nickname)) setCard(true);
+    else if (!isEmpty(docData.location)) setCard(true);
+    else if (!isEmpty(docData.language)) setCard(true);
+    else if (!isEmpty(docData.mbti)) setCard(true);
+    else if (!isEmpty(docData.field)) setCard(true);
+    else if (!isEmpty(docData.link)) setCard(true);
     else setCard(false);
   }, [docData]);
 
   return (
     <CardBox background={card ? '#DDEEAA' : 'white'} display={card ? 'block' : 'none'}>
       {card && <CardOwner>{name}</CardOwner>}
-      {docData.user_image !== 'null' && (
+      {!isEmpty(docData.user_image) && (
         <a href={docData.user_image} target="_blank" rel="noreferrer">
           <CardImg src={docData.user_image} />
         </a>
       )}
       {cardData.map(
         (item) =>
-          docData[item.key] !== 'null' &&
-          docData[item.key] !== '' && (
+          !isEmpty(docData[item.key]) && (
             <CardDataWrap key={item.name}>
               <CardDataName>{item.name}</CardDataName>
               <CardDataText>{docData[item.key]}</CardDataText>

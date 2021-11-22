@@ -26,17 +26,12 @@ const CategoryLink = styled(Link)`
   text-decoration: none;
 `;
 
-const boostcampIdMap = {
-  master: '마스터',
-  manager: '운영진',
-  camper: '캠퍼',
-};
-
 const Flexed = styled.div`
   ${flexBox({})}
 `;
 
 export const WikiCategory = ({ categories }) => {
+  console.log(categories);
   return (
     <Category>
       {' '}
@@ -44,7 +39,7 @@ export const WikiCategory = ({ categories }) => {
       {categories.map((item) => (
         <Flexed key={item}>
           <Divider />
-          <CategoryLink to="#">{boostcampIdMap[item]}</CategoryLink>
+          <CategoryLink to="#">{item}</CategoryLink>
         </Flexed>
       ))}
     </Category>

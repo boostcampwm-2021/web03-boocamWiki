@@ -7,14 +7,14 @@ const MANAGER = '운영진';
 
 const Eng = {
   캠퍼: 'CAMPER',
-  부스트캠프: 'boostcamp',
+  부스트캠프: 'BOOSTCAMP',
   마스터: 'MASTER',
   리뷰어: 'REVIEWER',
   멘토: 'MENTOR',
   운영진: 'MANAGER',
 };
 
-export const WordManager = {
+const WordManager = {
   CAMPER,
   BOOSTCAMP,
   MASTER,
@@ -23,3 +23,5 @@ export const WordManager = {
   MANAGER,
   Eng,
 };
+
+export default WordManager;

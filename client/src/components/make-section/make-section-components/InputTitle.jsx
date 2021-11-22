@@ -8,7 +8,7 @@ import CreateBtn from './input-title-components/CreateBtn';
 import { SelectTypeContext } from '../../../App';
 import { font, flexBox } from '../../../styles/styled-components/mixin';
 import { BREAK_POINT_MOBILE } from '../../../magic-number';
-import { WordManager } from '../../../resource/message/words';
+import { WordManager } from '../../../resource/message';
 
 const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const id = useRef(docData.boostcamp_id);

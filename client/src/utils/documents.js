@@ -1,6 +1,10 @@
+import WordManager from '../resource/message/words';
+
 const boostcampIdMap = {
-  master: '마스터',
-  manager: '운영진',
+  MASTER: WordManager.MASTER,
+  MANAGER: WordManager.MANAGER,
+  MENTOR: WordManager.MENTOR,
+  REVIEWER: WordManager.REVIEWER,
 };
 
 export const docTitleGen = ({ generation = 0, name = '', boostcampId }, type) => {

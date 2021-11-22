@@ -1,7 +1,7 @@
 import React from 'react';
 import genDownBtn from '../../../../resource/img/genDownBtn.svg';
 import genUpBtn from '../../../../resource/img/genUpBtn.svg';
-import { WordManager } from '../../../../resource/message/words';
+import { WordManager } from '../../../../resource/message';
 import { TextInputWrap, Text, GenWrap, GenInput, GenBtnWrap, GenBtn } from './style';
 
 const Generation = ({ docData, changeData, genBtnHandler }) => {

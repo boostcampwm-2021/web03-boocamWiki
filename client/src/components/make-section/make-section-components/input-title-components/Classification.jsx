@@ -3,7 +3,7 @@ import SelectModal from '../../../select-modal/SelectModal';
 import { SelectTgContext } from '../../../../App';
 import genDownBtn from '../../../../resource/img/genDownBtn.svg';
 import { TextInputWrap, Text, GenWrap, TypeInput, GenBtn } from './style';
-import { WordManager } from '../../../../resource/message/words';
+import { WordManager } from '../../../../resource/message';
 
 const PEOPLE_TYPE = {
   캠퍼: WordManager.CAMPER,

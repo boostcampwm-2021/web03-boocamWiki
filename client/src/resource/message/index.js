@@ -1,3 +1,3 @@
-import { WordManger } from './words';
+import WordManager from './words';
 
-export { WordManger };
+export { WordManager };
