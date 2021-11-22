@@ -37,7 +37,7 @@ export function generateAccessToken(TokenPayload: TokenPayload): string {
 }
 
 export function generateRefreshToken(node_id: string): string {
-  return jwt.sign({ node_id }, config.REFRESH_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '180 days' });
+  return jwt.sign({ node_id }, config.REFRESH_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '14 days' });
 }
 
 export function generateToken(TokenPayload: TokenPayload): { accessToken: string; refreshToken: string } {

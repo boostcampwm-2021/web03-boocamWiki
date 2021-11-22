@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { authFetch } from '../../utils/login';
 import MainSection from '../common/MainSection';
 
 const JoinSection = () => {
   const [answer, setAnswer] = useState('');
+  const history = useHistory();
   const answerChange = (e) => {
     setAnswer(e.target.value);
   };
@@ -15,8 +17,19 @@ const JoinSection = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ answer }),
     });
-    const data = await res.json();
-    console.log(data);
+    const {
+      result: { accessToken, refreshToken },
+      msg,
+    } = await res.json();
+    if (res.status === 200) {
+      window.sessionStorage.setItem('accessToken', accessToken);
+      window.localStorage.setItem('refreshToken', refreshToken);
+      alert('가입이 완료되었습니다.');
+      history.push('/');
+    } else if (msg === 'wrong answer') {
+      alert('잘못된 답을 입력하셨습니다.');
+    }
+
     setAnswer('');
   };
 
