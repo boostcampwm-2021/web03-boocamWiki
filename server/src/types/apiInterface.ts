@@ -33,14 +33,7 @@ export interface DocumentsRecent extends Document {
 export interface GithubUserInfo {
   login: string;
   node_id: string;
-  name: string;
-}
-
-export interface User {
-  user_id: string;
-  provider: string;
-  login: string;
-  name: string | null;
+  avatar_url: string;
 }
 
 export type TokenPayload = { validation: boolean; iat?: number; exp?: number } & GithubUserInfo;
