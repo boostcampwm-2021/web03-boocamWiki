@@ -25,6 +25,10 @@ export interface DocumentsUpdate extends DocumentsCreate {
   user_id: String;
 }
 
+export interface DocumentsClassification extends DocumentsCreate {
+  classification: string[];
+}
+
 export interface DocumentsView extends Document {
   total_count: String;
 }

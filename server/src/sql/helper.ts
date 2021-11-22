@@ -1,4 +1,10 @@
-import { DocumentsCreate, DocumentsUpdate, keyofDocumentsCreate, keyofDocumentsUpdate } from '../types/apiInterface';
+import {
+  DocumentsCreate,
+  DocumentsUpdate,
+  keyofDocumentsCreate,
+  keyofDocumentsUpdate,
+  Document,
+} from '../types/apiInterface';
 
 export function getObjectKey(arg: object): string[] {
   return Object.entries(arg)
@@ -22,4 +28,16 @@ export function getDocumentsUpdateKV(param: DocumentsUpdate): object {
   const result = {};
   Object.entries(keyofDocumentsUpdate).forEach(([key]) => (result[key] = param[key]));
   return result;
+}
+
+export function getDocumentKeyValue(arg: Document, stringTypeList: String[], append: String = undefined): String[] {
+  return Object.entries(arg)
+    .filter(([, value]) => value !== undefined && value !== null)
+    .map(([key, value]) => {
+      let _key = key;
+      if (append || append.length > 0) {
+        _key = `${append}${key}`;
+      }
+      return `${_key}=${!stringTypeList.includes(key) ? `'${value}'` : value}`;
+    });
 }

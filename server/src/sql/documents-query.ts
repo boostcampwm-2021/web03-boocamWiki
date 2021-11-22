@@ -1,4 +1,3 @@
-import { param } from 'express-validator';
 import db from '../services/db-pool';
 import {
   Document,
@@ -8,13 +7,13 @@ import {
   DocumentsUpdate,
   DocumentsView,
 } from '../types/apiInterface';
-import { getDocumentsCreateKV, getDocumentsUpdateKV, getObjectKey, getObjectValue } from './helper';
-
-function getDocumentKeyValue(arg: Document, stringTypeList: String[]): String[] {
-  return Object.entries(arg)
-    .filter(([, value]) => value !== undefined && value !== null)
-    .map(([key, value]) => `${key}=${!stringTypeList.includes(key) ? `'${value}'` : value}`);
-}
+import {
+  getDocumentKeyValue,
+  getDocumentsCreateKV,
+  getDocumentsUpdateKV,
+  getObjectKey,
+  getObjectValue,
+} from './helper';
 
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
@@ -87,9 +86,11 @@ export async function getCount(params: Partial<DocumentsSearch>): Promise<number
 
 export async function getDoc(params: Document) {
   const [result] = await db.pool.query(
-    'SELECT created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link ' +
-      'FROM `document` ' +
-      `WHERE ${getDocumentKeyValue(params, ['generation']).join(' AND ')}`,
+    'SELECT created_at, updated_at, doc.generation as generation, content, nickname, location, language, user_image, mbti, field, link, cl.classification_id as classification ' +
+      'FROM `document` as doc LEFT JOIN document_classification as cl ' +
+      'ON doc.generation = cl.generation AND doc.boostcamp_id = cl.boostcamp_id ' +
+      'AND doc.name = cl.name ' +
+      `WHERE ${getDocumentKeyValue(params, ['generation'], 'doc.').join(' AND ')}`,
   );
   return result;
 }

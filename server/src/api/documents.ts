@@ -83,11 +83,23 @@ router.get('/', async (req: express.Request, res: express.Response) => {
       return res.status(404).json({ result, msg: 'empty result' });
     }
     OnDocViewed(req.query as unknown as DocumentsSearch);
-    return res.status(200).json({ result, msg: 'success' });
+    const packed = packData(result);
+    return res.status(200).json({ result: packed, msg: 'success' });
   } catch (err) {
     console.error(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
+
+function packData(result) {
+  const doc = result[0];
+  doc.classifications = result
+    .filter((doc) => doc.classification)
+    .reduce((prev, doc) => {
+      prev.push(doc.classification);
+      return prev;
+    }, []);
+  return doc;
+}
 
 export default router;
