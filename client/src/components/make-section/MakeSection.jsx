@@ -70,7 +70,7 @@ const MakeSection = ({ history }) => {
         <EditorBox docData={docData} docDispatch={docDispatch} />
 
         <RuleDiv>
-          <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} ref={checkBoxRef} />
+          <input type="checkbox" style={{ margin: '11px 10px 9px 10px' }} onChange={handleRule} ref={checkBoxRef} />
           <RuleTxt onClick={clickCheckBox}>작성자는 아래 규정에 동의합니다.</RuleTxt>
         </RuleDiv>
 
@@ -110,7 +110,7 @@ const RuleDiv = styled.div`
 
 const RuleTxt = styled.p`
   &:hover {
-    cursor: pointer;
+    cursor: default;
   }
 `;
 
