@@ -97,7 +97,7 @@ const ListCardWrap = styled.div`
 
 const RuleDiv = styled.div`
   ${flexBox({ alignItems: 'center' })};
-  color: red;
+  color: #222222;
   margin-bottom: 10px;
   margin-top: 20px;
 `;

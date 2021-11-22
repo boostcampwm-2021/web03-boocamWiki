@@ -84,7 +84,7 @@ export const ValidationWrap = styled.div`
 export const ValidationBtn = styled.button`
   width: 94px;
   height: 34px;
-  background-color: #f45452;
+  background-color: #e8a20c;
   color: white;
   border: none;
   border-radius: 11px;

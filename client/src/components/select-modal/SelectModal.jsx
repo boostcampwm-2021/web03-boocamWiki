@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const SelectModal = ({ className, content, isSelectOn, move }) => {
   const [first, last] = [0, content.length - 1];
-  const [target, setTarget] = useState();
 
   const checkFloor = (idx) => {
     if (idx === first && idx === last) {
