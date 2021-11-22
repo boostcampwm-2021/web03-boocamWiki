@@ -14,10 +14,10 @@ interface DocData {
 }
 
 export const initialDocData = {
-  generation: 0,
-  boostcamp_id: '',
-  name: '',
-  content: '',
+  generation: -1,
+  boostcamp_id: null,
+  name: null,
+  content: null,
   nickname: null,
   location: null,
   language: null,
@@ -25,13 +25,13 @@ export const initialDocData = {
   mbti: null,
   field: null,
   link: null,
-  classification: 'camper',
+  classification: null,
 };
 
-export const docDataReducer = (state: DocData, action: {type: string, payload: DocData}): DocData => {
+export const docDataReducer = (state: DocData, action: { type: string; payload: DocData }): DocData => {
   switch (action.type) {
     case 'INPUT_DOC_DATA':
-      return { ...state, ...action.payload }
+      return { ...state, ...action.payload };
     default:
       return state;
   }
