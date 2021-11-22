@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import EditorWithPreview from './EditorWithPreview';
 import Editor from './Editor';
 import Preview from './Preview';
+import ContentImgUploadBtn from './ContentImgUploadBtn';
 import { flexBox, font } from '../../../styles/styled-components/mixin';
 
 const EditorBox = ({ docData, docDispatch }) => {
@@ -38,6 +39,7 @@ const EditorBox = ({ docData, docDispatch }) => {
             <EditorTypeLabel htmlFor={type.name}>{type.text}</EditorTypeLabel>
           </div>
         ))}
+        <ContentImgUploadBtn docData={docData} docDispatch={docDispatch} />
       </BoxHeader>
 
       {editorTypes.map((type) => (
