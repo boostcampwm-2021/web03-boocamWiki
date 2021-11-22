@@ -3,11 +3,14 @@ import SelectModal from '../../../select-modal/SelectModal';
 import { SelectTgContext } from '../../../../App';
 import genDownBtn from '../../../../resource/img/genDownBtn.svg';
 import { TextInputWrap, Text, GenWrap, TypeInput, GenBtn } from './style';
+import { WordManager } from '../../../../resource/message/words';
 
 const PEOPLE_TYPE = {
-  캠퍼: 'camper',
-  마스터: 'master',
-  운영진: 'manager',
+  캠퍼: WordManager.CAMPER,
+  마스터: WordManager.MASTER,
+  운영진: WordManager.MANAGER,
+  멘토: WordManager.MENTOR,
+  리뷰어: WordManager.REVIEWER,
 };
 
 const Classification = ({ memberType }) => {
