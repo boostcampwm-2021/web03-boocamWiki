@@ -11,7 +11,7 @@ const cardData = [
 ];
 
 function isEmpty(str) {
-  const result = !str || str.length === 0;
+  const result = !str || str.length === 0 || str === 'null';
   return result;
 }
 

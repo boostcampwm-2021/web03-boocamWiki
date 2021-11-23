@@ -39,7 +39,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
       {loading && <Loading />}
       {!loading && (
         <>
-          <WikiCategory categories={[docData.classification]} />
+          <WikiCategory categories={docData.classifications} />
           <Padd>
             <WikiContentsIndex title="목차" text={docData.content} />
             <WikiCard docData={docData} name={name} />
