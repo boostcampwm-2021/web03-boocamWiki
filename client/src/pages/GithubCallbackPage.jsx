@@ -20,9 +20,12 @@ const GithubCallbackPage = () => {
       result: { accessToken, refreshToken },
       msg,
     } = await res.json();
+    if (res.msg === 'fail') {
+      return history.push('/error');
+    }
+    window.sessionStorage.setItem('accessToken', accessToken);
+    window.localStorage.setItem('refreshToken', refreshToken);
     if (res.status === 200) {
-      window.sessionStorage.setItem('accessToken', accessToken);
-      window.localStorage.setItem('refreshToken', refreshToken);
       return history.push('/');
     }
     if (msg === 'nonexistent user') {
