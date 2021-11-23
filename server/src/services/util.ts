@@ -35,7 +35,7 @@ export function getDocumentKeyValue(arg: Document, stringTypeList: String[], app
     .filter(([, value]) => value !== undefined && value !== null)
     .map(([key, value]) => {
       let _key = key;
-      if (append || append.length > 0) {
+      if (append && append.length > 0) {
         _key = `${append}${key}`;
       }
       return `${_key}=${!stringTypeList.includes(key) ? `'${value}'` : value}`;

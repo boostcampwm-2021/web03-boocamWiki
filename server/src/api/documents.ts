@@ -7,6 +7,7 @@ import {
   getSearchDoc,
   getDoc,
   getCount,
+  updateRecentDoc,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate, DocumentsUpdate } from '../types/apiInterface';
@@ -48,8 +49,16 @@ router.post('/', async (req: express.Request, res: express.Response) => {
 });
 
 router.put('/', async (req: express.Request, res: express.Response) => {
-  const result = await updateDoc(req.body);
-  res.status(200).json({ msg: 'OK', result });
+  try {
+    const result = await updateDoc(req.body);
+    res.status(200).json({ msg: 'OK', result });
+    const updateQuery: DocumentsUpdate = req.body;
+    updateQuery.user_id = 'zoeas';
+    updateRecentDoc(updateQuery);
+    return;
+  } catch (err) {
+    res.status(404).json({ msg: 'fail' });
+  }
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
@@ -71,6 +80,7 @@ router.get('/count', async (req: express.Request, res: express.Response) => {
     const result = await getCount({ generation, boostcamp_id, name, content });
     return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
+    console.log(err);
     return res.status(404).json({ result: -1, msg: 'fail' });
   }
 });
@@ -86,7 +96,6 @@ router.get('/', async (req: express.Request, res: express.Response) => {
     const packed = packData(result);
     return res.status(200).json({ result: packed, msg: 'success' });
   } catch (err) {
-    console.error(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
