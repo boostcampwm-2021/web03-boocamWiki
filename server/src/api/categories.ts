@@ -28,7 +28,12 @@ function packDataWithName(obj) {
     if (packed[c]) packed[c].push(item);
     else packed[c] = [item];
   });
-  return packed;
+  return Object.keys(packed)
+    .sort()
+    .reduce((obj, key) => {
+      obj[key] = packed[key];
+      return obj;
+    }, {});
 }
 
 export default router;
