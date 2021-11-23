@@ -63,12 +63,17 @@ router.put('/', async (req: express.Request, res: express.Response) => {
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
   const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
+  const step = 8;
   try {
-    const result = await getSearchDoc({ generation, boostcamp_id, name, content, offset, limit });
+    const count = await getCount({ generation, boostcamp_id, name, content });
+    let adjOffset = offset;
+    if (isNaN(adjOffset) || adjOffset < 0) adjOffset = 0;
+    if (offset * step > count) adjOffset = Math.floor(count / step);
+    const result = await getSearchDoc({ generation, boostcamp_id, name, content, offset: adjOffset, limit });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
-    return res.status(200).json({ result, msg: 'success' });
+    return res.status(200).json({ result, offset: adjOffset, msg: 'success' });
   } catch (err) {
     return res.status(404).json({ result: [], msg: 'fail' });
   }

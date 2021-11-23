@@ -9,7 +9,7 @@ const ResultView = ({ type, value, result, resultCount, currentPage }) => {
     <ResultViewDiv>
       <ResultSummary type={type} value={value} resultCount={resultCount} />
       <ResultContent type={type} value={value} result={result} />
-      <ResultFooter resultCount={resultCount} />
+      <ResultFooter resultCount={resultCount} currentPage={currentPage} />
     </ResultViewDiv>
   );
 };

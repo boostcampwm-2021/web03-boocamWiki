@@ -15,6 +15,7 @@ const SearchSection = () => {
   const [searchType, searchValue] = Object.entries({ generation, boostcamp_id, name, content }).filter(
     ([, value]) => value !== undefined,
   )[0] ?? ['', ''];
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     const getResultList = async () => {
@@ -22,8 +23,8 @@ const SearchSection = () => {
       if (res.status !== 200 && res.msg === 'fail') {
         history.push('/error');
       }
-      const { result } = await res.json();
-      return result;
+      const rjson = await res.json();
+      return { result: rjson.result, offset: rjson.offset };
     };
 
     const getResultCount = async () => {
@@ -38,7 +39,9 @@ const SearchSection = () => {
     const getContent = async () => {
       setLoading(true);
       const resultList = await getResultList();
-      setSearchResult(resultList);
+      setSearchResult(resultList.result);
+      const off = parseInt(resultList.offset, 10);
+      setCurrentPage(off + 1);
       const resultCount = await getResultCount();
       setSearchResultCount(resultCount);
 
@@ -61,7 +64,7 @@ const SearchSection = () => {
           value={searchValue}
           result={searchResult}
           resultCount={searchResultCount}
-          currentPage={offset}
+          currentPage={currentPage}
         />
       )}
     </MainSection>
