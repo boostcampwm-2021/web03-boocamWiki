@@ -24,7 +24,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
         history.push('/error');
       }
       const { result } = await res.json();
-      setDocData(result[0]);
+      setDocData(result);
       setLoading(false);
     };
 

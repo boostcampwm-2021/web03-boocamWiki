@@ -11,7 +11,6 @@ export interface DocumentsSearch extends Document {
 }
 
 export interface DocumentsCreate extends Document {
-  user_id: String;
   content: String;
   nickname: String;
   language: String;
@@ -22,6 +21,14 @@ export interface DocumentsCreate extends Document {
   user_image: String;
 }
 
+export interface DocumentsUpdate extends DocumentsCreate {
+  user_id: String;
+}
+
+export interface DocumentsClassification extends DocumentsCreate {
+  classification: string[];
+}
+
 export interface DocumentsView extends Document {
   total_count: String;
 }
@@ -29,6 +36,36 @@ export interface DocumentsView extends Document {
 export interface DocumentsRecent extends Document {
   recent_created_at: String;
 }
+
+
+export const keyofDocumentsCreate = {
+  generation: 0,
+  boostcamp_id: 0,
+  name: 0,
+  content: 0,
+  nickname: 0,
+  language: 0,
+  location: 0,
+  field: 0,
+  mbti: 0,
+  link: 0,
+  user_image: 0,
+};
+
+export const keyofDocumentsUpdate = {
+  generation: 0,
+  boostcamp_id: 0,
+  name: 0,
+  content: 0,
+  nickname: 0,
+  language: 0,
+  location: 0,
+  field: 0,
+  mbti: 0,
+  link: 0,
+  user_image: 0,
+  user_id: 0,
+};
 
 export interface GithubUserInfo {
   login: string;

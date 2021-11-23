@@ -1,16 +1,16 @@
 import React from 'react';
 import genDownBtn from '../../../../resource/img/genDownBtn.svg';
 import genUpBtn from '../../../../resource/img/genUpBtn.svg';
+import { WordManager } from '../../../../resource/message';
 import { TextInputWrap, Text, GenWrap, GenInput, GenBtnWrap, GenBtn } from './style';
 
 const Generation = ({ docData, changeData, genBtnHandler }) => {
-  const { classification, generation } = docData;
-
+  const { generation } = docData;
   return (
     <TextInputWrap>
       <Text>기수</Text>
       <GenWrap>
-        {(classification === 'camper' || !classification) && (
+        {docData.member_type === WordManager.CAMPER ? (
           <>
             <GenInput
               type="text"
@@ -24,8 +24,9 @@ const Generation = ({ docData, changeData, genBtnHandler }) => {
               <GenBtn src={genDownBtn} id="down" onClick={genBtnHandler} />
             </GenBtnWrap>
           </>
+        ) : (
+          <GenInput type="text" placeholder="ALL" readOnly />
         )}
-        {classification && classification !== 'camper' && <GenInput type="text" placeholder="ALL" readOnly />}
       </GenWrap>
     </TextInputWrap>
   );

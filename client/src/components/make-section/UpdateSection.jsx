@@ -44,7 +44,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
         history.push('/error');
       }
       const { result } = await res.json();
-      const { content, field, language, link, location, mbti, nickname, user_image } = result[0];
+      const { content, field, language, link, location, mbti, nickname, user_image } = result;
       const updateData = {
         type: 'INPUT_DOC_DATA',
         payload: {

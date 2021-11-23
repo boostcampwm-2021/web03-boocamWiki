@@ -16,7 +16,7 @@ const MainDoor = () => {
         history.push('/error');
       }
       const { result } = await res.json();
-      setContent(result[0].content);
+      setContent(result.content);
       setLoading(false);
     };
 

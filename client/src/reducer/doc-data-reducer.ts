@@ -1,3 +1,5 @@
+import { WordManager } from '../resource/message';
+
 interface DocData {
   generation: number;
   boostcamp_id: string;
@@ -10,7 +12,8 @@ interface DocData {
   mbti: string;
   field: string;
   link: string;
-  classification: 'camper' | 'master' | 'manager';
+  member_type: string;
+  classification: string[];
 }
 
 export const initialDocData = {
@@ -25,7 +28,8 @@ export const initialDocData = {
   mbti: null,
   field: null,
   link: null,
-  classification: null,
+  member_type: WordManager.CAMPER,
+  classification: [WordManager.CAMPER],
 };
 
 export const docDataReducer = (state: DocData, action: { type: string; payload: DocData }): DocData => {

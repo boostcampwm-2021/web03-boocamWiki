@@ -1,20 +1,16 @@
 import React from 'react';
+import { WordManager } from '../../../../resource/message';
 import { TextInputWrap, Text, Input } from './style';
 
 const BoostCampId = ({ docData, id, changeData }) => {
-  const { classification } = docData;
-
   return (
     <TextInputWrap>
       <Text>아이디</Text>
-      {(classification === 'camper' || !classification) && (
+      {docData.member_type === WordManager.CAMPER && (
         <Input type="text" ref={id} onChange={changeData} placeholder="입력하세요" />
       )}
-      {classification === 'master' && (
-        <Input type="text" ref={id} onChange={changeData} placeholder="MASTER" readOnly />
-      )}
-      {classification === 'manager' && (
-        <Input type="text" ref={id} onChange={changeData} placeholder="MANAGER" readOnly />
+      {docData.member_type !== WordManager.CAMPER && (
+        <Input type="text" ref={id} onChange={changeData} placeholder={docData.boostcamp_id ?? '선택하세요'} readOnly />
       )}
     </TextInputWrap>
   );
