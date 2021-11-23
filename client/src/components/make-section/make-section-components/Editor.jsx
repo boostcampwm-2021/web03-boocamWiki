@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { font } from '../../../styles/styled-components/mixin';
-import { fileUploadValidator, fileSizeError, fileFormatError } from '../../../utils/validator';
+import { fileUploadValidator } from '../../../utils/validator';
 import { sendToStorage, showErrorCode } from '../../../services/image-upload';
 
 const Editor = ({ docData, docDispatch }) => {
@@ -22,7 +22,8 @@ const Editor = ({ docData, docDispatch }) => {
 
   const appendImageLink = (imgUrl, target) => {
     const { selectionStart, selectionEnd } = target;
-    const prevContent = docData.content;
+    if (selectionStart !== selectionEnd) return;
+    const prevContent = !docData.content ? '' : docData.content;
     const content =
       prevContent.substring(0, selectionStart) + imgUrl + prevContent.substring(selectionStart, prevContent.length);
 
@@ -51,7 +52,15 @@ const Editor = ({ docData, docDispatch }) => {
     }
   };
 
-  return <EditorBox onChange={changeHandler} onDrop={dropHandler} ref={inputRef} value={docData.content} isDragging />;
+  return (
+    <EditorBox
+      onChange={changeHandler}
+      onDrop={dropHandler}
+      ref={inputRef}
+      value={docData.content ? docData.content : ''}
+      isDragging
+    />
+  );
 };
 
 const EditorBox = styled.textarea`

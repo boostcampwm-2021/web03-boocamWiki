@@ -8,9 +8,6 @@ const router = express.Router();
 
 const upload = multer();
 
-// const endpoint = new AWS.Endpoint(config.IMG_STORAGE_ENDPOINT);
-
-// router.post('/', upload.single('image'), (req: express.Request, res: express.Response) => {
 router.post('/', upload.single('image'), async (req: any, res: express.Response) => {
   const S3 = new AWS.S3({
     endpoint: config.IMG_STORAGE_ENDPOINT,
@@ -20,7 +17,6 @@ router.post('/', upload.single('image'), async (req: any, res: express.Response)
       secretAccessKey: config.SECRET_KEY,
     },
   });
-
   const imageName = uuidv4();
   await S3.putObject({
     Bucket: config.IMG_BUCKET_NAME,

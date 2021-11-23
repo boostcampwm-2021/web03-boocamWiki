@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import EditorWithPreview from './EditorWithPreview';
 import Editor from './Editor';
 import Preview from './Preview';
+import ContentImgUploadBtn from './ContentImgUploadBtn';
 import { flexBox, font } from '../../../styles/styled-components/mixin';
 
 const EditorBox = ({ docData, docDispatch }) => {
@@ -25,19 +26,22 @@ const EditorBox = ({ docData, docDispatch }) => {
   return (
     <TotalBox>
       <BoxHeader>
-        {editorTypes.map((type) => (
-          <div key={type.name}>
-            <EditorTypeRadio
-              type="radio"
-              id={type.name}
-              name="typeRadio"
-              value={type.name}
-              onChange={handleBtn}
-              checked={inputStatus === type.name}
-            />
-            <EditorTypeLabel htmlFor={type.name}>{type.text}</EditorTypeLabel>
-          </div>
-        ))}
+        <EditorTypeWrapper>
+          {editorTypes.map((type) => (
+            <div key={type.name}>
+              <EditorTypeRadio
+                type="radio"
+                id={type.name}
+                name="typeRadio"
+                value={type.name}
+                onChange={handleBtn}
+                checked={inputStatus === type.name}
+              />
+              <EditorTypeLabel htmlFor={type.name}>{type.text}</EditorTypeLabel>
+            </div>
+          ))}
+        </EditorTypeWrapper>
+        <ContentImgUploadBtn docData={docData} docDispatch={docDispatch} />
       </BoxHeader>
 
       {editorTypes.map((type) => (
@@ -57,7 +61,7 @@ const TotalBox = styled.div`
 `;
 
 const BoxHeader = styled.div`
-  ${flexBox({})}
+  ${flexBox({ justifyContent: 'space-between' })}
   width: 100%;
   height: 43px;
   margin-bottom: 10px;
@@ -66,6 +70,11 @@ const BoxHeader = styled.div`
   border-bottom: 2px solid #d7d7d7;
   padding-top: 7px;
   padding-left: 9px;
+  padding-right: 9px;
+`;
+
+const EditorTypeWrapper = styled.div`
+  ${flexBox({})};
 `;
 
 const EditorTypeLabel = styled.label`
