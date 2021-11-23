@@ -56,7 +56,13 @@ const SearchSection = () => {
     <MainSection title="검색결과">
       {loading && <Loading />}
       {!loading && (
-        <ResultView type={searchType} value={searchValue} result={searchResult} resultCount={searchResultCount} />
+        <ResultView
+          type={searchType}
+          value={searchValue}
+          result={searchResult}
+          resultCount={searchResultCount}
+          currentPage={offset}
+        />
       )}
     </MainSection>
   );

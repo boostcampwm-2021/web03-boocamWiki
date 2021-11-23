@@ -3,11 +3,11 @@ import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
 
-const ResultFooter = ({ resultCount }) => {
+const ResultFooter = ({ resultCount, step = 8, currentPage }) => {
   const { pathname, search } = useLocation();
   const query = queryString.parse(search);
   const MAX_PAGE_LENGTH = 5;
-  const maxPage = Math.ceil(resultCount / 8);
+  const maxPage = Math.ceil(resultCount / step);
   query.offset = Number(query.offset) ?? 1;
 
   return (

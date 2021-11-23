@@ -1,15 +1,32 @@
 import * as express from 'express';
+import { isNumberObject } from 'util/types';
 import { getHangulCho, isHangulChar } from '../services/words';
-import { getDocumentsWithClassification } from '../sql/classification-query';
+import {
+  getDocumentsWithClassification,
+  getCountsWithClassification,
+  getAllClassifications,
+} from '../sql/classification-query';
 const router = express.Router();
 
 router.get('/:classification_id', async (req: express.Request, res: express.Response) => {
   try {
+    const step = 30;
     const cid = req.params.classification_id;
-    const result = await getDocumentsWithClassification(cid);
+    let offset = getSignedInt(req.query.offset?.toString() ?? '');
+    const count = await getCountsWithClassification(cid);
+    if ((offset - 1) * step > count) {
+      offset = Math.floor(count / step + 1);
+    }
+    const result = await getDocumentsWithClassification(cid, offset);
     const packed = packDataWithName(result);
+    const classifications = await getAllClassifications();
     res.status(200).json({
-      result: packed,
+      result: {
+        classifications,
+        count,
+        list: packed,
+        offset,
+      },
       msg: 'success',
     });
   } catch (err) {
@@ -28,12 +45,16 @@ function packDataWithName(obj) {
     if (packed[c]) packed[c].push(item);
     else packed[c] = [item];
   });
-  return Object.keys(packed)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = packed[key];
-      return obj;
-    }, {});
+  return packed;
+}
+
+function getSignedInt(str: string): number {
+  let result = 1;
+  try {
+    result = parseInt(str);
+    if (isNaN(result) || result < 1) result = 1;
+  } catch {}
+  return result;
 }
 
 export default router;

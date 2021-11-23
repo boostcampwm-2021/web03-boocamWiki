@@ -4,7 +4,7 @@ import ResultSummary from './ResultSummary';
 import ResultContent from './ResultContent';
 import ResultFooter from './ResultFooter';
 
-const ResultView = ({ type, value, result, resultCount }) => {
+const ResultView = ({ type, value, result, resultCount, currentPage }) => {
   return (
     <ResultViewDiv>
       <ResultSummary type={type} value={value} resultCount={resultCount} />
