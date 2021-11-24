@@ -80,8 +80,9 @@ export const useValidate = (check = true) => {
   useEffect(() => {
     if (isValidated() !== check) {
       const msg = check ? '로그인한 사용자만 이용할 수 있습니다.' : '로그인하지 않은 사용자만 이용할 수 있습니다.';
+      const redirectUrl = check ? '/login' : '/';
       alert(msg);
-      history.push('/');
+      history.push(redirectUrl);
     }
   }, [accessToken]);
 };
