@@ -23,6 +23,16 @@ export const getRefreshToken = () => {
   return refreshToken;
 };
 
+export const getAccessTokenPayload = () => {
+  const accessToken = getAccessToken();
+  return jwt.decode(accessToken);
+};
+
+export const getRefreshTokenPayload = () => {
+  const refreshToken = getRefreshToken();
+  return jwt.decode(refreshToken);
+};
+
 export const removeAccessToken = () => {
   sessionStorage.removeItem('accessToken');
 };
@@ -50,12 +60,12 @@ export const authFetch = async (url, options) => {
 
 export const isValidated = () => {
   const accessToken = getAccessToken();
-  const { validation } = jwt.decode(accessToken) ?? {};
+  const { validation } = getAccessTokenPayload() ?? {};
   if (!accessToken || !validation) {
     return false;
   }
   const refreshToken = getRefreshToken();
-  const { exp } = jwt.decode(refreshToken) ?? {};
+  const { exp } = getRefreshTokenPayload() ?? {};
   if (!refreshToken || exp < Math.ceil(Date.now() / 1000)) {
     removeAccessToken();
     removeRefreshToken();
