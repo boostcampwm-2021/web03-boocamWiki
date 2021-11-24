@@ -7,7 +7,7 @@ const BoostCampId = ({ docData, id, changeData }) => {
     <TextInputWrap>
       <Text>아이디</Text>
       {docData.member_type === WordManager.CAMPER && (
-        <Input type="text" ref={id} onChange={changeData} placeholder="입력하세요" />
+        <Input type="text" ref={id} onChange={changeData} placeholder="ex) J123" />
       )}
       {docData.member_type !== WordManager.CAMPER && (
         <Input type="text" ref={id} onChange={changeData} placeholder={docData.boostcamp_id ?? '선택하세요'} readOnly />

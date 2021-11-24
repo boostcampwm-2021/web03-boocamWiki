@@ -57,6 +57,19 @@ const DocCard = ({ docData, docDispatch }) => {
     }
   };
 
+  const createPlaceHoler = (name) => {
+    switch (name) {
+      case 'location':
+        return 'ex) 서울시 서대문구';
+      case 'language':
+        return 'ex) 자바스크립트';
+      case 'field':
+        return 'ex) FE / BE / DEVOPS 등';
+      default:
+        return '입력하세요';
+    }
+  };
+
   return (
     <CardBox>
       <CardOwner type="text" placeholder={docData.name} readOnly />
@@ -70,7 +83,7 @@ const DocCard = ({ docData, docDispatch }) => {
         <CardDataWrap key={item.name}>
           <CardDataName>{item.name}</CardDataName>
           <CardDataInput
-            placeholder="입력하세요"
+            placeholder={createPlaceHoler(item.key)}
             onChange={dataValueChange}
             id={item.key}
             autoComplete="off"

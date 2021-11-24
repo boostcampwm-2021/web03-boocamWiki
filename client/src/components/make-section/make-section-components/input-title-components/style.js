@@ -93,6 +93,9 @@ export const ValidationBtn = styled.button`
   &:hover {
     cursor: pointer;
   }
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
 export const PeopleTypeSelect = styled.select`
