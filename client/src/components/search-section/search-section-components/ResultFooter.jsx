@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import queryString from 'query-string';
 
-const ResultFooter = ({ resultCount }) => {
+const ResultFooter = ({ resultCount, step = 8, currentPage }) => {
   const { pathname, search } = useLocation();
   const query = queryString.parse(search);
   const MAX_PAGE_LENGTH = 5;
-  const maxPage = Math.ceil(resultCount / 8);
+  const maxPage = Math.ceil(resultCount / step);
   query.offset = Number(query.offset) ?? 1;
 
   return (
@@ -26,16 +26,18 @@ const ResultFooter = ({ resultCount }) => {
             {'<'}
           </StyledLink>
         </IndexDiv>
-        {new Array(maxPage < MAX_PAGE_LENGTH ? maxPage : MAX_PAGE_LENGTH).fill(0).map((_, idx) => {
+        {new Array(Math.min(maxPage, MAX_PAGE_LENGTH)).fill(0).map((_, idx) => {
           let currentIdx;
-          if (query.offset > Math.ceil(MAX_PAGE_LENGTH / 2)) {
-            currentIdx = query.offset + 2 > maxPage ? maxPage - 4 + idx : query.offset + idx - 2;
+          if (currentPage > Math.ceil(MAX_PAGE_LENGTH / 2)) {
+            currentIdx = currentPage + 2 > maxPage ? maxPage - 4 + idx : currentPage + idx - 2;
           } else {
             currentIdx = idx + 1;
           }
+          const isSelcted = currentPage === currentIdx;
           return (
-            <IndexDiv key={currentIdx}>
+            <IndexDiv key={currentIdx} selected={isSelcted}>
               <StyledLink
+                selected={isSelcted}
                 to={`${pathname}?${Object.entries(query)
                   .map(([key, val]) => (key !== 'offset' ? `${key}=${val}` : `offset=${currentIdx}`))
                   .join('&')}`}
@@ -95,6 +97,15 @@ const IndexDiv = styled.div`
   :hover {
     background-color: #f6f6f6;
   }
+  ${({ selected }) =>
+    selected &&
+    css`
+      background-color: #0055fb;
+      color: #f6f6f6;
+      :hover {
+        background-color: #0055fbb0;
+      }
+    `}
 `;
 
 const StyledLink = styled(Link)`
@@ -114,6 +125,11 @@ const StyledLink = styled(Link)`
   :active {
     text-decoration: none;
   }
+  ${({ selected }) =>
+    selected &&
+    css`
+      color: white;
+    `}
 `;
 
 export default ResultFooter;
