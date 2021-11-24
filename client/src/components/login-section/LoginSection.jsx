@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useValidate } from '../../utils/login';
 import MainSection from '../common/MainSection';
 
 const ButtonWrapper = styled.div`
@@ -23,6 +24,7 @@ const LoginButton = styled.button`
 `;
 
 const LoginSection = () => {
+  useValidate(false);
   return (
     <MainSection title="로그인">
       <ButtonWrapper>
