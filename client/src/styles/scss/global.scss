@@ -17,28 +17,75 @@ $primary: #ffc700;
 $primary-dark: #e8a20c;
 $plus: #69a64c;
 
+/* noto-sans-kr-100 - latin_korean */
 @font-face {
   font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 100;
+  src: url('../fonts/noto-sans-kr-v21-latin_korean-100.eot');
+  src: local(''), url('../fonts/noto-sans-kr-v21-latin_korean-100.eot') format('embedded-opentype'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-100.woff2') format('woff2'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-100.woff') format('woff');
+  unicode-range: U+000-5FF, U+AC00-D7AF;
+  font-display: fallback;
+}
+/* noto-sans-kr-300 - latin_korean */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
   font-weight: 300;
-  src: url('../fonts/NotoSansKR-Light.otf') format('woff2'), url('../fonts/NotoSansKR-Light.otf') format('woff'),
-    url('../fonts/NotoSansKR-Light.otf') format('truetype');
+  src: url('../fonts/noto-sans-kr-v21-latin_korean-300.eot');
+  src: local(''), url('../fonts/noto-sans-kr-v21-latin_korean-300.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-300.woff2') format('woff2'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-300.woff') format('woff');
+  unicode-range: U+000-5FF, U+AC00-D7AF;
+  font-display: fallback;
 }
-
+/* noto-sans-kr-500 - latin_korean */
 @font-face {
   font-family: 'Noto Sans KR';
-  font-weight: 400;
-  src: url('../fonts/NotoSansKR-Regular.otf') format('woff2'), url('../fonts/NotoSansKR-Regular.otf') format('woff'),
-    url('../fonts/NotoSansKR-Regular.otf') format('truetype');
-}
-@font-face {
-  font-family: 'Noto Sans KR';
+  font-style: normal;
   font-weight: 500;
-  src: url('../fonts/NotoSansKR-Medium.otf') format('woff2');
+  src: url('../fonts/noto-sans-kr-v21-latin_korean-500.eot');
+  src: local(''), url('../fonts/noto-sans-kr-v21-latin_korean-500.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-500.woff2') format('woff2'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-500.woff') format('woff');
+  unicode-range: U+000-5FF, U+AC00-D7AF;
+  font-display: fallback;
 }
-
+/* noto-sans-kr-regular - latin_korean */
 @font-face {
   font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/noto-sans-kr-v21-latin_korean-regular.eot');
+  src: local(''), url('../fonts/noto-sans-kr-v21-latin_korean-regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-regular.woff2') format('woff2'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-regular.woff') format('woff');
+  unicode-range: U+000-5FF, U+AC00-D7AF;
+  font-display: fallback;
+}
+/* noto-sans-kr-700 - latin_korean */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
   font-weight: 700;
-  src: url('../fonts/NotoSansKR-Bold.otf') format('woff2'), url('../fonts/NotoSansKR-Bold.otf') format('woff'),
-    url('../fonts/NotoSansKR-Bold.otf') format('truetype');
+  src: url('../fonts/noto-sans-kr-v21-latin_korean-700.eot');
+  src: local(''), url('../fonts/noto-sans-kr-v21-latin_korean-700.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-700.woff2') format('woff2'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-700.woff') format('woff');
+  unicode-range: U+000-5FF, U+AC00-D7AF;
+  font-display: fallback;
+}
+/* noto-sans-kr-900 - latin_korean */
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../fonts/noto-sans-kr-v21-latin_korean-900.eot');
+  src: local(''), url('../fonts/noto-sans-kr-v21-latin_korean-900.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-900.woff2') format('woff2'),
+    url('../fonts/noto-sans-kr-v21-latin_korean-900.woff') format('woff');
+  unicode-range: U+000-5FF, U+AC00-D7AF;
+  font-display: fallback;
 }
