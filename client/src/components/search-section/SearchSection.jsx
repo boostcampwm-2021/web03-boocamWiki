@@ -45,8 +45,8 @@ const SearchSection = () => {
       const resultCount = await getResultCount();
       setSearchResultCount(resultCount);
 
-      if (searchType !== 'content' && resultList.length === 1 && resultCount === 1) {
-        const [{ generation, boostcamp_id: boostcampId, name }] = resultList;
+      if (searchType !== 'content' && resultList.result.length === 1 && resultCount === 1) {
+        const [{ generation, boostcamp_id: boostcampId, name }] = resultList.result;
         history.push(`/w/${generation}_${boostcampId}_${name}`);
       }
 
