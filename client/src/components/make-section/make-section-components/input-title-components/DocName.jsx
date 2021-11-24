@@ -1,13 +1,13 @@
-import React from "react";
-import { TextInputWrap, Text, Input } from "./style";
+import React from 'react';
+import { TextInputWrap, Text, Input } from './style';
 
-const DocName = ({name, changeData}) => {
+const DocName = ({ name, changeData }) => {
   return (
     <TextInputWrap>
       <Text>이름</Text>
-      <Input type="text" ref={name} onChange={changeData} placeholder="입력하세요" className="nameInput" />
+      <Input type="text" ref={name} onChange={changeData} placeholder="ex) 홍길동" className="nameInput" />
     </TextInputWrap>
-  )
-}
+  );
+};
 
 export default DocName;

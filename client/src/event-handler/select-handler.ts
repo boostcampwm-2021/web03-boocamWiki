@@ -12,7 +12,7 @@ export const selectHandler = (
     } else if (classList.includes('SelectPeopleType')) {
       selectTgDispatch({ type: 'togglePeopleType' });
     } else {
-      console.log('select toggle error');
+      console.error('select toggle error');
     }
   } else if (classList.includes('SelectRow')) {
     if (classList.includes('SelectSearchType')) {
@@ -26,7 +26,7 @@ export const selectHandler = (
     } else if (classList.includes('SelectPeopleType')) {
       SelectTypeDispatch({ type: 'inputMemberType', value: event.target.innerHTML });
     } else {
-      console.log('select type error');
+      console.error('select type error');
     }
     selectTgDispatch({ type: 'allOff' });
   } else {
