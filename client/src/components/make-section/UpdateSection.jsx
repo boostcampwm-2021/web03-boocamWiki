@@ -9,9 +9,11 @@ import { Utils } from '../../utils';
 import { BREAK_POINT_MOBILE } from '../../magic-number';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
+import AlertModal from '../custom-alert/AlertModal';
 
 const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
+  const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
 
   const handleRule = (e) => {
@@ -20,7 +22,8 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
   };
 
   const updateDocument = async () => {
-    if (!docRule) alert('규정에 동의해주세요');
+    if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요' });
+    else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요' });
     else {
       await fetch('/api/documents', {
         method: 'PUT',
@@ -35,6 +38,13 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
 
   const cancelAddDoc = () => {
     history.goBack();
+  };
+
+  const closeAlert = ({ target }) => {
+    const classList = target.className.split(' ');
+    if (classList.includes('close-alert')) {
+      setAlertState({ ...alertState, isAlertOn: false });
+    }
   };
 
   useEffect(() => {
@@ -69,7 +79,8 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
 
   return (
     <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
-      <MainContent>
+      <MainContent onClick={closeAlert}>
+        {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
         <ListCardWrap>
           <WikiContentsIndex title="목차 미리보기" text={docData.content} />
           <DocCard docData={docData} docDispatch={docDispatch} />
@@ -78,8 +89,8 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
         <EditorBox docData={docData} docDispatch={docDispatch} />
 
         <RuleDiv>
-          <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} />
-          작성자는 아래 규정에 동의합니다.
+          <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} id="checkbox" />
+          <RuleLabel for="checkbox">작성자는 아래 규정에 동의합니다.</RuleLabel>
         </RuleDiv>
 
         <ButtonWrap>
@@ -111,9 +122,15 @@ const ListCardWrap = styled.div`
 
 const RuleDiv = styled.div`
   ${flexBox({ alignItems: 'center' })};
-  color: red;
+  color: #222222;
   margin-bottom: 10px;
   margin-top: 20px;
+`;
+
+const RuleLabel = styled.label`
+  &:hover {
+    cursor: default;
+  }
 `;
 
 const ButtonWrap = styled.div``;
