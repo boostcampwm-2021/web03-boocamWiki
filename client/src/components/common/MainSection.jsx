@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import MainHeader from './SectionTitle';
-import { BREAK_POINT_TABLET } from '../../magic-number';
+import { BREAK_POINT_TABLET } from '../../utils/display-width';
 
 const MainSection = ({ title, children, documentMode }) => {
   return (

@@ -8,7 +8,7 @@ import EditorBox from './make-section-components/EditorBox';
 import TitleGuide from './make-section-components/TitleGuide';
 import MainSection from '../common/MainSection';
 import AlertModal from '../custom-alert/AlertModal';
-import { BREAK_POINT_MOBILE } from '../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
 

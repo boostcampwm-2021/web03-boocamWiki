@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { BREAK_POINT_MOBILE } from '../../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 import noImg from '../../../resource/img/no-image.png';
 import { flexBox } from '../../../styles/styled-components/mixin';
 import { fileUploadValidator } from '../../../utils/validator';

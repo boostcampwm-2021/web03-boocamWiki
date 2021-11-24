@@ -5,7 +5,7 @@ import search from '../../../resource/img/search.svg';
 import drop from '../../../resource/img/drop.svg';
 import SelectModal from '../../select-modal/SelectModal';
 import { SelectTgContext, SelectTypeContext } from '../../../App';
-import { BREAK_POINT_TABLET } from '../../../magic-number';
+import { BREAK_POINT_TABLET } from '../../../utils/display-width';
 
 const searchTypeMap = {
   기수: 'generation',

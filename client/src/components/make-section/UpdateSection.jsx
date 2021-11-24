@@ -6,7 +6,7 @@ import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
 import { Utils } from '../../utils';
-import { BREAK_POINT_MOBILE } from '../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
 import AlertModal from '../custom-alert/AlertModal';

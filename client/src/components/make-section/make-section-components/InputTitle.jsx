@@ -7,7 +7,7 @@ import DocName from './input-title-components/DocName';
 import CreateBtn from './input-title-components/CreateBtn';
 import { SelectTypeContext } from '../../../App';
 import { font, flexBox } from '../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 import { WordManager } from '../../../resource/message';
 
 const Title = ({ canMake, setCanMake, docData, docDispatch }) => {

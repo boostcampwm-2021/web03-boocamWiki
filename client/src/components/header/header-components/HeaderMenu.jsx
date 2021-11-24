@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import writePage from '../../../resource/img/write-page.svg';
 import rankPage from '../../../resource/img/rank-page.svg';
 import totalPage from '../../../resource/img/total-page.svg';
-import { BREAK_POINT_MOBILE } from '../../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 
 const HeaderMenu = () => {
   return (
@@ -15,7 +15,7 @@ const HeaderMenu = () => {
           <MenuText>문서작성</MenuText>
         </Link>
       </Menu>
-      <Menu style={{ transform: 'translateX(-1%)' }}>
+      <Menu>
         <Link to="/" style={aTagStyle}>
           <MenuImg src={rankPage} />
           <MenuText>각종순위</MenuText>
