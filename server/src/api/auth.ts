@@ -25,7 +25,7 @@ router.post('/github', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/join', jwtAuthCheck, async (req: express.Request, res: express.Response) => {
+router.post('/join', jwtAuthCheck(false), async (req: express.Request, res: express.Response) => {
   try {
     const { login, node_id, avatar_url } = req.jwt;
     const userInfo = { login, node_id, avatar_url };

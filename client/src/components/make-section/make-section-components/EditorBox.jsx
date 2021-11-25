@@ -4,7 +4,9 @@ import EditorWithPreview from './EditorWithPreview';
 import Editor from './Editor';
 import Preview from './Preview';
 import ContentImgUploadBtn from './ContentImgUploadBtn';
+import ContentEditIcon from './ContentEditIcon';
 import { flexBox, font } from '../../../styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 
 const EditorBox = ({ docData, docDispatch }) => {
   const [inputStatus, setInputStatus] = useState('editor');
@@ -41,7 +43,10 @@ const EditorBox = ({ docData, docDispatch }) => {
             </div>
           ))}
         </EditorTypeWrapper>
-        <ContentImgUploadBtn docData={docData} docDispatch={docDispatch} />
+        <EditorFunctionIconWrapper>
+          <ContentEditIcon docData={docData} docDispatch={docDispatch} />
+          <ContentImgUploadBtn docData={docData} docDispatch={docDispatch} />
+        </EditorFunctionIconWrapper>
       </BoxHeader>
 
       {editorTypes.map((type) => (
@@ -75,6 +80,17 @@ const BoxHeader = styled.div`
 
 const EditorTypeWrapper = styled.div`
   ${flexBox({})};
+  div:nth-child(3) {
+    @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
+      display: none;
+    }
+  }
+`;
+
+const EditorFunctionIconWrapper = styled.div`
+  ${flexBox({ justifyContent: 'space-around' })}
+  width: 132px;
+  height: 25px;
 `;
 
 const EditorTypeLabel = styled.label`

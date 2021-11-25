@@ -8,11 +8,37 @@ import {
   getDoc,
   getCount,
   updateRecentDoc,
+  updateDocConcurrencyCheck,
+  createDocConcurrencyCheck,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
-import { DocumentsSearch, DocumentsCreate, DocumentsUpdate } from '../types/apiInterface';
+import { DocumentsSearch, DocumentsCreate, DocumentsUpdate, DocConcurrencyState } from '../types/apiInterface';
+import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
+
+const createDocConcurrencyCheckMiddle = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => {
+  const { generation, name, boostcamp_id } = req.body;
+  const state: DocConcurrencyState = await createDocConcurrencyCheck({ generation, name, boostcamp_id });
+  if (state === 0) next();
+  else res.status(409).json({ msg: DocConcurrencyState[state] });
+};
+
+const updateDocConcurrencyCheckMiddle = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => {
+  const { generation, name, boostcamp_id, updated_at } = req.body;
+  const state: DocConcurrencyState = await updateDocConcurrencyCheck({ generation, name, boostcamp_id, updated_at });
+  if (state === 0) next();
+  else res.status(409).json({ msg: DocConcurrencyState[state] });
+};
+
 router.get('/recents', async (req: express.Request, res: express.Response) => {
   try {
     const defaultCount = 20;
@@ -35,7 +61,7 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/', async (req: express.Request, res: express.Response) => {
+router.post('/', jwtAuthCheck(true), createDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
   try {
     const createQuery: DocumentsCreate = req.body;
     await createDoc(createQuery);
@@ -48,7 +74,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.put('/', async (req: express.Request, res: express.Response) => {
+router.put('/', jwtAuthCheck(true), updateDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
   try {
     const result = await updateDoc(req.body);
     res.status(200).json({ msg: 'OK', result });
@@ -85,7 +111,6 @@ router.get('/count', async (req: express.Request, res: express.Response) => {
     const result = await getCount({ generation, boostcamp_id, name, content });
     return res.status(200).json({ result, msg: 'success' });
   } catch (err) {
-    console.log(err);
     return res.status(404).json({ result: -1, msg: 'fail' });
   }
 });

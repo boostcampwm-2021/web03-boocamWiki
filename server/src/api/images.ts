@@ -3,12 +3,13 @@ import * as AWS from 'aws-sdk';
 import * as multer from 'multer';
 import config from '../config';
 import { v4 as uuidv4 } from 'uuid';
+import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
 
 const upload = multer();
 
-router.post('/', upload.single('image'), async (req: any, res: express.Response) => {
+router.post('/', jwtAuthCheck(true), upload.single('image'), async (req: any, res: express.Response) => {
   const S3 = new AWS.S3({
     endpoint: config.IMG_STORAGE_ENDPOINT,
     region: 'kr-standard',
