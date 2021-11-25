@@ -7,8 +7,6 @@ const DocName = ({ name, changeData }) => {
     if (e.target.value.length > 20) {
       e.target.value = e.target.value.slice(0, -1);
     }
-    // eslint-disable-next-line no-useless-escape
-    // e.target.value = e.target.value.replace(/[?.,;:|*~`!^\-_+<>@$%&\s*()=+{}#\[\]\\/]/g, '');
     e.target.value = e.target.value.replace(/[^0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]/g, '');
   };
 
