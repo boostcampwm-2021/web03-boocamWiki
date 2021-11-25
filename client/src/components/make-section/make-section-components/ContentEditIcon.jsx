@@ -10,16 +10,38 @@ const addDecoration = {
   strikeout: '~',
 };
 
-const makeNewContent = (content, decoration, start, end) => {
-  const decoLen = decoration.length;
+const includeDecoInSelectRange = (content, decoration, start, end, decoLen) => {
+  const prevText = content.substring(start, start + decoLen);
+  const nextText = content.substring(end - decoLen, end);
+  if (prevText === nextText && prevText === decoration) {
+    return true;
+  }
+  return false;
+};
+
+const notIncludeDecoInSelectRange = (content, decoration, start, end, decoLen) => {
   const prevText = content.substring(start - decoLen, start);
   const nextText = content.substring(end, end + decoLen);
-  const selectText = content.substring(start, end);
-  const newSelectText =
-    prevText === nextText && prevText === decoration ? selectText : decoration + selectText + decoration;
-  if (prevText === nextText && prevText === decoration)
-    return content.substring(0, start - decoLen) + newSelectText + content.substring(end + decoLen, content.lengt);
-  return content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
+  if (prevText === nextText && prevText === decoration) {
+    return true;
+  }
+  return false;
+};
+
+const makeNewContent = (content, decoration, start, end) => {
+  const decoLen = decoration.length;
+  let newSelectText = decoration + content.substring(start, end) + decoration;
+  let total = content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
+
+  if (includeDecoInSelectRange(content, decoration, start, end, decoLen)) {
+    newSelectText = content.substring(start + decoLen, end - decoLen);
+    total = content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
+  } else if (notIncludeDecoInSelectRange(content, decoration, start, end, decoLen)) {
+    newSelectText = content.substring(start, end);
+    total = content.substring(0, start - decoLen) + newSelectText + content.substring(end + decoLen, content.lengt);
+  }
+
+  return total;
 };
 
 const ContentEditIcon = ({ docData, docDispatch }) => {
