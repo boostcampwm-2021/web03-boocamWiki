@@ -4,7 +4,7 @@ import Logo from './header-components/Logo';
 import HeaderMenu from './header-components/HeaderMenu';
 import HeaderSearchBar from './header-components/HeaderSearchBar';
 import HeaderUser from './header-components/HeaderUser';
-import { BREAK_POINT_TABLET } from '../../magic-number';
+import { BREAK_POINT_TABLET } from '../../utils/display-width';
 
 const Header = () => {
   return (

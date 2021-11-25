@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import MainSection from '../common/MainSection';
 import Loading from '../common/Loading';
@@ -8,24 +8,29 @@ import { Utils } from '../../utils';
 import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
 import WikiCard from './wiki-section-components/WikiCard';
 import { WikiCategory } from './wiki-section-components/WikiCategory';
-import { BREAK_POINT_MOBILE } from '../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { flexBox } from '../../styles/styled-components/mixin';
 
 const WikiSection = ({ generation, boostcampId, name }) => {
   const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
+  const { pathname } = useLocation();
   const history = useHistory();
   const id = generation + boostcampId + name;
 
   useEffect(() => {
     const getContent = async () => {
       const res = await fetch(`/api/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
-      if (res.status !== 200) {
-        history.push('/error');
+      if (res.status === 200) {
+        const { result } = await res.json();
+        setDocData(result);
+        setLoading(false);
+      } else if (res.status === 404) {
+        history.push(`/search?name=${name}`);
+      } else {
+        setDocData({});
+        setLoading(false);
       }
-      const { result } = await res.json();
-      setDocData(result[0]);
-      setLoading(false);
     };
 
     getContent();
@@ -39,7 +44,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
       {loading && <Loading />}
       {!loading && (
         <>
-          <WikiCategory categories={[docData.classification]} />
+          <WikiCategory categories={docData.classifications} />
           <Padd>
             <WikiContentsIndex title="목차" text={docData.content} />
             <WikiCard docData={docData} name={name} />

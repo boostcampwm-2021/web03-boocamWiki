@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeIndex from 'rehype-indexes';
 import styled from 'styled-components';
 
-const MdParser = ({ content }) => {
+const MdParser = ({ content, color = '#222222' }) => {
   const clickHandler = ({ target }) => {
     const img = target.closest('img');
     if (img) {
@@ -12,7 +12,7 @@ const MdParser = ({ content }) => {
     }
   };
   return (
-    <MdParserContainer onClick={clickHandler}>
+    <MdParserContainer onClick={clickHandler} color={color}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[[rehypeIndex, { mode: 'document' }]]}>
         {content}
       </ReactMarkdown>
@@ -23,7 +23,13 @@ const MdParser = ({ content }) => {
 const MdParserContainer = styled.div`
   height: 100%;
 
+  * {
+    color: ${(props) => props.color};
+  }
+
   img {
+    width: fit-content;
+    height: fit-content;
     max-width: 100%;
     &:hover {
       cursor: pointer;

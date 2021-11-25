@@ -1,6 +1,22 @@
 import db from '../services/db-pool';
-import { Document, DocumentsCreate, DocumentsRecent, DocumentsSearch, DocumentsView } from '../types/apiInterface';
-import { getDocumentKeyValue, getObjectKey, getObjectValue } from '../services/util';
+
+import {
+  Document,
+  DocumentsCreate,
+  DocumentsRecent,
+  DocumentsSearch,
+  DocumentsView,
+  DocumentsUpdate,
+  DocumentsConcurrencyValidation,
+  DocConcurrencyState,
+} from '../types/apiInterface';
+import {
+  getDocumentKeyValue,
+  getObjectKey,
+  getObjectValue,
+  getDocumentsCreateObj,
+  getDocumentsUpdateObj,
+} from '../services/util';
 
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
@@ -12,19 +28,34 @@ export async function getTopViewedDoc({ count }: { count: number }): Promise<Doc
 }
 
 export async function createDoc(params: DocumentsCreate): Promise<void> {
-  const query = `INSERT INTO document(${Object.entries(params)
-    .map(([key]) => key)
-    .toString()}) VALUES(${Object.entries(params)
-    .map(([, value]) => `'${value}'`)
-    .toString()})`;
+  const obj = getDocumentsCreateObj(params);
+  const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj).join(', ')})`;
   const result = await db.pool.query(query);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
   }
 }
 
+export async function createDocConcurrencyCheck(params: DocumentsConcurrencyValidation): Promise<DocConcurrencyState> {
+  const query = 'SELECT updated_at from `document` where generation=? AND boostcamp_id=? AND name=?';
+  const [result] = await db.pool.query(query, [`${params.generation}`, `${params.boostcamp_id}`, params.name]);
+  if (result.length == 0) return DocConcurrencyState.DOCDEFAULT;
+  return DocConcurrencyState.DOCCREATED;
+}
+
+export async function updateDocConcurrencyCheck(params: DocumentsConcurrencyValidation): Promise<DocConcurrencyState> {
+  const query = 'SELECT updated_at from `document` where generation=? AND boostcamp_id=? AND name=?';
+  const [result] = await db.pool.query(query, [`${params.generation}`, `${params.boostcamp_id}`, params.name]);
+  if (result.length == 0) return DocConcurrencyState.DOCERASED;
+  const remoteVersion = new Date(result[0].updated_at);
+  const clientVersion = new Date(params.updated_at);
+  if (remoteVersion > clientVersion) return DocConcurrencyState.DOCUPDATED;
+  return DocConcurrencyState.DOCDEFAULT;
+}
+
 export async function updateDoc(params: DocumentsCreate) {
-  const query = `UPDATE document SET ${Object.entries(params)
+  const obj = getDocumentsCreateObj(params);
+  const query = `UPDATE document SET ${Object.entries(obj)
     .map(([key, value]) => `${key}='${value}'`)
     .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${
     params.name
@@ -75,9 +106,11 @@ export async function getCount(params: Partial<DocumentsSearch>): Promise<number
 
 export async function getDoc(params: Document) {
   const [result] = await db.pool.query(
-    'SELECT created_at, updated_at, content, nickname, location, language, user_image, mbti, field, link, classification ' +
-      'FROM `document` ' +
-      `WHERE ${getDocumentKeyValue(params, ['generation']).join(' AND ')}`,
+    'SELECT created_at, updated_at, doc.generation as generation, content, nickname, location, language, user_image, mbti, field, link, cl.classification_id as classification ' +
+      'FROM `document` as doc LEFT JOIN document_classification as cl ' +
+      'ON doc.generation = cl.generation AND doc.boostcamp_id = cl.boostcamp_id ' +
+      'AND doc.name = cl.name ' +
+      `WHERE ${getDocumentKeyValue(params, ['generation'], 'doc.').join(' AND ')}`,
   );
   return result;
 }
@@ -106,12 +139,10 @@ export async function getRecentUpdatedDoc({ count }: { count: number }): Promise
   return result as DocumentsRecent[];
 }
 
-export async function updateRecentDoc(params: DocumentsCreate): Promise<void> {
+export async function updateRecentDoc(params: DocumentsUpdate): Promise<void> {
+  const obj = getDocumentsUpdateObj(params);
   const query =
-    'INSERT INTO `update` ' +
-    `(${getObjectKey(params).join(', ')})` +
-    ' VALUES ' +
-    `(${getObjectValue(params).join(', ')})`;
+    'INSERT INTO `update` ' + `(${getObjectKey(obj).join(', ')})` + ' VALUES ' + `(${getObjectValue(obj).join(', ')})`;
   const [result] = await db.pool.query(query);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');

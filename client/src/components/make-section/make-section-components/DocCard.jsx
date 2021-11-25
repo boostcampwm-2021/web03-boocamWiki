@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BREAK_POINT_MOBILE } from '../../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 import noImg from '../../../resource/img/no-image.png';
-import { flexBox } from '../../../styles/styled-components/mixin';
+import { flexBox, font } from '../../../styles/styled-components/mixin';
 import { fileUploadValidator } from '../../../utils/validator';
 import { getImgUrl, showErrorCode } from '../../../services/image-upload';
 
@@ -11,7 +11,6 @@ const cardData = [
   { name: '지역', key: 'location' },
   { name: '주언어', key: 'language' },
   { name: '분야', key: 'field' },
-  { name: '링크', key: 'link' },
 ];
 
 const MBTI = [
@@ -34,6 +33,13 @@ const MBTI = [
 ];
 
 const DocCard = ({ docData, docDispatch }) => {
+  let [domain, id] = !docData.link ? ['instagram', ''] : docData.link.split(':');
+  if (!domain || !id) {
+    [domain, id] = ['instagram', ''];
+  }
+  const [linkDomain, setLinkDomain] = useState(domain);
+  const [linkId, setLinkId] = useState(id);
+
   const dataValueChange = (e) => {
     const changeData = { type: 'INPUT_DOC_DATA', payload: {} };
     changeData.payload[e.target.id] = e.target.value;
@@ -57,6 +63,26 @@ const DocCard = ({ docData, docDispatch }) => {
     }
   };
 
+  const createPlaceHoler = (name) => {
+    switch (name) {
+      case 'location':
+        return 'ex) 서울시 서대문구';
+      case 'language':
+        return 'ex) 자바스크립트';
+      case 'field':
+        return 'ex) FE / BE / DEVOPS 등';
+      default:
+        return '입력하세요';
+    }
+  };
+
+  useEffect(() => {
+    const linkValue = `${linkDomain}:${linkId}`;
+    const changeData = { type: 'INPUT_DOC_DATA', payload: {} };
+    changeData.payload.link = linkValue;
+    docDispatch(changeData);
+  }, [linkDomain, linkId]);
+
   return (
     <CardBox>
       <CardOwner type="text" placeholder={docData.name} readOnly />
@@ -70,7 +96,7 @@ const DocCard = ({ docData, docDispatch }) => {
         <CardDataWrap key={item.name}>
           <CardDataName>{item.name}</CardDataName>
           <CardDataInput
-            placeholder="입력하세요"
+            placeholder={createPlaceHoler(item.key)}
             onChange={dataValueChange}
             id={item.key}
             autoComplete="off"
@@ -96,9 +122,49 @@ const DocCard = ({ docData, docDispatch }) => {
           ))}
         </MbtiSelector>
       </CardDataWrap>
+
+      <CardDataWrap>
+        <CardDataName>링크</CardDataName>
+        <LinkSelect
+          onChange={(e) => {
+            setLinkDomain(e.target.value);
+          }}
+          value={linkDomain}
+        >
+          <option value="instagram">인스타</option>
+          <option value="github">깃허브</option>
+        </LinkSelect>
+        <LinkSelectDomain>{linkDomain}.com/</LinkSelectDomain>
+        <LinkDataInput
+          placeholder="아이디 입력"
+          onChange={(e) => {
+            setLinkId(e.target.value);
+          }}
+          value={linkId}
+          id="link"
+          autoComplete="off"
+        />
+      </CardDataWrap>
     </CardBox>
   );
 };
+
+const LinkSelect = styled.select`
+  height: 34px;
+  outline: none;
+  border: 1px solid #d7d7d7;
+  text-indent: 1px;
+  color: #222222;
+`;
+
+const LinkSelectDomain = styled.div`
+  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
+  ${font({ color: '#999', size: '14px', widht: '400' })}
+  width: 117px;
+  height: 34px;
+  background-color: #fff;
+  border: 1px solid #d7d7d7;
+`;
 
 const CardBox = styled.div`
   ${flexBox({ direction: 'column', alignItems: 'center' })};
@@ -166,6 +232,19 @@ const CardDataInput = styled.input`
   }
 `;
 
+const LinkDataInput = styled.input`
+  width: 100px;
+  height: 34px;
+  border: 1px solid #d7d7d7;
+  padding: 5px;
+  &:focus::-webkit-input-placeholder {
+    color: transparent;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
 const MbtiSelector = styled.select`
   ${flexBox({ justifyContent: 'center', alignItems: 'center' })}
   width: 278px;
@@ -176,7 +255,7 @@ const MbtiSelector = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   text-indent: 1px;
-  color: #888888;
+  color: #222222;
 `;
 
 const CardSNS = styled.input`

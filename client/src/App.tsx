@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, createContext } from 'react';
+import React, { useEffect, useReducer, createContext, useRef } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as dotenv from 'dotenv';
 import MainPage from './pages/MainPage';
@@ -10,9 +10,10 @@ import UpdatePage from './pages/UpdatePage';
 import LoginPage from './pages/LoginPage';
 import GithubCallbackPage from './pages/GithubCallbackPage';
 import JoinPage from './pages/JoinPage';
+import CategoryPage from './pages/CategoryPage';
 import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
 import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
-import { selectHandler } from './event-handler/select-handler';
+import { clickHandler } from './event-handler/select-handler';
 
 dotenv.config();
 
@@ -20,15 +21,23 @@ const SelectTgContext = createContext(selectTgInitState);
 const SelectTypeContext = createContext(selectTypeInitState);
 
 const App = () => {
+  const SelectTgStateRef = useRef({ isSearchTypeOn: false, isUserInfoOn: false, isPeopleTypeOn: false });
   const [SelectTgState, SelectTgDispatch] = useReducer(selectTgReducer, selectTgInitState);
   const [SelectTypeState, SelectTypeDispatch] = useReducer(selectTypeReducer, selectTypeInitState);
+
   const closeSelectALl = (event: any) => {
+    const { isSearchTypeOn, isUserInfoOn, isPeopleTypeOn } = SelectTgStateRef.current;
+    if (!isSearchTypeOn && !isUserInfoOn && !isPeopleTypeOn) return;
     SelectTgDispatch({ type: 'allOff' });
   };
 
   useEffect(() => {
+    SelectTgStateRef.current = SelectTgState;
+  }, [SelectTgState]);
+
+  useEffect(() => {
     document.addEventListener('click', (event) => {
-      selectHandler(event, SelectTgDispatch, SelectTypeDispatch);
+      clickHandler(event, SelectTgDispatch, SelectTypeDispatch, SelectTgStateRef.current);
     });
 
     document.addEventListener('wheel', closeSelectALl);
@@ -44,6 +53,7 @@ const App = () => {
             <Route path="/search" component={SearchPage} />
             <Route path="/error" component={ErrorPage} />
             <Route path="/w" component={WikiPage} />
+            <Route path="/c" component={CategoryPage} />
             <Route path="/updatedocs" component={UpdatePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/join" component={JoinPage} />

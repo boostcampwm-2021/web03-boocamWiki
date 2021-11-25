@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SectionItem from './side-section-components/SectionItem';
 import { FetchingRecent, RecentItem } from './side-section-components/recents/RecentItem';
 import { FetchingTopView, TopViewItem } from './side-section-components/top-views/TopViewItem';
-import { BREAK_POINT_TABLET } from '../../magic-number';
+import { BREAK_POINT_TABLET } from '../../utils/display-width';
 
 const SideSection = () => {
   return (

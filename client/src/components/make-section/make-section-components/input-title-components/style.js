@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { flexBox } from '../../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../../../utils/display-width';
 
 export const TextInputWrap = styled.div`
   ${flexBox({ direction: 'column', justifyContent: 'space-around' })};
@@ -92,6 +92,9 @@ export const ValidationBtn = styled.button`
   margin: 3px 10px 0 15px;
   &:hover {
     cursor: pointer;
+  }
+  &:active {
+    transform: scale(0.95);
   }
 `;
 

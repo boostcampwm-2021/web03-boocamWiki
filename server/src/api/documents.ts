@@ -7,11 +7,38 @@ import {
   getSearchDoc,
   getDoc,
   getCount,
+  updateRecentDoc,
+  updateDocConcurrencyCheck,
+  createDocConcurrencyCheck,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
-import { DocumentsSearch, DocumentsCreate } from '../types/apiInterface';
+import { DocumentsSearch, DocumentsCreate, DocumentsUpdate, DocConcurrencyState } from '../types/apiInterface';
+import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
+
+const createDocConcurrencyCheckMiddle = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => {
+  const { generation, name, boostcamp_id } = req.body;
+  const state: DocConcurrencyState = await createDocConcurrencyCheck({ generation, name, boostcamp_id });
+  if (state === 0) next();
+  else res.status(409).json({ msg: DocConcurrencyState[state] });
+};
+
+const updateDocConcurrencyCheckMiddle = async (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+) => {
+  const { generation, name, boostcamp_id, updated_at } = req.body;
+  const state: DocConcurrencyState = await updateDocConcurrencyCheck({ generation, name, boostcamp_id, updated_at });
+  if (state === 0) next();
+  else res.status(409).json({ msg: DocConcurrencyState[state] });
+};
+
 router.get('/recents', async (req: express.Request, res: express.Response) => {
   try {
     const defaultCount = 20;
@@ -34,31 +61,45 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/', async (req: express.Request, res: express.Response) => {
+router.post('/', jwtAuthCheck(true), createDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
   try {
-    await createDoc(req.body);
+    const createQuery: DocumentsCreate = req.body;
+    await createDoc(createQuery);
     res.status(200).json({ msg: 'OK' });
-    const query: DocumentsCreate = req.body;
-    query.user_id = 'zoeas';
-    OnDocCreate(query);
+    const updateQuery: DocumentsUpdate = req.body;
+    updateQuery.user_id = 'zoeas';
+    OnDocCreate(updateQuery);
   } catch (err) {
     return res.status(404).json({ msg: 'fail' });
   }
 });
 
-router.put('/', async (req: express.Request, res: express.Response) => {
-  const result = await updateDoc(req.body);
-  res.status(200).json({ msg: 'OK', result });
+router.put('/', jwtAuthCheck(true), updateDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
+  try {
+    const result = await updateDoc(req.body);
+    res.status(200).json({ msg: 'OK', result });
+    const updateQuery: DocumentsUpdate = req.body;
+    updateQuery.user_id = 'zoeas';
+    updateRecentDoc(updateQuery);
+    return;
+  } catch (err) {
+    res.status(404).json({ msg: 'fail' });
+  }
 });
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
   const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
+  const step = 8;
   try {
-    const result = await getSearchDoc({ generation, boostcamp_id, name, content, offset, limit });
+    const count = await getCount({ generation, boostcamp_id, name, content });
+    let adjOffset = offset;
+    if (isNaN(adjOffset) || adjOffset < 0) adjOffset = 0;
+    if (offset * step > count) adjOffset = Math.floor(count / step);
+    const result = await getSearchDoc({ generation, boostcamp_id, name, content, offset: adjOffset, limit });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
-    return res.status(200).json({ result, msg: 'success' });
+    return res.status(200).json({ result, offset: adjOffset, msg: 'success' });
   } catch (err) {
     return res.status(404).json({ result: [], msg: 'fail' });
   }
@@ -82,11 +123,22 @@ router.get('/', async (req: express.Request, res: express.Response) => {
       return res.status(404).json({ result, msg: 'empty result' });
     }
     OnDocViewed(req.query as unknown as DocumentsSearch);
-    return res.status(200).json({ result, msg: 'success' });
+    const packed = packData(result);
+    return res.status(200).json({ result: packed, msg: 'success' });
   } catch (err) {
-    console.error(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
+
+function packData(result) {
+  const doc = result[0];
+  doc.classifications = result
+    .filter((doc) => doc.classification)
+    .reduce((prev, doc) => {
+      prev.push(doc.classification);
+      return prev;
+    }, []);
+  return doc;
+}
 
 export default router;

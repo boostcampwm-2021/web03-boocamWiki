@@ -25,18 +25,13 @@ router.post('/github', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/join', jwtAuthCheck, async (req: express.Request, res: express.Response) => {
+router.post('/join', jwtAuthCheck(false), async (req: express.Request, res: express.Response) => {
   try {
-    const { answer } = req.body;
-    if (answer === '210719') {
-      const { login, node_id, avatar_url } = req.jwt;
-      const userInfo = { login, node_id, avatar_url };
-      const tokens = generateToken({ ...userInfo, validation: true });
-      await insertUser({ node_id, login, avatar_url });
-      return res.status(200).json({ result: { ...tokens }, msg: 'success' });
-    } else {
-      return res.status(404).json({ result: {}, msg: 'wrong answer' });
-    }
+    const { login, node_id, avatar_url } = req.jwt;
+    const userInfo = { login, node_id, avatar_url };
+    const tokens = generateToken({ ...userInfo, validation: true });
+    await insertUser({ node_id, login, avatar_url });
+    return res.status(200).json({ result: { ...tokens }, msg: 'success' });
   } catch (err) {
     return res.status(404).json({ result: {}, msg: 'fail' });
   }

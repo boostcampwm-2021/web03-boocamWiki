@@ -7,26 +7,25 @@ import DocName from './input-title-components/DocName';
 import CreateBtn from './input-title-components/CreateBtn';
 import { SelectTypeContext } from '../../../App';
 import { font, flexBox } from '../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../magic-number';
-
-const PEOPLE_TYPE = {
-  캠퍼: 'camper',
-  마스터: 'master',
-  운영진: 'manager',
-};
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
+import { WordManager } from '../../../resource/message';
 
 const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const id = useRef(docData.boostcamp_id);
   const name = useRef(docData.name);
   const { memberType } = useContext(SelectTypeContext);
 
+  const isCamper = ({ member_type }) => {
+    return member_type === WordManager.CAMPER;
+  };
+
   const changeData = () => {
     setCanMake();
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
-        generation: docData.classification === 'camper' ? docData.generation : 0,
-        boostcamp_id: docData.classification === 'camper' ? id.current.value : docData.classification,
+        generation: isCamper(docData) ? docData.generation : 0,
+        boostcamp_id: isCamper(docData) ? id.current.value : docData.boostcamp_id,
         name: name.current.value,
       },
     });
@@ -65,31 +64,23 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
     }
   };
 
-  const valueDispatch = (generationValue, idValue, nameValue) => {
+  const valueDispatch = (generationValue, idValue, nameValue, memberType) => {
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
         generation: generationValue,
         boostcamp_id: idValue,
         name: nameValue,
+        member_type: memberType,
+        classification: [memberType],
       },
     });
   };
 
   useEffect(() => {
     if (!memberType) return;
-    const peopleType = PEOPLE_TYPE[memberType];
-
-    if (peopleType === 'camper') valueDispatch(0, '', name.current.value);
-    else if (peopleType === 'master') valueDispatch(0, 'master', name.current.value);
-    else valueDispatch(0, 'manager', name.current.value);
-
-    docDispatch({
-      type: 'INPUT_DOC_DATA',
-      payload: {
-        classification: peopleType,
-      },
-    });
+    const boostcamp_id = memberType === WordManager.CAMPER ? '' : WordManager.Eng[memberType];
+    valueDispatch(0, boostcamp_id, name.current.value, memberType);
   }, [memberType]);
 
   return (

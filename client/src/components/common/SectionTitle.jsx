@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import editIcon from '../../resource/img/edit.png';
 import { flexBox } from '../../styles/styled-components/mixin';
 
 const MainHeader = ({ title, documentMode }) => {
@@ -9,7 +10,9 @@ const MainHeader = ({ title, documentMode }) => {
       <HeaderTitle>{title}</HeaderTitle>
       {documentMode && (
         <Link to={`/updatedocs/${documentMode.generation}_${documentMode.boostcampId}_${documentMode.name}`}>
-          <EditButton>편집</EditButton>
+          <EditButton>
+            <EditIcon alt="edit-icon" src={editIcon} />
+          </EditButton>
         </Link>
       )}
     </HeaderBox>
@@ -38,15 +41,22 @@ const HeaderTitle = styled.div`
   white-space: nowrap;
 `;
 
+const EditIcon = styled.img`
+  width: 36px;
+  height: 36px;
+`;
+
 const EditButton = styled.button`
-  min-width: 78px;
-  padding: 5px 10px;
-  font-size: 20px;
-  margin-right: 10px;
-  background: #bbb;
-  border-radius: 11px;
+  width: 36px;
+  height: 36px;
+  margin-right: 20px;
+  margin-top: 5px;
+  background: transparent;
   border: 0px;
   cursor: pointer;
+  &: active {
+    transform: scale(0.95);
+  }
 `;
 
 export default MainHeader;

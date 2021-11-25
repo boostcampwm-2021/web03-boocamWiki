@@ -18,7 +18,7 @@ const CreateBtn = ({ titleCheckHandler, canMake }) => {
 
   return (
     <ValidationWrap>
-      <ValidationBtn onClick={titleCheckHandler}>생성 확인</ValidationBtn>
+      <ValidationBtn onClick={titleCheckHandler}>중복 확인</ValidationBtn>
       <CanText color={canText.color}>{canText.text}</CanText>
     </ValidationWrap>
   );
