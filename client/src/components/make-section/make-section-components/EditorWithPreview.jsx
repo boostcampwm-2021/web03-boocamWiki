@@ -12,8 +12,6 @@ const EditorWithPreview = ({ docData, docDispatch }) => {
       <HalfEditor>
         <Editor docData={docData} docDispatch={docDispatch} withPreview={withPreview} />
       </HalfEditor>
-      {/* <HalfEditor docData={docData} docDispatch={docDispatch} /> */}
-      {/* <HalfEditor /> onChange={changeHandler} value={docData.content} onDrop={dropHandler} /> */}
       <Preview>
         <MdParser content={docData.content} />
       </Preview>

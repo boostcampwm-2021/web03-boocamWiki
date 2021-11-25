@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { font, flexBox } from '../../../styles/styled-components/mixin';
 import { fileUploadValidator } from '../../../utils/validator';
 import { getImgUrl, showErrorCode } from '../../../services/image-upload';
+import imageUploadIcon from '../../../resource/img/image-upload-icon.svg';
 
 const ContentImgUploadBtn = ({ docData, docDispatch }) => {
   const appendImageLink = (imgUrl, target) => {
@@ -37,7 +38,9 @@ const ContentImgUploadBtn = ({ docData, docDispatch }) => {
   return (
     <>
       <UploadBtn type="file" id="imgUpload" accept="image/*" onChange={contentImgInput} />
-      <UploadLabel htmlFor="imgUpload">이미지 추가</UploadLabel>
+      <UploadLabel htmlFor="imgUpload">
+        <UploadIcon src={imageUploadIcon} alt="imgaeUploadBtn" />
+      </UploadLabel>
     </>
   );
 };
@@ -46,18 +49,16 @@ const UploadBtn = styled.input`
   display: none;
 `;
 
-const UploadLabel = styled.label`
-  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
-  ${font({ size: '13px', weight: '500' })};
-  width: 80px;
-  height: 30px;
-  background-color: black;
-  color: white;
-  border-radius: 5px;
-
+const UploadIcon = styled.img`
+  width: 25px;
+  height: 25px;
   &:hover {
     cursor: pointer;
   }
+`;
+
+const UploadLabel = styled.label`
+  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
 `;
 
 export default ContentImgUploadBtn;
