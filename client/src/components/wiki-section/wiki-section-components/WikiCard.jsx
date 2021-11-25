@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { flexBox, font } from '../../../styles/styled-components/mixin';
+import github from '../../../resource/img/github.png';
+import instagram from '../../../resource/img/instagram.png';
 
 const cardData = [
   { name: '별명', key: 'nickname' },
@@ -7,7 +11,6 @@ const cardData = [
   { name: '주언어', key: 'language' },
   { name: 'MBTI', key: 'mbti' },
   { name: '분야', key: 'field' },
-  { name: '링크', key: 'link' },
 ];
 
 function isEmpty(str) {
@@ -16,6 +19,7 @@ function isEmpty(str) {
 }
 
 const WikiCard = ({ docData, name }) => {
+  const [domain, id] = !docData.link ? ['instagram', ''] : docData.link.split(':');
   const [card, setCard] = useState(false);
 
   useEffect(() => {
@@ -46,9 +50,36 @@ const WikiCard = ({ docData, name }) => {
             </CardDataWrap>
           ),
       )}
+      {id && (
+        <CardDataWrap key="링크">
+          <CardDataName>링크</CardDataName>
+          <CardDataText>
+            <Link to={{ pathname: `https://${domain}.com/${id}` }} target="_blank" style={{ textDecoration: 'none' }}>
+              <LinkContainer>
+                <LinkImg src={domain === 'instagram' ? instagram : github} alt="link-img" />
+                <LinkTxt>{id}</LinkTxt>
+              </LinkContainer>
+            </Link>
+          </CardDataText>
+        </CardDataWrap>
+      )}
     </CardBox>
   );
 };
+
+const LinkContainer = styled.div`
+  ${flexBox({ alignItems: 'center' })};
+`;
+
+const LinkImg = styled.img`
+  width: 28px;
+  height: 28px;
+  margin-right: 10px;
+`;
+
+const LinkTxt = styled.p`
+  ${font({ color: '#888888', size: '16px' })};
+`;
 
 const CardBox = styled.div`
   display: flex;
@@ -87,6 +118,7 @@ const CardImg = styled.img`
 
 const CardDataWrap = styled.div`
   display: flex;
+  align-items: center;
   width: 348px;
   height: 34px;
 `;
@@ -100,10 +132,10 @@ const CardDataName = styled.div`
 `;
 
 const CardDataText = styled.div`
+  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
   width: 278px;
   height: 34px;
   border: 1px solid #d7d7d7;
-  text-align: center;
   background-color: white;
   outline: none;
 `;
