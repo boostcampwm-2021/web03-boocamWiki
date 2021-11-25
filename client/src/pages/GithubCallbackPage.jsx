@@ -2,8 +2,20 @@ import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
+import { font, flexBox } from '../styles/styled-components/mixin';
+import cbScss from '../styles/scss/CallbackPage.module.scss';
 
-const LoadingWrapper = styled.div``;
+const LoadingWrapper = styled.div`
+  ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })}
+  width: 100vw;
+  height: 100vh;
+`;
+
+const LoadingTitle = styled.div`
+  ${font({ color: '#0055fb', size: '5rem', weight: 'bold' })}
+  position: absolute;
+  top: 50%;
+`;
 
 const GithubCallbackPage = () => {
   const { search } = useLocation();
@@ -38,7 +50,17 @@ const GithubCallbackPage = () => {
     login(code);
   }, []);
 
-  return <LoadingWrapper>깃허브 콜백 페이지</LoadingWrapper>;
+  return (
+    <LoadingWrapper>
+      <div className={cbScss.tetrominos}>
+        <div className={`${cbScss.tetromino} ${cbScss.box1}`} />
+        <div className={`${cbScss.tetromino} ${cbScss.box2}`} />
+        <div className={`${cbScss.tetromino} ${cbScss.box3}`} />
+        <div className={`${cbScss.tetromino} ${cbScss.box4}`} />
+      </div>
+      <LoadingTitle>BOOCAM WIKI</LoadingTitle>
+    </LoadingWrapper>
+  );
 };
 
 export default GithubCallbackPage;
