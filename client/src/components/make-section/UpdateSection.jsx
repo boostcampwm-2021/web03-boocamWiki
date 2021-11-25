@@ -5,6 +5,7 @@ import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
+import Loading from '../common/Loading';
 import { Utils } from '../../utils';
 import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
@@ -15,6 +16,7 @@ import { authFetch } from '../../utils/login';
 const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
+  const [loading, setLoading] = useState(true);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
 
   const handleRule = (e) => {
@@ -91,35 +93,41 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
         },
       };
       docDispatch(updateData);
+      setLoading(false);
     };
 
     getContent();
   }, []);
 
   return (
-    <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
-      <MainContent onClick={closeAlert}>
-        {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
-        <ListCardWrap>
-          <WikiContentsIndex title="목차 미리보기" text={docData.content} />
-          <DocCard docData={docData} docDispatch={docDispatch} />
-        </ListCardWrap>
+    <>
+      {loading && <Loading />}
+      {!loading && (
+        <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
+          <MainContent onClick={closeAlert}>
+            {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
+            <ListCardWrap>
+              <WikiContentsIndex title="목차 미리보기" text={docData.content} />
+              <DocCard docData={docData} docDispatch={docDispatch} />
+            </ListCardWrap>
 
-        <EditorBox docData={docData} docDispatch={docDispatch} />
+            <EditorBox docData={docData} docDispatch={docDispatch} />
 
-        <RuleDiv>
-          <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} id="checkbox" />
-          <RuleLabel for="checkbox">작성자는 아래 규정에 동의합니다.</RuleLabel>
-        </RuleDiv>
+            <RuleDiv>
+              <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} id="checkbox" />
+              <RuleLabel htmlFor="checkbox">작성자는 아래 규정에 동의합니다.</RuleLabel>
+            </RuleDiv>
 
-        <ButtonWrap>
-          <SubmitBtn onClick={updateDocument}>등록</SubmitBtn>
-          <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
-        </ButtonWrap>
+            <ButtonWrap>
+              <SubmitBtn onClick={updateDocument}>등록</SubmitBtn>
+              <CancelBtn onClick={cancelAddDoc}>취소</CancelBtn>
+            </ButtonWrap>
 
-        <MakePageRule />
-      </MainContent>
-    </MainSection>
+            <MakePageRule />
+          </MainContent>
+        </MainSection>
+      )}
+    </>
   );
 };
 

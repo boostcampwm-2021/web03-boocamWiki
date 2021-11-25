@@ -10,7 +10,7 @@ const Generation = ({ docData, changeData, genBtnHandler }) => {
     <TextInputWrap>
       <Text>기수</Text>
       <GenWrap>
-        {docData.member_type === WordManager.CAMPER ? (
+        {docData.member_type === WordManager.CAMPER && (
           <>
             <GenInput
               type="text"
@@ -24,9 +24,8 @@ const Generation = ({ docData, changeData, genBtnHandler }) => {
               <GenBtn src={genDownBtn} id="down" onClick={genBtnHandler} />
             </GenBtnWrap>
           </>
-        ) : (
-          <GenInput type="text" placeholder="ALL" readOnly />
         )}
+        {docData.member_type !== WordManager.CAMPER && <GenInput type="text" placeholder="ALL" readOnly />}
       </GenWrap>
     </TextInputWrap>
   );
