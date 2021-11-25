@@ -1,4 +1,5 @@
 import imageCompression from 'browser-image-compression';
+import { authFetch } from '../utils/login';
 import { fileSizeError, fileFormatError } from '../utils/validator';
 
 const options = {
@@ -20,7 +21,7 @@ export const getImgUrl = async (item, type = 0) => {
   const image = !item.type.match(/gif/) ? await imageCompress(item) : item;
   const datas = new FormData();
   datas.append('image', image, image.name);
-  const result = await fetch('/api/images', {
+  const result = await authFetch('/api/images', {
     method: 'POST',
     body: datas,
   });

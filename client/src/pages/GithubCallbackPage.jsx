@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import queryString from 'query-string';
 import { font, flexBox } from '../styles/styled-components/mixin';
 import cbScss from '../styles/scss/CallbackPage.module.scss';
-import { setAccessToken, setRefreshToken } from '../utils/login';
+import { authFetch, setAccessToken, setRefreshToken } from '../utils/login';
 
 const LoadingWrapper = styled.div`
   ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })}
@@ -29,7 +29,7 @@ const GithubCallbackPage = () => {
   const history = useHistory();
 
   const login = async (code) => {
-    const res = await fetch('/api/auth/github', {
+    const res = await authFetch('/api/auth/github', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),

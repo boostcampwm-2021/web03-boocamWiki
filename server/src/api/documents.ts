@@ -11,6 +11,7 @@ import {
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate, DocumentsUpdate } from '../types/apiInterface';
+import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
 router.get('/recents', async (req: express.Request, res: express.Response) => {
@@ -35,7 +36,7 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/', async (req: express.Request, res: express.Response) => {
+router.post('/', jwtAuthCheck(true), async (req: express.Request, res: express.Response) => {
   try {
     const createQuery: DocumentsCreate = req.body;
     await createDoc(createQuery);
@@ -48,7 +49,7 @@ router.post('/', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.put('/', async (req: express.Request, res: express.Response) => {
+router.put('/', jwtAuthCheck(true), async (req: express.Request, res: express.Response) => {
   try {
     const result = await updateDoc(req.body);
     res.status(200).json({ msg: 'OK', result });

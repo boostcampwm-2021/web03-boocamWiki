@@ -10,6 +10,7 @@ import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
 import AlertModal from '../custom-alert/AlertModal';
+import { authFetch } from '../../utils/login';
 
 const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
@@ -25,7 +26,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
     if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요' });
     else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요' });
     else {
-      await fetch('/api/documents', {
+      await authFetch('/api/documents', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
