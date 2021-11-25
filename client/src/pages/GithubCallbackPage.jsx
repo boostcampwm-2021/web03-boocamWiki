@@ -13,9 +13,14 @@ const LoadingWrapper = styled.div`
 `;
 
 const LoadingTitle = styled.div`
-  ${font({ color: '#0055fb', size: '5rem', weight: 'bold' })}
+  ${font({ color: '#000000', size: '5em', weight: 'bold' })}
   position: absolute;
-  top: 50%;
+  top: 52%;
+  text-align: center;
+  padding: 0px 20px;
+  span {
+    color: #0055fb;
+  }
 `;
 
 const GithubCallbackPage = () => {
@@ -24,27 +29,27 @@ const GithubCallbackPage = () => {
   const history = useHistory();
 
   const login = async (code) => {
-    const res = await fetch('/api/auth/github', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code }),
-    });
-    const {
-      result: { accessToken, refreshToken },
-      msg,
-    } = await res.json();
-    if (res.msg === 'fail') {
-      return history.push('/error');
-    }
-    setAccessToken(accessToken);
-    setRefreshToken(refreshToken);
-    if (res.status === 200) {
-      return history.push('/');
-    }
-    if (msg === 'nonexistent user') {
-      return history.push('/join');
-    }
-    return history.push('/error');
+    // const res = await fetch('/api/auth/github', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ code }),
+    // });
+    // const {
+    //   result: { accessToken, refreshToken },
+    //   msg,
+    // } = await res.json();
+    // if (res.msg === 'fail') {
+    //   return history.push('/error');
+    // }
+    // setAccessToken(accessToken);
+    // setRefreshToken(refreshToken);
+    // if (res.status === 200) {
+    //   return history.push('/');
+    // }
+    // if (msg === 'nonexistent user') {
+    //   return history.push('/join');
+    // }
+    // return history.push('/error');
   };
 
   useEffect(async () => {
@@ -59,7 +64,9 @@ const GithubCallbackPage = () => {
         <div className={`${cbScss.tetromino} ${cbScss.box3}`} />
         <div className={`${cbScss.tetromino} ${cbScss.box4}`} />
       </div>
-      <LoadingTitle>BOOCAM WIKI</LoadingTitle>
+      <LoadingTitle>
+        BOOCAM <span>WIKI</span>
+      </LoadingTitle>
     </LoadingWrapper>
   );
 };
