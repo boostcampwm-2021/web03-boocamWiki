@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import queryString from 'query-string';
 import { font, flexBox } from '../styles/styled-components/mixin';
 import cbScss from '../styles/scss/CallbackPage.module.scss';
+import { setAccessToken, setRefreshToken } from '../utils/login';
 
 const LoadingWrapper = styled.div`
   ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })}
@@ -35,8 +36,8 @@ const GithubCallbackPage = () => {
     if (res.msg === 'fail') {
       return history.push('/error');
     }
-    window.sessionStorage.setItem('accessToken', accessToken);
-    window.localStorage.setItem('refreshToken', refreshToken);
+    setAccessToken(accessToken);
+    setRefreshToken(refreshToken);
     if (res.status === 200) {
       return history.push('/');
     }

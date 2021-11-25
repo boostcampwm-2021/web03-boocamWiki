@@ -23,6 +23,14 @@ export const getRefreshToken = () => {
   return refreshToken;
 };
 
+export const setAccessToken = (accessToken) => {
+  sessionStorage.setItem('accessToken', accessToken);
+};
+
+export const setRefreshToken = (refreshToken) => {
+  localStorage.setItem('refreshToken', refreshToken);
+};
+
 export const getAccessTokenPayload = () => {
   const accessToken = getAccessToken();
   return jwt.decode(accessToken);
