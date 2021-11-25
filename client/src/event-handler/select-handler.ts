@@ -1,7 +1,10 @@
-export const selectHandler = (
+import React from 'react';
+
+export const clickHandler = (
   event: any,
   selectTgDispatch: React.Dispatch<any>,
   SelectTypeDispatch: React.Dispatch<any>,
+  SelectTgStateRef: any,
 ) => {
   const classList = event.target.className.split(' ');
   if (classList.includes('TgSelect')) {
@@ -30,6 +33,8 @@ export const selectHandler = (
     }
     selectTgDispatch({ type: 'allOff' });
   } else {
+    const { isSearchTypeOn, isUserInfoOn, isPeopleTypeOn } = SelectTgStateRef;
+    if (!isSearchTypeOn && !isUserInfoOn && !isPeopleTypeOn) return;
     selectTgDispatch({ type: 'allOff' });
   }
 };

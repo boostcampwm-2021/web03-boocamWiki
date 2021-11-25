@@ -72,7 +72,7 @@ const MakeSection = ({ history }) => {
 
         <RuleDiv>
           <input type="checkbox" style={{ margin: '11px 10px 9px 10px' }} onChange={handleRule} id="checkbox" />
-          <RuleLabel for="checkbox">작성자는 아래 규정에 동의합니다.</RuleLabel>
+          <RuleLabel htmlFor="checkbox">작성자는 아래 규정에 동의합니다.</RuleLabel>
         </RuleDiv>
 
         <ButtonWrap>
