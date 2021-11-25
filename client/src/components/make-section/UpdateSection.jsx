@@ -16,7 +16,6 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
-  const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -96,13 +95,6 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
 
     getContent();
   }, []);
-
-  const closeAlert = ({ target }) => {
-    const classList = target.className.split(' ');
-    if (classList.includes('close-alert')) {
-      setAlertState({ ...alertState, isAlertOn: false });
-    }
-  };
 
   return (
     <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
