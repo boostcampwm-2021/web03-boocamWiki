@@ -7,6 +7,8 @@ import {
   DocumentsSearch,
   DocumentsView,
   DocumentsUpdate,
+  DocumentsConcurrencyValidation,
+  DocConcurrencyState,
 } from '../types/apiInterface';
 import {
   getDocumentKeyValue,
@@ -32,6 +34,23 @@ export async function createDoc(params: DocumentsCreate): Promise<void> {
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
   }
+}
+
+export async function createDocConcurrencyCheck(params: DocumentsConcurrencyValidation): Promise<DocConcurrencyState> {
+  const query = 'SELECT updated_at from `document` where generation=? AND boostcamp_id=? AND name=?';
+  const [result] = await db.pool.query(query, [`${params.generation}`, `${params.boostcamp_id}`, params.name]);
+  if (result.length == 0) return DocConcurrencyState.DOCDEFAULT;
+  return DocConcurrencyState.DOCCREATED;
+}
+
+export async function updateDocConcurrencyCheck(params: DocumentsConcurrencyValidation): Promise<DocConcurrencyState> {
+  const query = 'SELECT updated_at from `document` where generation=? AND boostcamp_id=? AND name=?';
+  const [result] = await db.pool.query(query, [`${params.generation}`, `${params.boostcamp_id}`, params.name]);
+  if (result.length == 0) return DocConcurrencyState.DOCERASED;
+  const remoteVersion = new Date(result[0].updated_at);
+  const clientVersion = new Date(params.updated_at);
+  if (remoteVersion > clientVersion) return DocConcurrencyState.DOCUPDATED;
+  return DocConcurrencyState.DOCDEFAULT;
 }
 
 export async function updateDoc(params: DocumentsCreate) {
