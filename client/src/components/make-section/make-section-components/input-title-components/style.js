@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { flexBox } from '../../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../../../utils/display-width';
 
 export const TextInputWrap = styled.div`
   ${flexBox({ direction: 'column', justifyContent: 'space-around' })};

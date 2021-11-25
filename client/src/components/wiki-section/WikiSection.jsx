@@ -8,7 +8,7 @@ import { Utils } from '../../utils';
 import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
 import WikiCard from './wiki-section-components/WikiCard';
 import { WikiCategory } from './wiki-section-components/WikiCategory';
-import { BREAK_POINT_MOBILE } from '../../magic-number';
+import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { flexBox } from '../../styles/styled-components/mixin';
 
 const WikiSection = ({ generation, boostcampId, name }) => {

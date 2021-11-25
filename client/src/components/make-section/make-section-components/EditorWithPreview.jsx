@@ -5,10 +5,12 @@ import { flexBox } from '../../../styles/styled-components/mixin';
 import Editor from './Editor';
 
 const EditorWithPreview = ({ docData, docDispatch }) => {
+  const withPreview = true;
+
   return (
     <EditorWrap>
       <HalfEditor>
-        <Editor docData={docData} docDispatch={docDispatch} />
+        <Editor docData={docData} docDispatch={docDispatch} withPreview={withPreview} />
       </HalfEditor>
       {/* <HalfEditor docData={docData} docDispatch={docDispatch} /> */}
       {/* <HalfEditor /> onChange={changeHandler} value={docData.content} onDrop={dropHandler} /> */}

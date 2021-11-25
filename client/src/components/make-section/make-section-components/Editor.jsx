@@ -4,7 +4,7 @@ import { font } from '../../../styles/styled-components/mixin';
 import { fileUploadValidator } from '../../../utils/validator';
 import { sendToStorage, showErrorCode } from '../../../services/image-upload';
 
-const Editor = ({ docData, docDispatch }) => {
+const Editor = ({ docData, docDispatch, withPreview = false }) => {
   const inputRef = useRef(null);
 
   const changeHandler = (e) => {
@@ -52,6 +52,10 @@ const Editor = ({ docData, docDispatch }) => {
     }
   };
 
+  const borderRadius = (withPreview) => {
+    return withPreview ? '10px 0 0 10px' : '10px';
+  };
+
   return (
     <EditorBox
       onChange={changeHandler}
@@ -59,6 +63,7 @@ const Editor = ({ docData, docDispatch }) => {
       ref={inputRef}
       value={docData.content ? docData.content : ''}
       isDragging
+      borderRadius={borderRadius(withPreview)}
     />
   );
 };
@@ -71,7 +76,7 @@ const EditorBox = styled.textarea`
   background: #f6f6f6;
   border: 1px solid #d7d7d7;
   box-sizing: border-box;
-  border-radius: 10px;
+  border-radius: ${(props) => props.borderRadius || '10px'};
   outline: none;
   padding: 10px;
 `;

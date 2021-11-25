@@ -1,30 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import recent from '../../../resource/img/recent.svg';
-import rank from '../../../resource/img/rank.svg';
-import map from '../../../resource/img/map.svg';
-import { BREAK_POINT_MOBILE } from '../../../magic-number';
+import writePage from '../../../resource/img/write-page.svg';
+import rankPage from '../../../resource/img/rank-page.svg';
+import totalPage from '../../../resource/img/total-page.svg';
+import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 
 const HeaderMenu = () => {
   return (
     <NavMenu>
       <Menu>
         <Link to="/makedocs" style={aTagStyle}>
-          <MenuImg src={recent} />
+          <MenuImg src={writePage} />
           <MenuText>문서작성</MenuText>
         </Link>
       </Menu>
-      <Menu style={{ transform: 'translateX(-2%)' }}>
+      <Menu>
         <Link to="/" style={aTagStyle}>
-          <MenuImg src={rank} />
+          <MenuImg src={rankPage} />
           <MenuText>각종순위</MenuText>
         </Link>
       </Menu>
       <Menu>
         <Link to="/" style={aTagStyle}>
-          <MenuImg src={map} />
-          <MenuText>위치정보</MenuText>
+          <MenuImg src={totalPage} />
+          <MenuText>전체문서</MenuText>
         </Link>
       </Menu>
     </NavMenu>
