@@ -10,18 +10,9 @@ const addDecoration = {
   strikeout: '~',
 };
 
-const includeDecoInSelectRange = (content, decoration, start, end, decoLen) => {
-  const prevText = content.substring(start, start + decoLen);
-  const nextText = content.substring(end - decoLen, end);
-  if (prevText === nextText && prevText === decoration) {
-    return true;
-  }
-  return false;
-};
-
-const notIncludeDecoInSelectRange = (content, decoration, start, end, decoLen) => {
-  const prevText = content.substring(start - decoLen, start);
-  const nextText = content.substring(end, end + decoLen);
+const isDecoInSelectRange = (content, decoration, prevStart, prevEnd, nextStart, nextEnd) => {
+  const prevText = content.substring(prevStart, prevEnd);
+  const nextText = content.substring(nextStart, nextEnd);
   if (prevText === nextText && prevText === decoration) {
     return true;
   }
@@ -31,17 +22,16 @@ const notIncludeDecoInSelectRange = (content, decoration, start, end, decoLen) =
 const makeNewContent = (content, decoration, start, end) => {
   const decoLen = decoration.length;
   let newSelectText = decoration + content.substring(start, end) + decoration;
-  let total = content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
-
-  if (includeDecoInSelectRange(content, decoration, start, end, decoLen)) {
+  let totalContent = content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
+  if (isDecoInSelectRange(content, decoration, start, start + decoLen, end - decoLen, end)) {
     newSelectText = content.substring(start + decoLen, end - decoLen);
-    total = content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
-  } else if (notIncludeDecoInSelectRange(content, decoration, start, end, decoLen)) {
+    totalContent = content.substring(0, start) + newSelectText + content.substring(end, content.lengt);
+  } else if (isDecoInSelectRange(content, decoration, start - decoLen, start, end, end + decoLen)) {
     newSelectText = content.substring(start, end);
-    total = content.substring(0, start - decoLen) + newSelectText + content.substring(end + decoLen, content.lengt);
+    totalContent =
+      content.substring(0, start - decoLen) + newSelectText + content.substring(end + decoLen, content.lengt);
   }
-
-  return total;
+  return totalContent;
 };
 
 const ContentEditIcon = ({ docData, docDispatch }) => {
