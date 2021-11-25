@@ -22,7 +22,6 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
   };
 
   const fetchValidation = async (result) => {
-    console.log(result);
     if (result.status === 200) {
       history.goBack();
     } else if (result.status === 409) {

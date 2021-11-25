@@ -32,7 +32,6 @@ const MakeSection = ({ history }) => {
   };
 
   const fetchValidation = async (result) => {
-    console.log(result);
     if (result.status === 200) {
       history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
     } else if (result.status === 409) {
@@ -51,7 +50,6 @@ const MakeSection = ({ history }) => {
 
   const addDocument = async () => {
     if (docValidation()) return;
-    console.log('sibla/?');
     const result = await fetch('/api/documents', {
       method: 'POST',
       headers: {
