@@ -16,24 +16,42 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
+  const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
     else setDocRule(false);
   };
 
+  const fetchValidation = async (result) => {
+    if (result.status === 200) {
+      history.goBack();
+    } else if (result.status === 409) {
+      setAlertState({
+        isAlertOn: true,
+        msg: '문서가 수정되었습니다. 변경 내용을 클립보드나 메모장에 저장하고 편집페이지로 다시 진입해주세요.',
+      });
+    } else {
+      const body = await result.json();
+      setAlertState({
+        isAlertOn: true,
+        msg: `문서를 수정하는데 실패했습니다. 사유 [${result.status}] body: ${body}`,
+      });
+    }
+  };
+
   const updateDocument = async () => {
     if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요' });
     else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요' });
     else {
-      await authFetch('/api/documents', {
+      const result = await authFetch('/api/documents', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(docData),
-      }).then((res) => res.json());
-      history.goBack();
+      });
+      fetchValidation(result);
     }
   };
 
@@ -55,7 +73,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
         history.push('/error');
       }
       const { result } = await res.json();
-      const { content, field, language, link, location, mbti, nickname, user_image } = result;
+      const { content, field, language, link, location, mbti, nickname, user_image, updated_at } = result;
       const updateData = {
         type: 'INPUT_DOC_DATA',
         payload: {
@@ -70,6 +88,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
           mbti,
           nickname,
           user_image,
+          updated_at,
         },
       };
       docDispatch(updateData);
@@ -77,6 +96,13 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
 
     getContent();
   }, []);
+
+  const closeAlert = ({ target }) => {
+    const classList = target.className.split(' ');
+    if (classList.includes('close-alert')) {
+      setAlertState({ ...alertState, isAlertOn: false });
+    }
+  };
 
   return (
     <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>

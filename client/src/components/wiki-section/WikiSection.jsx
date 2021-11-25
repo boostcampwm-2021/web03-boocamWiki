@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import MainSection from '../common/MainSection';
 import Loading from '../common/Loading';
@@ -14,18 +14,23 @@ import { flexBox } from '../../styles/styled-components/mixin';
 const WikiSection = ({ generation, boostcampId, name }) => {
   const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
+  const { pathname } = useLocation();
   const history = useHistory();
   const id = generation + boostcampId + name;
 
   useEffect(() => {
     const getContent = async () => {
       const res = await fetch(`/api/documents/?generation=${generation}&boostcamp_id=${boostcampId}&name=${name}`);
-      if (res.status !== 200) {
-        history.push('/error');
+      if (res.status === 200) {
+        const { result } = await res.json();
+        setDocData(result);
+        setLoading(false);
+      } else if (res.status === 404) {
+        history.push(`/search?name=${name}`);
+      } else {
+        setDocData({});
+        setLoading(false);
       }
-      const { result } = await res.json();
-      setDocData(result);
-      setLoading(false);
     };
 
     getContent();

@@ -37,7 +37,6 @@ export interface DocumentsRecent extends Document {
   recent_created_at: String;
 }
 
-
 export const keyofDocumentsCreate = {
   generation: 0,
   boostcamp_id: 0,
@@ -74,3 +73,11 @@ export interface GithubUserInfo {
 }
 
 export type TokenPayload = { validation: boolean; iat?: number; exp?: number } & GithubUserInfo;
+
+export type DocumentsConcurrencyValidation = { generation; boostcamp_id; name; updated_at? };
+export enum DocConcurrencyState {
+  DOCDEFAULT = 0,
+  DOCERASED = 1,
+  DOCUPDATED = 2,
+  DOCCREATED = 3,
+}

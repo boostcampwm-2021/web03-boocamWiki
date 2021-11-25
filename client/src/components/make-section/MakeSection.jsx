@@ -25,20 +25,41 @@ const MakeSection = ({ history }) => {
     else setDocRule(false);
   };
 
-  const addDocument = async () => {
+  const docValidation = () => {
     if (!canMake) setAlertState({ isAlertOn: true, msg: '생성가능 여부를 확인해주세요' });
     else if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요' });
     else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요' });
-    else {
-      await authFetch('/api/documents', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(docData),
-      }).then((res) => res.json());
+    const result = !canMake || !docRule || !docData.content;
+    return result;
+  };
+
+  const fetchValidation = async (result) => {
+    if (result.status === 200) {
       history.push(`/w/${docData.generation}_${docData.boostcamp_id}_${docData.name}`);
+    } else if (result.status === 409) {
+      setAlertState({
+        isAlertOn: true,
+        msg: '문서가 이미 생성되었습니다. 작성 내용을 클립보드나 메모장에 저장 후 페이지를 검색하여 진입해주세요. 필요시 편집 부탁드립니다.',
+      });
+    } else {
+      const body = await result.json();
+      setAlertState({
+        isAlertOn: true,
+        msg: `문서를 생성하는데 실패했습니다. 사유 [${result.status}] body: ${body}`,
+      });
     }
+  };
+
+  const addDocument = async () => {
+    if (docValidation()) return;
+    const result = await authFetch('/api/documents', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(docData),
+    });
+    fetchValidation(result);
   };
 
   const closeAlert = ({ target }) => {
