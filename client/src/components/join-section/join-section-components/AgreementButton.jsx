@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 import { font, flexBox } from '../../../styles/styled-components/mixin';
-import { authFetch } from '../../../utils/login';
+import { authFetch, setAccessToken, setRefreshToken } from '../../../utils/login';
 
 const ButtonWrapper = styled.div`
   ${flexBox({ direction: 'column', alignItems: 'center', justifyContent: 'center' })}
@@ -43,8 +43,8 @@ const AgreementButton = ({ _ref }) => {
           result: { accessToken, refreshToken },
         } = await res.json();
         if (res.status === 200) {
-          window.sessionStorage.setItem('accessToken', accessToken);
-          window.localStorage.setItem('refreshToken', refreshToken);
+          setAccessToken(accessToken);
+          setRefreshToken(refreshToken);
           alert('가입이 완료되었습니다.');
           toMain();
         }

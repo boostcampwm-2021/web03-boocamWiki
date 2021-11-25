@@ -11,6 +11,7 @@ import AlertModal from '../custom-alert/AlertModal';
 import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
+import { authFetch } from '../../utils/login';
 
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState();
@@ -51,7 +52,7 @@ const MakeSection = ({ history }) => {
 
   const addDocument = async () => {
     if (docValidation()) return;
-    const result = await fetch('/api/documents', {
+    const result = await authFetch('/api/documents', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
