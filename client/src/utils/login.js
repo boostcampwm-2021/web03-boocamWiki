@@ -9,12 +9,14 @@ export const tokenRefresh = async () => {
   }
   const REFRESH_URL = '/api/auth/refresh';
   const res = await fetch(REFRESH_URL, { headers: { Authorization: `Bearer ${refreshToken}` } });
-  const { accessToken } = await res.json();
-  sessionStorage.setItem('accessToken', accessToken);
+  const {
+    result: { accessToken },
+  } = await res.json();
+  setAccessToken(accessToken);
 };
 
 export const getAccessToken = () => {
-  const accessToken = sessionStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
   return accessToken;
 };
 
@@ -24,7 +26,7 @@ export const getRefreshToken = () => {
 };
 
 export const setAccessToken = (accessToken) => {
-  sessionStorage.setItem('accessToken', accessToken);
+  localStorage.setItem('accessToken', accessToken);
 };
 
 export const setRefreshToken = (refreshToken) => {
@@ -42,7 +44,7 @@ export const getRefreshTokenPayload = () => {
 };
 
 export const removeAccessToken = () => {
-  sessionStorage.removeItem('accessToken');
+  localStorage.removeItem('accessToken');
 };
 
 export const removeRefreshToken = () => {
