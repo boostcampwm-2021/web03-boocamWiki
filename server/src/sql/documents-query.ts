@@ -29,7 +29,7 @@ export async function getTopViewedDoc({ count }: { count: number }): Promise<Doc
 
 export async function createDoc(params: DocumentsCreate): Promise<void> {
   const obj = getDocumentsCreateObj(params);
-  const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj).join(', ')})`;
+  const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj, []).join(', ')})`;
   const result = await db.pool.query(query);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
@@ -122,6 +122,7 @@ export async function increaseViewCount(params: DocumentsSearch) {
   if (result.length == 0) {
     const insertQuery = `INSERT INTO view(${getObjectKey(params).join(', ')}, count) VALUES (${getObjectValue(
       params,
+      [],
     ).join(', ')}, 1)`;
     [result] = await db.pool.query(insertQuery);
   } else {
@@ -142,7 +143,10 @@ export async function getRecentUpdatedDoc({ count }: { count: number }): Promise
 export async function updateRecentDoc(params: DocumentsUpdate): Promise<void> {
   const obj = getDocumentsUpdateObj(params);
   const query =
-    'INSERT INTO `update` ' + `(${getObjectKey(obj).join(', ')})` + ' VALUES ' + `(${getObjectValue(obj).join(', ')})`;
+    'INSERT INTO `update` ' +
+    `(${getObjectKey(obj).join(', ')})` +
+    ' VALUES ' +
+    `(${getObjectValue(obj, ['ip']).join(', ')})`;
   const [result] = await db.pool.query(query);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');

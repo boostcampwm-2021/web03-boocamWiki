@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { ipToInt } from '../services/util';
 import {
   createDoc,
   updateDoc,
@@ -61,31 +62,43 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/', jwtAuthCheck(true), createDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
-  try {
-    const createQuery: DocumentsCreate = req.body;
-    await createDoc(createQuery);
-    res.status(200).json({ msg: 'OK' });
-    const updateQuery: DocumentsUpdate = req.body;
-    updateQuery.user_id = 'zoeas';
-    OnDocCreate(updateQuery);
-  } catch (err) {
-    return res.status(404).json({ msg: 'fail' });
-  }
-});
+router.post(
+  '/',
+  jwtAuthCheck(true),
+  createDocConcurrencyCheckMiddle,
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const createQuery: DocumentsCreate = req.body;
+      await createDoc(createQuery);
+      res.status(200).json({ msg: 'OK' });
+      const updateQuery: DocumentsUpdate = req.body;
+      updateQuery.user_id = req.jwt.node_id;
+      updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
+      OnDocCreate(updateQuery);
+    } catch (err) {
+      return res.status(404).json({ msg: 'fail' });
+    }
+  },
+);
 
-router.put('/', jwtAuthCheck(true), updateDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
-  try {
-    const result = await updateDoc(req.body);
-    res.status(200).json({ msg: 'OK', result });
-    const updateQuery: DocumentsUpdate = req.body;
-    updateQuery.user_id = 'zoeas';
-    updateRecentDoc(updateQuery);
-    return;
-  } catch (err) {
-    res.status(404).json({ msg: 'fail' });
-  }
-});
+router.put(
+  '/',
+  jwtAuthCheck(true),
+  updateDocConcurrencyCheckMiddle,
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const result = await updateDoc(req.body);
+      res.status(200).json({ msg: 'OK', result });
+      const updateQuery: DocumentsUpdate = req.body;
+      updateQuery.user_id = req.jwt.node_id;
+      updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
+      updateRecentDoc(updateQuery);
+      return;
+    } catch (err) {
+      res.status(404).json({ msg: 'fail' });
+    }
+  },
+);
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
   const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;

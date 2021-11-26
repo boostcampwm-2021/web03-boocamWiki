@@ -23,6 +23,7 @@ export interface DocumentsCreate extends Document {
 
 export interface DocumentsUpdate extends DocumentsCreate {
   user_id: String;
+  ip: String;
 }
 
 export interface DocumentsClassification extends DocumentsCreate {
@@ -64,6 +65,7 @@ export const keyofDocumentsUpdate = {
   link: 0,
   user_image: 0,
   user_id: 0,
+  ip: 0,
 };
 
 export interface GithubUserInfo {
