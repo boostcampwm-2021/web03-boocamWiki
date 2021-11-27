@@ -34,7 +34,7 @@
 | *Test*                  |                                                                                                                                                                      <img src="https://img.shields.io/badge/Jest-C21325?style=flat-square&logo=Jest&logoColor=white"/>                                                                                                                                                                      |
 ## 💫아키텍쳐
 
-![부캠위키 아키텍쳐](https://user-images.githubusercontent.com/18030634/143670550-a27df2a3-eb81-46dc-8ae5-406a74becb0c.png)
+![부캠위키 아키텍쳐](https://user-images.githubusercontent.com/18030634/143683471-7bda98b9-98f9-4255-9ae9-0062254b84c8.png)
 
 
 ## 🦁 **베어그릴스 (생존전문) 팀** 🐯
