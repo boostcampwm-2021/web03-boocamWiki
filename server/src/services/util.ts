@@ -41,3 +41,12 @@ export function getDocumentKeyValue(arg: Document, stringTypeList: String[], app
       return `${_key}=${!stringTypeList.includes(key) ? `'${value}'` : value}`;
     });
 }
+
+export function getSignedInt(str: string, baseNumber: number = 1): number {
+  let result = 1;
+  try {
+    result = parseInt(str);
+    if (isNaN(result) || result < baseNumber) result = baseNumber;
+  } catch {}
+  return result;
+}

@@ -14,6 +14,7 @@ import CategoryPage from './pages/CategoryPage';
 import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
 import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
 import { clickHandler } from './event-handler/select-handler';
+import TotalDocumentsPage from './pages/TotalDocumentsPage';
 
 dotenv.config();
 
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/error" component={ErrorPage} />
             <Route path="/w" component={WikiPage} />
             <Route path="/c" component={CategoryPage} />
+            <Route path="/t" component={TotalDocumentsPage} />
             <Route path="/updatedocs" component={UpdatePage} />
             <Route path="/login" component={LoginPage} />
             <Route path="/join" component={JoinPage} />

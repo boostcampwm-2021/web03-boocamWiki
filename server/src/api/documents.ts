@@ -1,4 +1,6 @@
 import * as express from 'express';
+import { getSignedInt } from '../services/util';
+import { packDataWithName } from '../services/words';
 import {
   createDoc,
   updateDoc,
@@ -10,6 +12,8 @@ import {
   updateRecentDoc,
   updateDocConcurrencyCheck,
   createDocConcurrencyCheck,
+  getAllDoc,
+  getAllDocCount,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
 import { DocumentsSearch, DocumentsCreate, DocumentsUpdate, DocConcurrencyState } from '../types/apiInterface';
@@ -61,31 +65,41 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/', jwtAuthCheck(true), createDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
-  try {
-    const createQuery: DocumentsCreate = req.body;
-    await createDoc(createQuery);
-    res.status(200).json({ msg: 'OK' });
-    const updateQuery: DocumentsUpdate = req.body;
-    updateQuery.user_id = 'zoeas';
-    OnDocCreate(updateQuery);
-  } catch (err) {
-    return res.status(404).json({ msg: 'fail' });
-  }
-});
+router.post(
+  '/',
+  jwtAuthCheck(true),
+  createDocConcurrencyCheckMiddle,
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const createQuery: DocumentsCreate = req.body;
+      await createDoc(createQuery);
+      res.status(200).json({ msg: 'OK' });
+      const updateQuery: DocumentsUpdate = req.body;
+      updateQuery.user_id = 'zoeas';
+      OnDocCreate(updateQuery);
+    } catch (err) {
+      return res.status(404).json({ msg: 'fail' });
+    }
+  },
+);
 
-router.put('/', jwtAuthCheck(true), updateDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
-  try {
-    const result = await updateDoc(req.body);
-    res.status(200).json({ msg: 'OK', result });
-    const updateQuery: DocumentsUpdate = req.body;
-    updateQuery.user_id = 'zoeas';
-    updateRecentDoc(updateQuery);
-    return;
-  } catch (err) {
-    res.status(404).json({ msg: 'fail' });
-  }
-});
+router.put(
+  '/',
+  jwtAuthCheck(true),
+  updateDocConcurrencyCheckMiddle,
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const result = await updateDoc(req.body);
+      res.status(200).json({ msg: 'OK', result });
+      const updateQuery: DocumentsUpdate = req.body;
+      updateQuery.user_id = 'zoeas';
+      updateRecentDoc(updateQuery);
+      return;
+    } catch (err) {
+      res.status(404).json({ msg: 'fail' });
+    }
+  },
+);
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
   const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
@@ -140,5 +154,26 @@ function packData(result) {
     }, []);
   return doc;
 }
+
+router.get('/all', async (req: express.Request, res: express.Response) => {
+  try {
+    const step = 30;
+    let offset = getSignedInt(req.query.offset?.toString() ?? '', 1);
+    const count = await getAllDocCount();
+    offset = Math.min(offset, Math.floor(count / step + (count % step ? 1 : 0)));
+    const result = await getAllDoc(offset, step);
+    const packed = packDataWithName(result);
+    return res.status(200).json({
+      result: {
+        count,
+        list: packed,
+        offset,
+      },
+      msg: 'success',
+    });
+  } catch (err) {
+    return res.status(404).json({ result: [], msg: 'fail' });
+  }
+});
 
 export default router;
