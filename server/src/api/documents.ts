@@ -78,7 +78,7 @@ router.post(
       updateQuery.user_id = 'zoeas';
       OnDocCreate(updateQuery);
     } catch (err) {
-      return res.status(404).json({ msg: 'fail' });
+      return res.status(404).json({ msg: err.message });
     }
   },
 );
@@ -96,7 +96,7 @@ router.put(
       updateRecentDoc(updateQuery);
       return;
     } catch (err) {
-      res.status(404).json({ msg: 'fail' });
+      res.status(404).json({ msg: err.message });
     }
   },
 );

@@ -64,6 +64,7 @@ export const keyofDocumentsUpdate = {
   link: 0,
   user_image: 0,
   user_id: 0,
+  ip: 0,
 };
 
 export interface GithubUserInfo {

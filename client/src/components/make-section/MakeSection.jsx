@@ -1,4 +1,4 @@
-import React, { useState, useRef, useReducer } from 'react';
+import React, { useState, useRef, useReducer, useEffect } from 'react';
 import styled from 'styled-components';
 import InputTitle from './make-section-components/InputTitle';
 import MakePageRule from './make-section-components/MakePageRule';
@@ -12,6 +12,7 @@ import { BREAK_POINT_MOBILE } from '../../utils/display-width';
 import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
 import { authFetch } from '../../utils/login';
+import { fetchIP } from '../../utils/ip-check';
 
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState();
@@ -19,6 +20,16 @@ const MakeSection = ({ history }) => {
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
   const checkBoxRef = useRef(null);
+
+  useEffect(async () => {
+    const ip = await fetchIP();
+    docDispatch({
+      type: 'INPUT_DOC_DATA',
+      payload: {
+        ip,
+      },
+    });
+  });
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -45,7 +56,7 @@ const MakeSection = ({ history }) => {
       const body = await result.json();
       setAlertState({
         isAlertOn: true,
-        msg: `문서를 생성하는데 실패했습니다. 사유 [${result.status}] body: ${body}`,
+        msg: `문서를 생성하는데 실패했습니다. 사유 [${result.status}] body: ${body.msg}`,
       });
     }
   };
