@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import GithubCallbackPage from './pages/GithubCallbackPage';
 import JoinPage from './pages/JoinPage';
 import CategoryPage from './pages/CategoryPage';
+import RankPage from './pages/RankPage';
 import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
 import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
 import { clickHandler } from './event-handler/select-handler';
@@ -58,6 +59,7 @@ const App = () => {
             <Route path="/login" component={LoginPage} />
             <Route path="/join" component={JoinPage} />
             <Route path="/auth/github/callback" component={GithubCallbackPage} />
+            <Route path="/rank" component={RankPage} />
             <Route path="/" component={ErrorPage} />
           </Switch>
         </Router>

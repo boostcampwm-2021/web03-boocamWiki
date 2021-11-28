@@ -1,0 +1,18 @@
+export const data = {
+  ENTJ: 11,
+  ENFJ: 22,
+  ESFJ: 9,
+  ESTJ: 4,
+  ENTP: 8,
+  ENFP: 13,
+  ESFP: 15,
+  ESTP: 2,
+  INTP: 4,
+  INFP: 6,
+  ISFP: 5,
+  ISTP: 15,
+  INTJ: 7,
+  INFJ: 17,
+  ISFJ: 12,
+  ISTJ: 6,
+};
