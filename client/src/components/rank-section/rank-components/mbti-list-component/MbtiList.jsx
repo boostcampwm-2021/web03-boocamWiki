@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { flexBox, font } from '../../../../styles/styled-components/mixin';
 
 const MbtiList = ({ order, mbti, color, ratio, count }) => {
-  console.log(order, color, ratio);
-
   return (
     <MbtiListWrapper>
       <OrderWrapper>{order}</OrderWrapper>
