@@ -23,6 +23,7 @@ export interface DocumentsCreate extends Document {
 
 export interface DocumentsUpdate extends DocumentsCreate {
   user_id: String;
+  ip: String;
 }
 
 export interface DocumentsClassification extends DocumentsCreate {

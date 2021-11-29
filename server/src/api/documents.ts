@@ -1,6 +1,9 @@
 import * as express from 'express';
+
 import { getSignedInt } from '../services/util';
 import { packDataWithName } from '../services/words';
+import { ipToInt } from '../services/util';
+
 import {
   createDoc,
   updateDoc,
@@ -75,7 +78,8 @@ router.post(
       await createDoc(createQuery);
       res.status(200).json({ msg: 'OK' });
       const updateQuery: DocumentsUpdate = req.body;
-      updateQuery.user_id = 'zoeas';
+      updateQuery.user_id = req.jwt.node_id;
+      updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
       OnDocCreate(updateQuery);
     } catch (err) {
       return res.status(404).json({ msg: err.message });
@@ -92,7 +96,8 @@ router.put(
       const result = await updateDoc(req.body);
       res.status(200).json({ msg: 'OK', result });
       const updateQuery: DocumentsUpdate = req.body;
-      updateQuery.user_id = 'zoeas';
+      updateQuery.user_id = req.jwt.node_id;
+      updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
       updateRecentDoc(updateQuery);
       return;
     } catch (err) {
