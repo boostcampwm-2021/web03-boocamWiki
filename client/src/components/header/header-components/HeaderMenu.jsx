@@ -22,7 +22,7 @@ const HeaderMenu = () => {
         </Link>
       </Menu>
       <Menu>
-        <Link to="/" style={aTagStyle}>
+        <Link to="/t" style={aTagStyle}>
           <MenuImg src={totalPage} />
           <MenuText>전체문서</MenuText>
         </Link>

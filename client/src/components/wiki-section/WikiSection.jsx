@@ -14,7 +14,6 @@ import { flexBox } from '../../styles/styled-components/mixin';
 const WikiSection = ({ generation, boostcampId, name }) => {
   const [docData, setDocData] = useState();
   const [loading, setLoading] = useState(true);
-  const { pathname } = useLocation();
   const history = useHistory();
   const id = generation + boostcampId + name;
 
@@ -26,7 +25,7 @@ const WikiSection = ({ generation, boostcampId, name }) => {
         setDocData(result);
         setLoading(false);
       } else if (res.status === 404) {
-        history.push(`/search?name=${name}`);
+        history.push(`/search?name=${generation}_${boostcampId}_${name}`);
       } else {
         setDocData({});
         setLoading(false);

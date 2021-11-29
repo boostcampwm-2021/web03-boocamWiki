@@ -19,14 +19,13 @@ export async function updateClassification(param: DocumentsClassification) {
   });
 }
 
-export async function getDocumentsWithClassification(param: string, offset: number) {
-  const offStep = 30;
+export async function getDocumentsWithClassification(classification: string, offset: number, offStep: number) {
   const query =
     `SELECT doc.boostcamp_id as boostcamp_id, doc.generation as generation, doc.name as name ` +
     `FROM document as doc JOIN document_classification as cl ON ` +
     `doc.generation = cl.generation AND doc.boostcamp_id = cl.boostcamp_id AND ` +
     `doc.name = cl.name WHERE cl.classification_id = ? ORDER BY doc.name LIMIT ${offStep} OFFSET ?`;
-  const [result] = await db.pool.query(query, [param, (offset - 1) * offStep]);
+  const [result] = await db.pool.query(query, [classification, (offset - 1) * offStep]);
   return result;
 }
 

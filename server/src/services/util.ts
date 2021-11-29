@@ -42,6 +42,15 @@ export function getDocumentKeyValue(arg: object, stringTypeList: String[], appen
     });
 }
 
+export function getSignedInt(str: string, baseNumber: number = 1): number {
+  let result = 1;
+  try {
+    result = parseInt(str);
+    if (isNaN(result) || result < baseNumber) result = baseNumber;
+  } catch {}
+  return result;
+}
+
 export function intToIp(ip) {
   return [24, 16, 8, 0].map((n) => (ip >> n) & 0xff).join('.');
 }

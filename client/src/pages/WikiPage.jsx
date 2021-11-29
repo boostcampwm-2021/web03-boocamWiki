@@ -9,14 +9,23 @@ const getDocumentInfo = (pathname) => {
   return result;
 };
 
+const pathnameNorm = (pathname) => {
+  if (!pathname) return '';
+  return pathname.startsWith('/w/') ? pathname.substr(3) : pathname;
+};
+
 const WikiPage = ({ location }) => {
   const [result, setResult] = useState();
   const history = useHistory();
   useEffect(() => {
     const reg = getDocumentInfo(location.pathname);
     if (!reg) {
-      history.push('/search?name=');
-    } else setResult(reg.groups);
+      // 파싱 자체가 안된다면
+      const pathname = pathnameNorm(location.pathname);
+      history.push(`/search?name=${pathname}`);
+    }
+    // 파싱이라도 된다면
+    else setResult(reg.groups);
   }, [location.pathname]);
 
   return (

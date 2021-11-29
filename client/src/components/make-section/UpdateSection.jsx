@@ -12,12 +12,23 @@ import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
 import { font, flexBox } from '../../styles/styled-components/mixin';
 import AlertModal from '../custom-alert/AlertModal';
 import { authFetch } from '../../utils/login';
+import { fetchIP } from '../../utils/ip-check';
 
 const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [loading, setLoading] = useState(true);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
+
+  useEffect(async () => {
+    const ip = await fetchIP();
+    docDispatch({
+      type: 'INPUT_DOC_DATA',
+      payload: {
+        ip,
+      },
+    });
+  });
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -36,7 +47,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
       const body = await result.json();
       setAlertState({
         isAlertOn: true,
-        msg: `문서를 수정하는데 실패했습니다. 사유 [${result.status}] body: ${body}`,
+        msg: `문서를 수정하는데 실패했습니다. 사유 [${result.status}] body: ${body.msg}`,
       });
     }
   };

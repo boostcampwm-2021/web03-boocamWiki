@@ -18,6 +18,7 @@ import {
   getDocumentsUpdateObj,
 } from '../services/util';
 
+//조회수 가장 높은 문서
 export async function getTopViewedDoc({ count }: { count: number }): Promise<DocumentsView[]> {
   const getQuery =
     `SELECT generation, boostcamp_id, name, SUM(count) as total_count FROM view ` +
@@ -27,6 +28,7 @@ export async function getTopViewedDoc({ count }: { count: number }): Promise<Doc
   return result as DocumentsView[];
 }
 
+//문서 만들기
 export async function createDoc(params: DocumentsCreate): Promise<void> {
   const obj = getDocumentsCreateObj(params);
   const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj, []).join(', ')})`;
@@ -36,16 +38,18 @@ export async function createDoc(params: DocumentsCreate): Promise<void> {
   }
 }
 
+//문서 만들기-동시성 체크
 export async function createDocConcurrencyCheck(params: DocumentsConcurrencyValidation): Promise<DocConcurrencyState> {
   const query = 'SELECT updated_at from `document` where generation=? AND boostcamp_id=? AND name=?';
-  const [result] = await db.pool.query(query, [`${params.generation}`, `${params.boostcamp_id}`, params.name]);
+  const [result] = await db.pool.query(query, [params.generation, params.boostcamp_id, params.name]);
   if (result.length == 0) return DocConcurrencyState.DOCDEFAULT;
   return DocConcurrencyState.DOCCREATED;
 }
 
+//문서 편집-동시성 체크
 export async function updateDocConcurrencyCheck(params: DocumentsConcurrencyValidation): Promise<DocConcurrencyState> {
   const query = 'SELECT updated_at from `document` where generation=? AND boostcamp_id=? AND name=?';
-  const [result] = await db.pool.query(query, [`${params.generation}`, `${params.boostcamp_id}`, params.name]);
+  const [result] = await db.pool.query(query, [params.generation, params.boostcamp_id, params.name]);
   if (result.length == 0) return DocConcurrencyState.DOCERASED;
   const remoteVersion = new Date(result[0].updated_at);
   const clientVersion = new Date(params.updated_at);
@@ -53,6 +57,7 @@ export async function updateDocConcurrencyCheck(params: DocumentsConcurrencyVali
   return DocConcurrencyState.DOCDEFAULT;
 }
 
+//문서 편집
 export async function updateDoc(params: DocumentsCreate) {
   const obj = getDocumentsCreateObj(params);
   const query = `UPDATE document SET ${Object.entries(obj)
@@ -64,6 +69,7 @@ export async function updateDoc(params: DocumentsCreate) {
   return result;
 }
 
+//문서 검색
 export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSearch[]> {
   const { generation, boostcamp_id, name, content, offset = 0, limit = 8 } = params;
   if (Object.values(params).every((el) => el === undefined)) {
@@ -86,6 +92,7 @@ export async function getSearchDoc(params: DocumentsSearch): Promise<DocumentsSe
   return result;
 }
 
+//
 export async function getCount(params: Partial<DocumentsSearch>): Promise<number> {
   const { generation, boostcamp_id, name, content } = params;
   if (Object.values(params).every((el) => el === undefined)) {
@@ -115,6 +122,7 @@ export async function getDoc(params: Document) {
   return result;
 }
 
+//문서 조회수 업데이트
 export async function increaseViewCount(params: DocumentsSearch) {
   const whereClause = `WHERE boostcamp_id=\'${params.boostcamp_id}\' AND name=\'${params.name}\' AND generation=\'${params.generation}\' AND DATE(created_at)=CURDATE()`;
   const searchQuery = `SELECT * from view ` + whereClause;
@@ -132,6 +140,7 @@ export async function increaseViewCount(params: DocumentsSearch) {
   return result;
 }
 
+//최근 변경 문서 조회
 export async function getRecentUpdatedDoc({ count }: { count: number }): Promise<DocumentsRecent[]> {
   const query =
     `SELECT generation, boostcamp_id, name, MAX(created_at) as recent_created_at FROM \`update\` ` +
@@ -151,4 +160,17 @@ export async function updateRecentDoc(params: DocumentsUpdate): Promise<void> {
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
   }
+}
+
+//모든 문서 offset으로 가져오기
+export async function getAllDoc(offset: number, offStep: number) {
+  const query = `SELECT * from document ORDER BY name LIMIT ${offStep} OFFSET ? `;
+  const [result] = await db.pool.query(query, (offset - 1) * offStep);
+  return result;
+}
+
+export async function getAllDocCount() {
+  const query = `SELECT count(*) as count from document`;
+  const result = (await db.pool.query(query))[0][0].count;
+  return result;
 }
