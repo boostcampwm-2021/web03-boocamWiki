@@ -16,7 +16,7 @@ const HeaderMenu = () => {
         </Link>
       </Menu>
       <Menu>
-        <Link to="/" style={aTagStyle}>
+        <Link to="/rank" style={aTagStyle}>
           <MenuImg src={rankPage} />
           <MenuText>각종순위</MenuText>
         </Link>

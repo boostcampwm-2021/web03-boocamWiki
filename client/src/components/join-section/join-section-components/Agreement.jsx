@@ -30,7 +30,7 @@ const Agreement = () => {
 
   return (
     <AgreementWrapper>
-      <AgreementTitle>안내</AgreementTitle>
+      <AgreementTitle>회원가입 안내</AgreementTitle>
       <AgreementContent />
       <AgreementCheckbox _ref={checkbox} />
       <AgreementButton _ref={checkbox} />

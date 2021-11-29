@@ -20,7 +20,7 @@ const Main = styled.div`
   outline: 1px solid #d7d7d7;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-
+  padding: 0 0 40px 0;
   @media only screen and (max-width: ${BREAK_POINT_TABLET}px) {
     max-width: ${BREAK_POINT_TABLET}px;
   }
