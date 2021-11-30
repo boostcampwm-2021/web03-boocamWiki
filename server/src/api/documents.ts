@@ -127,6 +127,7 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
     }
     return res.status(200).json({ result, offset: adjOffset, msg: 'success' });
   } catch (err) {
+    console.log(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });

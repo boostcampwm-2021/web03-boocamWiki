@@ -18,14 +18,14 @@ const HeaderSearchBar = () => {
   const history = useHistory();
   const searchInput = useRef();
   const searchBtn = useRef();
-  // const [searchType, setSearchType] = useState('이름');
   const { isSearchTypeOn } = useContext(SelectTgContext);
   const { searchType } = useContext(SelectTypeContext);
 
   const submitEvent = (e) => {
     e.preventDefault();
     const searchValue = searchInput.current.value;
-    history.push(`/search?${searchTypeMap[searchType]}=${searchValue}`);
+    if (!searchValue) return;
+    history.push(`/search?${searchTypeMap[searchType]}=${encodeURIComponent(searchValue)}`);
   };
 
   const keyPressEvent = (e) => {
