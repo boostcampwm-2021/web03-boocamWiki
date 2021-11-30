@@ -44,7 +44,7 @@ const ErrorPage = () => {
         <div className={style.ErrorGuideWrapper}>
           <p className={style.ErrorGuide}>죄송합니다</p>
           <p className={style.ErrorGuide}>관리자에게 문의해주세요</p>
-          <p className={style.ErrorGuide}>oooo1111@naver.com</p>
+          <p className={style.ErrorGuide}>boocamwiki@gmail.com</p>
         </div>
         <Flexed>
           <Btn type="button" onClick={goBack}>
