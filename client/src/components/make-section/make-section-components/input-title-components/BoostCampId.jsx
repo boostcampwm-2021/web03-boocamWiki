@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { WordManager } from '../../../../resource/message';
+import { WordManager } from '@resource/message';
 import { TextInputWrap, Text, Input } from './style';
 
 const BoostCampId = ({ docData, id, changeData }) => {

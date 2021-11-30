@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import styled from 'styled-components';
+import { Utils } from '@utils';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import { initialDocData, docDataReducer } from '@reducer/doc-data-reducer';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import { authFetch } from '@utils/login';
+import { fetchIP } from '@utils/ip-check';
 import MainSection from '../common/MainSection';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
 import Loading from '../common/Loading';
-import { Utils } from '../../utils';
-import { BREAK_POINT_MOBILE } from '../../utils/display-width';
-import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
-import { font, flexBox } from '../../styles/styled-components/mixin';
 import AlertModal from '../custom-alert/AlertModal';
-import { authFetch } from '../../utils/login';
-import { fetchIP } from '../../utils/ip-check';
 
 const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);

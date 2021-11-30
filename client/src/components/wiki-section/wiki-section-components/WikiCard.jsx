@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { flexBox, font } from '../../../styles/styled-components/mixin';
-import github from '../../../resource/img/github.png';
-import instagram from '../../../resource/img/instagram.png';
+import { flexBox, font } from '@styles/styled-components/mixin';
+import github from '@resource/img/github.png';
+import instagram from '@resource/img/instagram.png';
 
 const cardData = [
   { name: '별명', key: 'nickname' },

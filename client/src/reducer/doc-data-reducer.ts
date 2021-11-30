@@ -1,4 +1,4 @@
-import { WordManager } from '../resource/message';
+import { WordManager } from '@resource/message';
 
 interface DocData {
   generation: number;

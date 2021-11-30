@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import { font, flexBox } from '@styles/styled-components/mixin';
 import { MBTIColor } from './style';
 import Loading from '../../common/Loading';
 import MbtiList from './mbti-list-component/MbtiList';

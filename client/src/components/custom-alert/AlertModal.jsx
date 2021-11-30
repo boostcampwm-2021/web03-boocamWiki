@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import styled from 'styled-components';
-import close from '../../resource/img/close.svg';
-import logo from '../../resource/img/logo2.png';
-import { font, flexBox } from '../../styles/styled-components/mixin';
+import close from '@resource/img/close.svg';
+import logo from '@resource/img/logo2.png';
+import { font, flexBox } from '@styles/styled-components/mixin';
 
 const AlertModal = ({ modalContent }) => {
   return ReactDom.createPortal(

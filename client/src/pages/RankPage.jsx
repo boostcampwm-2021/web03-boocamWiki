@@ -1,6 +1,6 @@
 import React from 'react';
-import RankSection from '../components/rank-section/RankSection';
-import PageLayout from './common/PageLayout';
+import RankSection from '@components/rank-section/RankSection';
+import PageLayout from '@pages/common/PageLayout';
 
 const LoginPage = () => {
   return (

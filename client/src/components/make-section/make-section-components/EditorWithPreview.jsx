@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { flexBox } from '@styles/styled-components/mixin';
 import MdParser from '../../common/MdParser';
-import { flexBox } from '../../../styles/styled-components/mixin';
 import Editor from './Editor';
 
 const EditorWithPreview = ({ docData, docDispatch }) => {

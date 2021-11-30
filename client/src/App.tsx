@@ -1,21 +1,21 @@
 import React, { useEffect, useReducer, createContext, useRef } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as dotenv from 'dotenv';
-import MainPage from './pages/MainPage';
-import MakePage from './pages/MakePage';
-import SearchPage from './pages/SearchPage';
-import ErrorPage from './pages/ErrorPage';
-import WikiPage from './pages/WikiPage';
-import UpdatePage from './pages/UpdatePage';
-import LoginPage from './pages/LoginPage';
-import GithubCallbackPage from './pages/GithubCallbackPage';
-import JoinPage from './pages/JoinPage';
-import CategoryPage from './pages/CategoryPage';
-import RankPage from './pages/RankPage';
-import { selectTgInitState, selectTgReducer } from './reducer/select-toggle-reducer';
-import { selectTypeInitState, selectTypeReducer } from './reducer/select-type-reducer';
-import { clickHandler } from './event-handler/select-handler';
-import TotalDocumentsPage from './pages/TotalDocumentsPage';
+import MainPage from '@pages/MainPage';
+import MakePage from '@pages/MakePage';
+import SearchPage from '@pages/SearchPage';
+import ErrorPage from '@pages/ErrorPage';
+import WikiPage from '@pages/WikiPage';
+import UpdatePage from '@pages/UpdatePage';
+import LoginPage from '@pages/LoginPage';
+import GithubCallbackPage from '@pages/GithubCallbackPage';
+import JoinPage from '@pages/JoinPage';
+import CategoryPage from '@pages/CategoryPage';
+import RankPage from '@pages/RankPage';
+import { selectTgInitState, selectTgReducer } from '@reducer/select-toggle-reducer';
+import { selectTypeInitState, selectTypeReducer } from '@reducer/select-type-reducer';
+import { clickHandler } from '@event-handler/select-handler';
+import TotalDocumentsPage from '@pages/TotalDocumentsPage';
 
 dotenv.config();
 

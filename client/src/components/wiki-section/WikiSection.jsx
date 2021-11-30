@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import MainSection from '../common/MainSection';
-import Loading from '../common/Loading';
-import MdParser from '../common/MdParser';
-import { Utils } from '../../utils';
-import WikiContentsIndex from '../make-section/make-section-components/WikiContentsIndex';
-import WikiCard from './wiki-section-components/WikiCard';
-import { WikiCategory } from './wiki-section-components/WikiCategory';
-import { BREAK_POINT_MOBILE } from '../../utils/display-width';
-import { flexBox } from '../../styles/styled-components/mixin';
+
+import { Utils } from '@utils';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import { flexBox } from '@styles/styled-components/mixin';
+
+import WikiContentsIndex from '@components/make-section/make-section-components/WikiContentsIndex';
+import WikiCard from '@components/wiki-section/wiki-section-components/WikiCard';
+import { WikiCategory } from '@components/wiki-section/wiki-section-components/WikiCategory';
+import MainSection from '@components/common/MainSection';
+import Loading from '@components/common/Loading';
+import MdParser from '@components/common/MdParser';
 
 const WikiSection = ({ generation, boostcampId, name }) => {
   const [docData, setDocData] = useState();

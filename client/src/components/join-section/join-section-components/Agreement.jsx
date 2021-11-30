@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
+import { font, flexBox } from '@styles/styled-components/mixin';
 import AgreementButton from './AgreementButton';
 import AgreementCheckbox from './AgreementCheckbox';
 import AgreementContent from './AgreementContent';

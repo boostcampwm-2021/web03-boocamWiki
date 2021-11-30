@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { font } from '../../../styles/styled-components/mixin';
+import { font } from '@styles/styled-components/mixin';
 
 const AgreementContentWrapper = styled.div`
   text-align: center;

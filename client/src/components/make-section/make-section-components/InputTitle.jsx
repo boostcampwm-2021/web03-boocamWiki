@@ -1,14 +1,14 @@
 import { React, useRef, useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
+import { SelectTypeContext } from '@src/App';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import { WordManager } from '@resource/message';
 import Classification from './input-title-components/Classification';
 import Generation from './input-title-components/Generation';
 import BoostCampId from './input-title-components/BoostCampId';
 import DocName from './input-title-components/DocName';
 import CreateBtn from './input-title-components/CreateBtn';
-import { SelectTypeContext } from '../../../App';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
-import { WordManager } from '../../../resource/message';
 
 const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   const id = useRef(docData.boostcamp_id);

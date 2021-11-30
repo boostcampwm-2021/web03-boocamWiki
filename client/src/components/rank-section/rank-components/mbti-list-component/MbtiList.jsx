@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexBox, font } from '../../../../styles/styled-components/mixin';
+import { flexBox, font } from '@styles/styled-components/mixin';
 
 const MbtiList = ({ order, mbti, color, ratio, count }) => {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ReactMarkdown from 'react-markdown';
 import rehypeIndexes from 'rehype-indexes';
-import { font } from '../../../styles/styled-components/mixin';
+import { font } from '@styles/styled-components/mixin';
 
 const WikiContentsIndex = ({ text, title }) => {
   return (
@@ -18,7 +18,10 @@ const WikiContentsIndex = ({ text, title }) => {
 const Index = styled.div`
   h1,
   h2,
-  h3 {
+  h3,
+  h4,
+  h5,
+  h6 {
     ${font({ size: '16px', weight: '400' })};
     width: fit-content;
     display: block;
@@ -32,6 +35,15 @@ const Index = styled.div`
   }
   h3 {
     padding-left: 40px;
+  }
+  h4 {
+    padding-left: 60px;
+  }
+  h5 {
+    padding-left: 60px;
+  }
+  h6 {
+    padding-left: 60px;
   }
   a,
   a:visited,

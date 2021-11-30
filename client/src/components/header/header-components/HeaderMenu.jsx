@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import writePage from '../../../resource/img/write-page.svg';
-import rankPage from '../../../resource/img/rank-page.svg';
-import totalPage from '../../../resource/img/total-page.svg';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
+import writePage from '@resource/img/write-page.svg';
+import rankPage from '@resource/img/rank-page.svg';
+import totalPage from '@resource/img/total-page.svg';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
 
 const HeaderMenu = () => {
   return (

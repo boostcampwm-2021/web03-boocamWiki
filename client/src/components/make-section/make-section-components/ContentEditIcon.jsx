@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import boldIcon from '../../../resource/img/bold-icon.svg';
-import italicIcon from '../../../resource/img/italic-icon.svg';
-import textLineIcon from '../../../resource/img/text-line-icon.svg';
+import boldIcon from '@resource/img/bold-icon.svg';
+import italicIcon from '@resource/img/italic-icon.svg';
+import textLineIcon from '@resource/img/text-line-icon.svg';
 
 const addDecoration = {
   bold: '**',

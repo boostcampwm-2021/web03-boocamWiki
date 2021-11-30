@@ -1,6 +1,6 @@
 import React from 'react';
-import TotalDocumentsSection from '../components/total-documents-section/TotalDocumentsSection';
-import PageLayout from './common/PageLayout';
+import TotalDocumentsSection from '@components/total-documents-section/TotalDocumentsSection';
+import PageLayout from '@pages/common/PageLayout';
 
 const TotalDocumentsPage = () => {
   return (

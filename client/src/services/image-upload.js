@@ -1,6 +1,6 @@
 import imageCompression from 'browser-image-compression';
-import { authFetch } from '../utils/login';
-import { fileSizeError, fileFormatError } from '../utils/validator';
+import { authFetch } from '@utils/login';
+import { fileSizeError, fileFormatError } from '@utils/validator';
 
 const options = {
   maxSizeMB: 1,
@@ -12,7 +12,6 @@ const imageCompress = async (item) => {
   try {
     return await imageCompression(item, options);
   } catch (error) {
-    console.log(error);
     return error;
   }
 };

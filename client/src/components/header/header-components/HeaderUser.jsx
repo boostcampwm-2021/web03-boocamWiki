@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
-import user from '../../../resource/img/user.svg';
-import SelectModal from '../../select-modal/SelectModal';
-import { SelectTgContext } from '../../../App';
-import { getAccessTokenPayload, isValidated } from '../../../utils/login';
+import user from '@resource/img/user.svg';
+import SelectModal from '@select-modal/SelectModal';
+import { SelectTgContext } from '@src/App';
+import { getAccessTokenPayload, isValidated } from '@utils/login';
 
 const HeaderUser = () => {
   const { isUserInfoOn } = useContext(SelectTgContext);

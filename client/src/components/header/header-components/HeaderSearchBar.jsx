@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import search from '../../../resource/img/search.svg';
-import drop from '../../../resource/img/drop.svg';
-import SelectModal from '../../select-modal/SelectModal';
-import { SelectTgContext, SelectTypeContext } from '../../../App';
-import { BREAK_POINT_TABLET } from '../../../utils/display-width';
+import search from '@resource/img/search.svg';
+import drop from '@resource/img/drop.svg';
+import { BREAK_POINT_TABLET } from '@utils/display-width';
+import SelectModal from '@select-modal/SelectModal';
+import { SelectTgContext, SelectTypeContext } from '@src/App';
 
 const searchTypeMap = {
   기수: 'generation',

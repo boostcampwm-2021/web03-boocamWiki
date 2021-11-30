@@ -1,9 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useValidate } from '../../utils/login';
-import { font, flexBox } from '../../styles/styled-components/mixin';
+import { useValidate } from '@utils/login';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import githubWhiteIcon from '@resource/img/github-white.png';
 import MainSection from '../common/MainSection';
-import githubWhiteIcon from '../../resource/img/github-white.png';
+
+const LoginSection = () => {
+  useValidate(false);
+  return (
+    <MainSection title="로그인">
+      <SectionWrapper>
+        <LoginWrapper>
+          <LoginLabel>로그인</LoginLabel>
+          <ButtonWrapper>
+            <Link
+              href={`https://www.github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GITHUB_CALLBACK_URL}`}
+            >
+              <LoginButton type="button">
+                <GithubIcon src={githubWhiteIcon} alt="github-icon" />
+                Github로 계속하기
+              </LoginButton>
+            </Link>
+          </ButtonWrapper>
+        </LoginWrapper>
+      </SectionWrapper>
+    </MainSection>
+  );
+};
 
 const SectionWrapper = styled.div`
   ${flexBox({ direction: 'column', alignItems: 'center', justifyContent: 'center' })}
@@ -59,28 +82,5 @@ const GithubIcon = styled.img`
 const Link = styled.a`
   text-decoration: none;
 `;
-
-const LoginSection = () => {
-  useValidate(false);
-  return (
-    <MainSection title="로그인">
-      <SectionWrapper>
-        <LoginWrapper>
-          <LoginLabel>로그인</LoginLabel>
-          <ButtonWrapper>
-            <Link
-              href={`https://www.github.com/login/oauth/authorize?client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GITHUB_CALLBACK_URL}`}
-            >
-              <LoginButton type="button">
-                <GithubIcon src={githubWhiteIcon} alt="github-icon" />
-                Github로 계속하기
-              </LoginButton>
-            </Link>
-          </ButtonWrapper>
-        </LoginWrapper>
-      </SectionWrapper>
-    </MainSection>
-  );
-};
 
 export default LoginSection;

@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
-import { fileUploadValidator } from '../../../utils/validator';
-import { getImgUrl, showErrorCode } from '../../../services/image-upload';
-import imageUploadIcon from '../../../resource/img/image-upload-icon.svg';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import { fileUploadValidator } from '@utils/validator';
+import { getImgUrl, showErrorCode } from '@services/image-upload';
+import imageUploadIcon from '@resource/img/image-upload-icon.svg';
 
 const ContentImgUploadBtn = ({ docData, docDispatch }) => {
   const appendImageLink = (imgUrl, target) => {

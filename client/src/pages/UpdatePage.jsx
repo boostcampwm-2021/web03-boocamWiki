@@ -1,7 +1,7 @@
 import React from 'react';
-import PageLayout from './common/PageLayout';
-import UpdateSection from '../components/make-section/UpdateSection';
-import { useValidate } from '../utils/login';
+import PageLayout from '@pages/common/PageLayout';
+import UpdateSection from '@components/make-section/UpdateSection';
+import { useValidate } from '@utils/login';
 
 const getDocumentInfo = (pathname) => {
   const result = pathname.match(/\/updatedocs\/(?<generation>\d+)_(?<boostcampId>.+)_(?<name>.+)/);

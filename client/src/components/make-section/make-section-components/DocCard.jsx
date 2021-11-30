@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
-import noImg from '../../../resource/img/no-image.png';
-import { flexBox, font } from '../../../styles/styled-components/mixin';
-import { fileUploadValidator } from '../../../utils/validator';
-import { getImgUrl, showErrorCode } from '../../../services/image-upload';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import noImg from '@resource/img/no-image.png';
+import { flexBox, font } from '@styles/styled-components/mixin';
+import { fileUploadValidator } from '@utils/validator';
+import { getImgUrl, showErrorCode } from '@services/image-upload';
 
 const cardData = [
   { name: '별명', key: 'nickname' },
