@@ -19,7 +19,13 @@ import {
   getAllDocCount,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
-import { DocumentsSearch, DocumentsCreate, DocumentsUpdate, DocConcurrencyState } from '../types/apiInterface';
+import {
+  Document,
+  DocumentsSearch,
+  DocumentsCreate,
+  DocumentsUpdate,
+  DocConcurrencyState,
+} from '../types/apiInterface';
 import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
@@ -82,6 +88,7 @@ router.post(
       updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
       OnDocCreate(updateQuery);
     } catch (err) {
+      console.log(err);
       return res.status(404).json({ msg: err.message });
     }
   },
@@ -135,13 +142,13 @@ router.get('/count', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const { generation, boostcamp_id, name }: Partial<DocumentsSearch> = req.query;
+  const { generation, boostcamp_id, name }: Partial<Document> = req.query;
   try {
     const result = await getDoc({ generation, boostcamp_id, name });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
-    OnDocViewed(req.query as unknown as DocumentsSearch);
+    OnDocViewed({ generation, boostcamp_id, name });
     const packed = packData(result);
     return res.status(200).json({ result: packed, msg: 'success' });
   } catch (err) {

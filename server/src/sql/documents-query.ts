@@ -23,16 +23,18 @@ export async function getTopViewedDoc({ count }: { count: number }): Promise<Doc
   const getQuery =
     `SELECT generation, boostcamp_id, name, SUM(count) as total_count FROM view ` +
     `WHERE DATE(created_at) > CURDATE() - INTERVAL 1 WEEK ` +
-    `GROUP BY generation, boostcamp_id, name ORDER BY SUM(count) DESC LIMIT ${count}`;
-  const [result] = await db.pool.query(getQuery);
+    `GROUP BY generation, boostcamp_id, name ORDER BY SUM(count) DESC LIMIT ?`;
+  const [result] = await db.pool.query(getQuery, [count]);
   return result as DocumentsView[];
 }
 
 //문서 만들기
 export async function createDoc(params: DocumentsCreate): Promise<void> {
   const obj = getDocumentsCreateObj(params);
-  const query = `INSERT INTO document(${getObjectKey(obj).join(', ')}) VALUES(${getObjectValue(obj, []).join(', ')})`;
-  const result = await db.pool.query(query);
+  const key = Object.keys(obj);
+  const value = Object.values(obj);
+  const query = `INSERT INTO document(${key.join(', ')}) VALUES(${new Array(value.length).fill('?').join(', ')})`;
+  const result = await db.pool.query(query, [...value]);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
   }
@@ -65,6 +67,18 @@ export async function updateDoc(params: DocumentsCreate) {
     .join(', ')} WHERE generation='${params.generation}' AND boostcamp_id='${params.boostcamp_id}' AND name='${
     params.name
   }'`;
+
+  // export interface DocumentsCreate extends Document {
+  //   content: String;
+  //   nickname: String;
+  //   language: String;
+  //   location: String;
+  //   field: String;
+  //   mbti: String;
+  //   link: String;
+  //   user_image: String;
+  // }
+
   const result = await db.pool.query(query);
   return result;
 }
@@ -123,19 +137,19 @@ export async function getDoc(params: Document) {
 }
 
 //문서 조회수 업데이트
-export async function increaseViewCount(params: DocumentsSearch) {
-  const whereClause = `WHERE boostcamp_id=\'${params.boostcamp_id}\' AND name=\'${params.name}\' AND generation=\'${params.generation}\' AND DATE(created_at)=CURDATE()`;
-  const searchQuery = `SELECT * from view ` + whereClause;
-  let [result] = await db.pool.query(searchQuery);
+export async function increaseViewCount(doc: Document) {
+  const searchQuery = `SELECT * FROM view WHERE boostcamp_id=? AND name=? AND generation=? AND DATE(created_at)=CURDATE()`;
+  let [result] = await db.pool.query(searchQuery, [doc.boostcamp_id, doc.name, doc.generation]);
   if (result.length == 0) {
-    const insertQuery = `INSERT INTO view(${getObjectKey(params).join(', ')}, count) VALUES (${getObjectValue(
-      params,
-      [],
-    ).join(', ')}, 1)`;
-    [result] = await db.pool.query(insertQuery);
+    const key = Object.keys(doc);
+    const value = Object.values(doc);
+    const insertQuery = `INSERT INTO view(${key.join(', ')}, count) VALUES ( ${new Array(value.length)
+      .fill('?')
+      .join(', ')} , 1)`;
+    [result] = await db.pool.query(insertQuery, [...value]);
   } else {
-    const updateQuery = `UPDATE view SET count=count+1 ` + whereClause;
-    [result] = await db.pool.query(updateQuery);
+    const updateQuery = `UPDATE view SET count=count+1 WHERE boostcamp_id=? AND name=? AND generation=? AND DATE(created_at)=CURDATE()`;
+    [result] = await db.pool.query(updateQuery, [doc.boostcamp_id, doc.name, doc.generation]);
   }
   return result;
 }
@@ -144,19 +158,18 @@ export async function increaseViewCount(params: DocumentsSearch) {
 export async function getRecentUpdatedDoc({ count }: { count: number }): Promise<DocumentsRecent[]> {
   const query =
     `SELECT generation, boostcamp_id, name, MAX(created_at) as recent_created_at FROM \`update\` ` +
-    `GROUP BY generation, boostcamp_id, name ORDER BY MAX(created_at) DESC LIMIT ${count}`;
-  const [result] = await db.pool.query(query);
+    `GROUP BY generation, boostcamp_id, name ORDER BY MAX(created_at) DESC LIMIT ?`;
+  const [result] = await db.pool.query(query, [count]);
   return result as DocumentsRecent[];
 }
 
 export async function updateRecentDoc(params: DocumentsUpdate): Promise<void> {
   const obj = getDocumentsUpdateObj(params);
+  const key = Object.keys(obj);
+  const value = Object.values(obj);
   const query =
-    'INSERT INTO `update` ' +
-    `(${getObjectKey(obj).join(', ')})` +
-    ' VALUES ' +
-    `(${getObjectValue(obj, ['ip']).join(', ')})`;
-  const [result] = await db.pool.query(query);
+    'INSERT INTO `update` ' + `(${key.join(', ')})` + ' VALUES ' + `(${new Array(value.length).fill('?').join(', ')})`;
+  const [result] = await db.pool.query(query, [...value]);
   if (result?.affectedRows === 0) {
     throw new Error('Insert does not executed');
   }
