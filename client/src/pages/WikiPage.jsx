@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import Loading from '../components/common/Loading';
-import WikiSection from '../components/wiki-section/WikiSection';
-import PageLayout from './common/PageLayout';
+import Loading from '@components/common/Loading';
+import WikiSection from '@components/wiki-section/WikiSection';
+import PageLayout from '@pages/common/PageLayout';
 
 const getDocumentInfo = (pathname) => {
   const result = pathname.match(/\/w\/(?<generation>\d+)_(?<boostcampId>.+)_(?<name>.+)/);

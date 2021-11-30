@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flexBox } from '../../styles/styled-components/mixin';
+import { flexBox } from '@styles/styled-components/mixin';
 import MainSection from '../common/MainSection';
 import MbtiRank from './rank-components/MbtiRank';
 

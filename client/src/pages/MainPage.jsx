@@ -1,8 +1,8 @@
 import React from 'react';
-import MainSection from '../components/main-door/MainDoor';
-import PageLayout from './common/PageLayout';
+import MainSection from '@components/main-door/MainDoor';
+import PageLayout from '@pages/common/PageLayout';
 
-const MakePage = () => {
+const MainPage = () => {
   return (
     <PageLayout>
       <MainSection />
@@ -10,4 +10,4 @@ const MakePage = () => {
   );
 };
 
-export default MakePage;
+export default MainPage;

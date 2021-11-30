@@ -1,6 +1,6 @@
 import React from 'react';
-import CategorySection from '../components/category-section/CategorySection';
-import PageLayout from './common/PageLayout';
+import CategorySection from '@components/category-section/CategorySection';
+import PageLayout from '@pages/common/PageLayout';
 
 const getDocumentInfo = (pathname) => {
   const result = pathname.match(/\/c\/(?<category>.+)/);

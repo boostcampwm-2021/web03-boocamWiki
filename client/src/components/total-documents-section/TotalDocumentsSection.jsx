@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { useLocation } from 'react-router';
-import MainSection from '../common/MainSection';
-import { docTitleGen } from '../../utils/documents';
+import { docTitleGen } from '@utils/documents';
+import MainSection from '@components/common/MainSection';
+import Loading from '@components/common/Loading';
+import ResultFooter from '@components/search-section/search-section-components/ResultFooter';
 import { ListItem, DocumentLink, InnerTitle, Contents, TotalCount, CategoryCho } from './style';
-import Loading from '../common/Loading';
-import ResultFooter from '../search-section/search-section-components/ResultFooter';
 
 const TotalDocumentsSection = () => {
   const [totalDocuments, setDocuments] = useState({});

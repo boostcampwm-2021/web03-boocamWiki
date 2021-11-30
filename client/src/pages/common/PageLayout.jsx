@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../../components/header/Header';
-import SideSection from '../../components/side-section/SideSection';
+import Header from '@components/header/Header';
+import SideSection from '@components/side-section/SideSection';
 
-import style from '../../styles/scss/Page.module.scss';
+import style from '@styles/scss/Page.module.scss';
 
-const PageLayout = ({children}) => {
+const PageLayout = ({ children }) => {
   return (
     <div className={style.PageContainer}>
       <Header />

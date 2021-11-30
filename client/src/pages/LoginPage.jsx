@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginSection from '../components/login-section/LoginSection';
-import PageLayout from './common/PageLayout';
+import LoginSection from '@components/login-section/LoginSection';
+import PageLayout from '@pages/common/PageLayout';
 
 const LoginPage = () => {
   return (

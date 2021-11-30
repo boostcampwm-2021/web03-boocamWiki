@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
-import SelectModal from '../../../select-modal/SelectModal';
-import { SelectTgContext } from '../../../../App';
-import genDownBtn from '../../../../resource/img/genDownBtn.svg';
+import SelectModal from '@select-modal/SelectModal';
+import { SelectTgContext } from '@src/App';
+import genDownBtn from '@resource/img/genDownBtn.svg';
+import { WordManager } from '@resource/message';
 import { TextInputWrap, Text, GenWrap, TypeInput, GenBtn } from './style';
-import { WordManager } from '../../../../resource/message';
 
 const PEOPLE_TYPE = {
   캠퍼: WordManager.CAMPER,

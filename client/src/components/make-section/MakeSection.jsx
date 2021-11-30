@@ -1,5 +1,10 @@
 import React, { useState, useRef, useReducer, useEffect } from 'react';
 import styled from 'styled-components';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import { initialDocData, docDataReducer } from '@reducer/doc-data-reducer';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import { authFetch } from '@utils/login';
+import { fetchIP } from '@utils/ip-check';
 import InputTitle from './make-section-components/InputTitle';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
@@ -8,11 +13,6 @@ import EditorBox from './make-section-components/EditorBox';
 import TitleGuide from './make-section-components/TitleGuide';
 import MainSection from '../common/MainSection';
 import AlertModal from '../custom-alert/AlertModal';
-import { BREAK_POINT_MOBILE } from '../../utils/display-width';
-import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
-import { font, flexBox } from '../../styles/styled-components/mixin';
-import { authFetch } from '../../utils/login';
-import { fetchIP } from '../../utils/ip-check';
 
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState();

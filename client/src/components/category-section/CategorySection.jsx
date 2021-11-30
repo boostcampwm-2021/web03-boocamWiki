@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { useLocation } from 'react-router';
-import MainSection from '../common/MainSection';
-import { docTitleGen } from '../../utils/documents';
+import { docTitleGen } from '@utils/documents';
 import { WikiCategory } from '../wiki-section/wiki-section-components/WikiCategory';
 import { ListItem, DocumentLink, InnerTitle, Contents, TotalCount, CategoryCho } from './style';
+import MainSection from '../common/MainSection';
 import Loading from '../common/Loading';
 import ResultFooter from '../search-section/search-section-components/ResultFooter';
 

@@ -1,3 +1,3 @@
-import WordManager from './words';
+import WordManager from '@resource/message/words';
 
 export { WordManager };

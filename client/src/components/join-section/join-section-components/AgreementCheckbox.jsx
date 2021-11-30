@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { font } from '../../../styles/styled-components/mixin';
+import { font } from '@styles/styled-components/mixin';
 
 const CheckInput = styled.input`
   cursor: pointer;

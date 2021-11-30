@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import queryString from 'query-string';
-import { font, flexBox } from '../styles/styled-components/mixin';
-import cbScss from '../styles/scss/CallbackPage.module.scss';
-import { authFetch, setAccessToken, setRefreshToken } from '../utils/login';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import cbScss from '@styles/scss/CallbackPage.module.scss';
+import { authFetch, setAccessToken, setRefreshToken } from '@utils/login';
 
 const LoadingWrapper = styled.div`
   ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })}

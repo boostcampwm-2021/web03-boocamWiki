@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import editIcon from '../../resource/img/edit.png';
-import { flexBox } from '../../styles/styled-components/mixin';
+import editIcon from '@resource/img/edit.png';
+import { flexBox } from '@styles/styled-components/mixin';
 
 const MainHeader = ({ title, documentMode }) => {
   return (

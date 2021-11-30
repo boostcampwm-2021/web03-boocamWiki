@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
-import { authFetch, setAccessToken, setRefreshToken } from '../../../utils/login';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import { authFetch, setAccessToken, setRefreshToken } from '@utils/login';
 
 const ButtonWrapper = styled.div`
   ${flexBox({ direction: 'column', alignItems: 'center', justifyContent: 'center' })}

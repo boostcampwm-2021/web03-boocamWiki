@@ -1,4 +1,4 @@
-import WordManager from '../resource/message/words';
+import WordManager from '@resource/message/words';
 
 const boostcampIdMap = {
   MASTER: WordManager.MASTER,

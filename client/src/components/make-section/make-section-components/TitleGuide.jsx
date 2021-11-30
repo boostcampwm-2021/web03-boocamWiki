@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { flexBox } from '@styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
 import MdParser from '../../common/MdParser';
-import { flexBox } from '../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 
 const GuideMd = `## 📃 제목 작성 가이드
 - 기수와 아이디는 **캠퍼만** 입력 가능합니다.

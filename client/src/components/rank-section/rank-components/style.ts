@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
+import { font, flexBox } from '@styles/styled-components/mixin';
 
 interface MBITColor {
   [color: string]: string;

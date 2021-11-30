@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { IDocument } from '../../../../types/api-document';
-import { Utils } from '../../../../utils';
+import { Utils } from '@utils/index';
+import { IDocument } from '@types-dir/api-document';
 
 export const TopViewItem = (arg: IDocument): JSX.Element => {
   const { name, boostcampId, generation } = arg;
