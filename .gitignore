@@ -4,11 +4,11 @@
 
 ### docker files
 
-docker/**/*
-# docker/\*.yml
-# docker/nginx/build/
-# docker/node/dist/
-# docker/certbot/
+docker/
+docker/\*.yml
+docker/nginx/build/
+docker/node/dist/
+docker/certbot/
 
 ### Linux
 
