@@ -4,8 +4,11 @@ import styled from 'styled-components';
 import { flexBox, font } from '@styles/styled-components/mixin';
 import github from '@resource/img/github.png';
 import instagram from '@resource/img/instagram.png';
+import { DocData } from '@reducer/doc-data-reducer';
 
-const cardData = [
+type Item = { name: string; key: keyof DocData };
+
+const cardData: Item[] = [
   { name: '별명', key: 'nickname' },
   { name: '지역', key: 'location' },
   { name: '주언어', key: 'language' },
@@ -13,12 +16,14 @@ const cardData = [
   { name: '분야', key: 'field' },
 ];
 
-function isEmpty(str) {
-  const result = !str || str.length === 0 || str === 'null';
-  return result;
+function isEmpty(param: string | string[] | number): boolean {
+  if (typeof param === 'string') {
+    return !param || param.length === 0 || param === 'null';
+  }
+  return param === null || param === undefined;
 }
 
-const WikiCard = ({ docData, name }) => {
+const WikiCard = ({ docData, name }: { docData: DocData; name: string }): JSX.Element => {
   const [domain, id] = !docData.link ? ['instagram', ''] : docData.link.split(':');
   const [card, setCard] = useState(false);
 
@@ -29,41 +34,50 @@ const WikiCard = ({ docData, name }) => {
     else if (!isEmpty(docData.language)) setCard(true);
     else if (!isEmpty(docData.mbti)) setCard(true);
     else if (!isEmpty(docData.field)) setCard(true);
-    else if (!isEmpty(docData.link)) setCard(true);
+    else if (!isEmpty(id)) setCard(true);
     else setCard(false);
   }, [docData]);
 
   return (
-    <CardBox background={card ? '#DDEEAA' : 'white'} display={card ? 'block' : 'none'}>
-      {card && <CardOwner>{name}</CardOwner>}
-      {!isEmpty(docData.user_image) && (
-        <a href={docData.user_image} target="_blank" rel="noreferrer">
-          <CardImg src={docData.user_image} />
-        </a>
-      )}
-      {cardData.map(
-        (item) =>
-          !isEmpty(docData[item.key]) && (
-            <CardDataWrap key={item.name}>
-              <CardDataName>{item.name}</CardDataName>
-              <CardDataText>{docData[item.key]}</CardDataText>
+    <>
+      {card && (
+        <CardBox background="#DDEEAA" display="block" role="application" name="card">
+          <CardOwner>{name}</CardOwner>
+          {!isEmpty(docData.user_image) && (
+            <a href={docData.user_image} target="_blank" rel="noreferrer">
+              <CardImg src={docData.user_image} />
+            </a>
+          )}
+          {cardData.map(
+            (item: Item) =>
+              !isEmpty(docData[item.key]) && (
+                <CardDataWrap key={item.name}>
+                  <CardDataName>{item.name}</CardDataName>
+                  <CardDataText>{docData[item.key]}</CardDataText>
+                </CardDataWrap>
+              ),
+          )}
+          {id && (
+            <CardDataWrap key="링크">
+              <CardDataName>링크</CardDataName>
+              <CardDataText>
+                <Link
+                  to={{ pathname: `https://${domain}.com/${id}` }}
+                  target="_blank"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <LinkContainer>
+                    <LinkImg src={domain === 'instagram' ? instagram : github} alt="link-img" />
+                    <LinkTxt>{id}</LinkTxt>
+                  </LinkContainer>
+                </Link>
+              </CardDataText>
             </CardDataWrap>
-          ),
+          )}
+        </CardBox>
       )}
-      {id && (
-        <CardDataWrap key="링크">
-          <CardDataName>링크</CardDataName>
-          <CardDataText>
-            <Link to={{ pathname: `https://${domain}.com/${id}` }} target="_blank" style={{ textDecoration: 'none' }}>
-              <LinkContainer>
-                <LinkImg src={domain === 'instagram' ? instagram : github} alt="link-img" />
-                <LinkTxt>{id}</LinkTxt>
-              </LinkContainer>
-            </Link>
-          </CardDataText>
-        </CardDataWrap>
-      )}
-    </CardBox>
+      {!card && <></>}
+    </>
   );
 };
 
@@ -81,7 +95,7 @@ const LinkTxt = styled.p`
   ${font({ color: '#888888', size: '16px' })};
 `;
 
-const CardBox = styled.div`
+const CardBox = styled.div<{ background: string; display: string; name: string }>`
   display: flex;
   flex-direction: column;
   align-items: center;
