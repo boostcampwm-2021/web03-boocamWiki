@@ -12,7 +12,7 @@ import DocCard from './make-section-components/DocCard';
 import EditorBox from './make-section-components/EditorBox';
 import TitleGuide from './make-section-components/TitleGuide';
 import MainSection from '../common/MainSection';
-import AlertModal from '../custom-alert/AlertModal';
+import AlertConfirm from '../alert-confirm/AlertConfirm';
 
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState();
@@ -92,7 +92,7 @@ const MakeSection = ({ history }) => {
   return (
     <MainSection title="문서 작성">
       <MainContent onClick={closeAlert}>
-        {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
+        {alertState.isAlertOn && <AlertConfirm modalContent={alertState.msg} />}
         <TitleGuide />
         <InputTitle setCanMake={setCanMake} canMake={canMake} docData={docData} docDispatch={docDispatch} />
 

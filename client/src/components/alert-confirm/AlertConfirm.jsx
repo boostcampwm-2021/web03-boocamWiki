@@ -5,7 +5,11 @@ import close from '@resource/img/close.svg';
 import logo from '@resource/img/logo2.png';
 import { font, flexBox } from '@styles/styled-components/mixin';
 
-const AlertModal = ({ modalContent }) => {
+const AlertConfirm = ({ modalContent, isConfirm = false, setLastCheck }) => {
+  const handleYes = (e) => {
+    setLastCheck(true);
+  };
+
   return ReactDom.createPortal(
     <>
       <ModalBackground className="close-alert" />
@@ -15,21 +19,40 @@ const AlertModal = ({ modalContent }) => {
           <BtnClose src={close} alt="close" className="close-alert" />
         </ModalHeader>
         <ModalBorder />
-        <ModalBody>{modalContent}</ModalBody>
+        <ModalBody>
+          {modalContent}
+          {isConfirm && <ButtonYes onClick={handleYes}>예</ButtonYes>}
+          {isConfirm && <ButtonNo className="close-alert">아니요</ButtonNo>}
+        </ModalBody>
       </Modal>
     </>,
     document.getElementById('portal'),
   );
 };
 
-const ModalBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #222222;
-  filter: opacity(20%);
+const ButtonCommon = styled.button`
+  ${flexBox({ justifyContent: 'center', alignItems: 'center' })};
+  ${font({ color: '#fff', size: '16px', weight: '500' })};
+  width: 70px;
+  height: 28px;
+  border-radius: 5px;
+  border: none;
+  position: absolute;
+  top: 127px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const ButtonYes = styled(ButtonCommon)`
+  background-color: #0055fb;
+  left: 98px;
+`;
+
+const ButtonNo = styled(ButtonCommon)`
+  background-color: #f45452;
+  right: 98px;
 `;
 
 const Modal = styled.div`
@@ -42,6 +65,16 @@ const Modal = styled.div`
   background-color: #fff;
   border: 1px solid #d7d7d7;
   border-radius: 10px;
+`;
+
+const ModalBackground = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #222222;
+  filter: opacity(20%);
 `;
 
 const ModalHeader = styled.div`
@@ -68,6 +101,7 @@ const ModalBody = styled.div`
   ${font({ color: '#222222', size: '18px', weight: 'normal' })}
   padding: 10px 20px 20px 20px;
   height: 165px;
+  position: relative;
 `;
 
-export default AlertModal;
+export default AlertConfirm;
