@@ -1,6 +1,6 @@
 import { WordManager } from '@resource/message';
 
-interface DocData {
+export interface DocData {
   generation: number;
   boostcamp_id: string;
   name: string;
@@ -18,16 +18,16 @@ interface DocData {
 
 export const initialDocData = {
   generation: -1,
-  boostcamp_id: null,
-  name: null,
-  content: null,
-  nickname: null,
-  location: null,
-  language: null,
-  user_image: null,
-  mbti: null,
-  field: null,
-  link: null,
+  boostcamp_id: '',
+  name: '',
+  content: '',
+  nickname: '',
+  location: '',
+  language: '',
+  user_image: '',
+  mbti: '',
+  field: '',
+  link: '',
   member_type: WordManager.CAMPER,
   classification: [WordManager.CAMPER],
 };

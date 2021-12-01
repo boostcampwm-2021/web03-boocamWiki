@@ -32,7 +32,7 @@ const Title = ({ canMake, setCanMake, docData, docDispatch }) => {
   };
 
   const titleCheckHandler = async () => {
-    if (!docData.classification || docData.generation < 0 || !docData.boostcamp_id || !docData.name) {
+    if (!docData.member_type || docData.generation < 0 || !docData.boostcamp_id || !docData.name) {
       setCanMake();
       return;
     }

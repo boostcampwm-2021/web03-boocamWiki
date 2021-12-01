@@ -30,7 +30,7 @@ const Flexed = styled.div`
   ${flexBox({})}
 `;
 
-export const WikiCategory = ({ categories }) => {
+export const WikiCategory = ({ categories }: { categories: string[] }): JSX.Element => {
   return (
     <Category>
       {' '}

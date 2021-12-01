@@ -88,7 +88,7 @@ const DocCard = ({ docData, docDispatch }) => {
       <CardOwner type="text" placeholder={docData.name} readOnly />
 
       <CardImgLabel htmlFor="profile">
-        <CardImg src={docData.user_image === null || docData.user_image === 'null' ? noImg : docData.user_image} />
+        <CardImg src={docData.user_image === '' || docData.user_image === 'null' ? noImg : docData.user_image} />
       </CardImgLabel>
       <input style={{ display: 'none' }} type="file" accept="image/*" onChange={profileHandler} id="profile" />
 
