@@ -20,6 +20,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [loading, setLoading] = useState(true);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
   const [lastCheck, setLastCheck] = useState(false);
+  const [isBlock, setIsBlock] = useState(false);
 
   useEffect(async () => {
     const ip = await fetchIP();
@@ -30,6 +31,17 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
       },
     });
   });
+
+  useEffect(() => {
+    if (isBlock) {
+      const unblock = history.block('작성 중인 내용이 저장되지 않습니다. 이동하시겠습니까?');
+      return () => {
+        unblock();
+      };
+    }
+
+    return false;
+  }, [history, isBlock]);
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -42,7 +54,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
     } else if (result.status === 409) {
       setAlertState({
         isAlertOn: true,
-        msg: '문서가 수정되었습니다. 변경 내용을 클립보드나 메모장에 저장하고 편집페이지로 다시 진입해주세요.',
+        msg: '실패 ❌ 다른 문서가 먼저 수정되었습니다. 수정 내용을 클립보드나 메모장에 저장해주세요.',
       });
     } else {
       const body = await result.json();
@@ -72,6 +84,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
       return;
     }
 
+    setIsBlock(false);
     const updateDocs = async () => {
       const result = await authFetch('/api/documents', {
         method: 'PUT',
@@ -147,7 +160,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
               <DocCard docData={docData} docDispatch={docDispatch} />
             </ListCardWrap>
 
-            <EditorBox docData={docData} docDispatch={docDispatch} />
+            <EditorBox docData={docData} docDispatch={docDispatch} setIsBlock={setIsBlock} />
 
             <RuleDiv>
               <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} id="checkbox" />

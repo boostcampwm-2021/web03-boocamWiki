@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, createContext, useRef } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
 import * as dotenv from 'dotenv';
 import MainPage from '@pages/MainPage';
 import MakePage from '@pages/MakePage';
@@ -27,7 +27,7 @@ const App = () => {
   const [SelectTgState, SelectTgDispatch] = useReducer(selectTgReducer, selectTgInitState);
   const [SelectTypeState, SelectTypeDispatch] = useReducer(selectTypeReducer, selectTypeInitState);
 
-  const closeSelectALl = (event: any) => {
+  const closeSelectALl = () => {
     const { isSearchTypeOn, isUserInfoOn, isPeopleTypeOn } = SelectTgStateRef.current;
     if (!isSearchTypeOn && !isUserInfoOn && !isPeopleTypeOn) return;
     SelectTgDispatch({ type: 'allOff' });

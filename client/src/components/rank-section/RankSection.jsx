@@ -15,8 +15,8 @@ const RankSection = () => {
 };
 
 const RankCotainer = styled.div`
-  ${flexBox({ directioin: 'column', justifyContent: 'center', alignItems: 'center' })};
-  margin-top: 20px;
+  ${flexBox({ direction: 'column', justifyContent: 'center', alignItems: 'center' })};
+  margin-top: 30px;
 `;
 
 export default RankSection;
