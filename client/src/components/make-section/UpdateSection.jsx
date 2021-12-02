@@ -12,13 +12,15 @@ import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
 import EditorBox from './make-section-components/EditorBox';
 import Loading from '../common/Loading';
-import AlertModal from '../custom-alert/AlertModal';
+import AlertConfirm from '../alert-confirm/AlertConfirm';
 
 const UpdateSection = ({ history, generation, boostcampId, name }) => {
   const [docRule, setDocRule] = useState(false);
-  const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
+  const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '', isConfirm: false });
   const [loading, setLoading] = useState(true);
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
+  const [lastCheck, setLastCheck] = useState(false);
+  const [isBlock, setIsBlock] = useState(false);
 
   useEffect(async () => {
     const ip = await fetchIP();
@@ -29,6 +31,17 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
       },
     });
   });
+
+  useEffect(() => {
+    if (isBlock) {
+      const unblock = history.block('작성 중인 내용이 저장되지 않습니다. 이동하시겠습니까?');
+      return () => {
+        unblock();
+      };
+    }
+
+    return false;
+  }, [history, isBlock]);
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -41,7 +54,7 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
     } else if (result.status === 409) {
       setAlertState({
         isAlertOn: true,
-        msg: '문서가 수정되었습니다. 변경 내용을 클립보드나 메모장에 저장하고 편집페이지로 다시 진입해주세요.',
+        msg: '실패 ❌ 다른 문서가 먼저 수정되었습니다. 수정 내용을 클립보드나 메모장에 저장해주세요.',
       });
     } else {
       const body = await result.json();
@@ -53,9 +66,26 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
   };
 
   const updateDocument = async () => {
-    if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요' });
-    else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요' });
+    if (!docRule) setAlertState({ isAlertOn: true, msg: '규정에 동의해주세요', isConfirm: false });
+    else if (!docData.content) setAlertState({ isAlertOn: true, msg: '내용을 입력해주세요', isConfirm: false });
     else {
+      setAlertState({
+        isAlertOn: true,
+        msg: `수정 후에는 변경이 불가능합니다. 수정하시겠습니까?`,
+        isConfirm: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (!lastCheck) {
+      if (!alertState.isAlertOn) return;
+      setAlertState((prev) => ({ ...prev, isAlertOn: false }));
+      return;
+    }
+
+    setIsBlock(false);
+    const updateDocs = async () => {
       const result = await authFetch('/api/documents', {
         method: 'PUT',
         headers: {
@@ -64,8 +94,10 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
         body: JSON.stringify(docData),
       });
       fetchValidation(result);
-    }
-  };
+    };
+
+    updateDocs();
+  }, [lastCheck]);
 
   const cancelAddDoc = () => {
     history.goBack();
@@ -116,13 +148,19 @@ const UpdateSection = ({ history, generation, boostcampId, name }) => {
       {!loading && (
         <MainSection title={Utils.docTitleGen({ name, boostcampId, generation }, 0)}>
           <MainContent onClick={closeAlert}>
-            {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
+            {alertState.isAlertOn && (
+              <AlertConfirm
+                modalContent={alertState.msg}
+                isConfirm={alertState.isConfirm}
+                setLastCheck={setLastCheck}
+              />
+            )}
             <ListCardWrap>
               <WikiContentsIndex title="목차 미리보기" text={docData.content} />
               <DocCard docData={docData} docDispatch={docDispatch} />
             </ListCardWrap>
 
-            <EditorBox docData={docData} docDispatch={docDispatch} />
+            <EditorBox docData={docData} docDispatch={docDispatch} setIsBlock={setIsBlock} />
 
             <RuleDiv>
               <input type="checkbox" style={{ margin: '10px' }} onChange={handleRule} id="checkbox" />
