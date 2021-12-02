@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { flexBox, font } from '@styles/styled-components/mixin';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
 import EditorWithPreview from './EditorWithPreview';
 import Editor from './Editor';
 import Preview from './Preview';
 import ContentImgUploadBtn from './ContentImgUploadBtn';
 import ContentEditIcon from './ContentEditIcon';
-import { flexBox, font } from '../../../styles/styled-components/mixin';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
 
-const EditorBox = ({ docData, docDispatch }) => {
+const EditorBox = ({ docData, docDispatch, setIsBlock }) => {
   const [inputStatus, setInputStatus] = useState('editor');
 
   const editorTypes = [
-    { name: 'editor', text: '편집기', component: <Editor docData={docData} docDispatch={docDispatch} /> },
+    {
+      name: 'editor',
+      text: '편집기',
+      component: <Editor docData={docData} docDispatch={docDispatch} setIsBlock={setIsBlock} />,
+    },
     { name: 'preview', text: '미리보기', component: <Preview docData={docData} /> },
     {
       name: 'editorWithPreview',
       text: '동시보기',
-      component: <EditorWithPreview docData={docData} docDispatch={docDispatch} />,
+      component: <EditorWithPreview docData={docData} docDispatch={docDispatch} setIsBlock={setIsBlock} />,
     },
   ];
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import writePage from '../../../resource/img/write-page.svg';
-import rankPage from '../../../resource/img/rank-page.svg';
-import totalPage from '../../../resource/img/total-page.svg';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
+import writePage from '@resource/img/write-page.svg';
+import rankPage from '@resource/img/rank-page.svg';
+import totalPage from '@resource/img/total-page.svg';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
 
 const HeaderMenu = () => {
   return (
@@ -16,13 +16,13 @@ const HeaderMenu = () => {
         </Link>
       </Menu>
       <Menu>
-        <Link to="/" style={aTagStyle}>
+        <Link to="/rank" style={aTagStyle}>
           <MenuImg src={rankPage} />
           <MenuText>각종순위</MenuText>
         </Link>
       </Menu>
       <Menu>
-        <Link to="/" style={aTagStyle}>
+        <Link to="/t" style={aTagStyle}>
           <MenuImg src={totalPage} />
           <MenuText>전체문서</MenuText>
         </Link>

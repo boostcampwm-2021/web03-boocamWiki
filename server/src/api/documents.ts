@@ -1,4 +1,9 @@
 import * as express from 'express';
+
+import { getSignedInt } from '../services/util';
+import { packDataWithName } from '../services/words';
+import { ipToInt } from '../services/util';
+
 import {
   createDoc,
   updateDoc,
@@ -10,9 +15,17 @@ import {
   updateRecentDoc,
   updateDocConcurrencyCheck,
   createDocConcurrencyCheck,
+  getAllDoc,
+  getAllDocCount,
 } from '../sql/documents-query';
 import { OnDocCreate, OnDocViewed } from '../subscribers/document-subscriber';
-import { DocumentsSearch, DocumentsCreate, DocumentsUpdate, DocConcurrencyState } from '../types/apiInterface';
+import {
+  Document,
+  DocumentsSearch,
+  DocumentsCreate,
+  DocumentsUpdate,
+  DocConcurrencyState,
+} from '../types/apiInterface';
 import { jwtAuthCheck } from './middleware';
 
 const router = express.Router();
@@ -61,31 +74,44 @@ router.get('/ranks', async (req: express.Request, res: express.Response) => {
   }
 });
 
-router.post('/', jwtAuthCheck(true), createDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
-  try {
-    const createQuery: DocumentsCreate = req.body;
-    await createDoc(createQuery);
-    res.status(200).json({ msg: 'OK' });
-    const updateQuery: DocumentsUpdate = req.body;
-    updateQuery.user_id = 'zoeas';
-    OnDocCreate(updateQuery);
-  } catch (err) {
-    return res.status(404).json({ msg: 'fail' });
-  }
-});
+router.post(
+  '/',
+  jwtAuthCheck(true),
+  createDocConcurrencyCheckMiddle,
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const createQuery: DocumentsCreate = req.body;
+      await createDoc(createQuery);
+      res.status(200).json({ msg: 'OK' });
+      const updateQuery: DocumentsUpdate = req.body;
+      updateQuery.user_id = req.jwt.node_id;
+      updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
+      OnDocCreate(updateQuery);
+    } catch (err) {
+      console.log(err);
+      return res.status(404).json({ msg: err.message });
+    }
+  },
+);
 
-router.put('/', jwtAuthCheck(true), updateDocConcurrencyCheckMiddle, async (req: express.Request, res: express.Response) => {
-  try {
-    const result = await updateDoc(req.body);
-    res.status(200).json({ msg: 'OK', result });
-    const updateQuery: DocumentsUpdate = req.body;
-    updateQuery.user_id = 'zoeas';
-    updateRecentDoc(updateQuery);
-    return;
-  } catch (err) {
-    res.status(404).json({ msg: 'fail' });
-  }
-});
+router.put(
+  '/',
+  jwtAuthCheck(true),
+  updateDocConcurrencyCheckMiddle,
+  async (req: express.Request, res: express.Response) => {
+    try {
+      const result = await updateDoc(req.body);
+      res.status(200).json({ msg: 'OK', result });
+      const updateQuery: DocumentsUpdate = req.body;
+      updateQuery.user_id = req.jwt.node_id;
+      updateQuery.ip = req.headers['x-forwarded-for'] ? String(ipToInt(req.headers['x-forwarded-for'])) : null;
+      updateRecentDoc(updateQuery);
+      return;
+    } catch (err) {
+      res.status(404).json({ msg: err.message });
+    }
+  },
+);
 
 router.get('/search', async (req: express.Request, res: express.Response) => {
   const { generation, boostcamp_id, name, content, offset, limit }: Partial<DocumentsSearch> = req.query;
@@ -101,6 +127,7 @@ router.get('/search', async (req: express.Request, res: express.Response) => {
     }
     return res.status(200).json({ result, offset: adjOffset, msg: 'success' });
   } catch (err) {
+    console.log(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });
@@ -116,13 +143,13 @@ router.get('/count', async (req: express.Request, res: express.Response) => {
 });
 
 router.get('/', async (req: express.Request, res: express.Response) => {
-  const { generation, boostcamp_id, name }: Partial<DocumentsSearch> = req.query;
+  const { generation, boostcamp_id, name }: Partial<Document> = req.query;
   try {
     const result = await getDoc({ generation, boostcamp_id, name });
     if (result.length === 0) {
       return res.status(404).json({ result, msg: 'empty result' });
     }
-    OnDocViewed(req.query as unknown as DocumentsSearch);
+    OnDocViewed({ generation, boostcamp_id, name });
     const packed = packData(result);
     return res.status(200).json({ result: packed, msg: 'success' });
   } catch (err) {
@@ -140,5 +167,26 @@ function packData(result) {
     }, []);
   return doc;
 }
+
+router.get('/all', async (req: express.Request, res: express.Response) => {
+  try {
+    const step = 30;
+    let offset = getSignedInt(req.query.offset?.toString() ?? '', 1);
+    const count = await getAllDocCount();
+    offset = Math.min(offset, Math.floor(count / step + (count % step ? 1 : 0)));
+    const result = await getAllDoc(offset, step);
+    const packed = packDataWithName(result);
+    return res.status(200).json({
+      result: {
+        count,
+        list: packed,
+        offset,
+      },
+      msg: 'success',
+    });
+  } catch (err) {
+    return res.status(404).json({ result: [], msg: 'fail' });
+  }
+});
 
 export default router;

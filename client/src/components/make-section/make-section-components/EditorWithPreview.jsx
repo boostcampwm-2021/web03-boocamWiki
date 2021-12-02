@@ -1,16 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { flexBox } from '@styles/styled-components/mixin';
 import MdParser from '../../common/MdParser';
-import { flexBox } from '../../../styles/styled-components/mixin';
 import Editor from './Editor';
 
-const EditorWithPreview = ({ docData, docDispatch }) => {
+const EditorWithPreview = ({ docData, docDispatch, setIsBlock }) => {
   const withPreview = true;
 
   return (
     <EditorWrap>
       <HalfEditor>
-        <Editor docData={docData} docDispatch={docDispatch} withPreview={withPreview} />
+        <Editor docData={docData} docDispatch={docDispatch} setIsBlock={setIsBlock} withPreview={withPreview} />
       </HalfEditor>
       <Preview>
         <MdParser content={docData.content} />

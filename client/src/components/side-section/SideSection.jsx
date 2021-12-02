@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import SectionItem from './side-section-components/SectionItem';
-import { FetchingRecent, RecentItem } from './side-section-components/recents/RecentItem';
-import { FetchingTopView, TopViewItem } from './side-section-components/top-views/TopViewItem';
-import { BREAK_POINT_TABLET } from '../../utils/display-width';
+import { BREAK_POINT_TABLET } from '@utils/display-width';
+import SectionItem from '@components/side-section/side-section-components/SectionItem';
+import { FetchingRecent, RecentItem } from '@components/side-section/side-section-components/recents/RecentItem';
+import { FetchingTopView, TopViewItem } from '@components/side-section/side-section-components/top-views/TopViewItem';
 
 const SideSection = () => {
   return (

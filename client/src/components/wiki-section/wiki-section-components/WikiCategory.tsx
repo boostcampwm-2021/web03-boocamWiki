@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { flexBox } from '../../../styles/styled-components/mixin';
+import { flexBox } from '@styles/styled-components/mixin';
 
 const Category = styled.div`
   border: 1px solid #bbb;
@@ -30,7 +30,7 @@ const Flexed = styled.div`
   ${flexBox({})}
 `;
 
-export const WikiCategory = ({ categories }) => {
+export const WikiCategory = ({ categories }: { categories: string[] }): JSX.Element => {
   return (
     <Category>
       {' '}

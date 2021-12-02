@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { IDocument } from '../../../types/api-document';
+import { IDocument } from '@types-dir/api-document';
 
 export function SectionListGenerator<T extends IDocument>({
   list,

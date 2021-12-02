@@ -1,5 +1,5 @@
 import React from 'react';
-import { removeAccessToken, removeRefreshToken } from '../utils/login';
+import { removeAccessToken, removeRefreshToken } from '@utils/login';
 
 export const clickHandler = (
   event: any,

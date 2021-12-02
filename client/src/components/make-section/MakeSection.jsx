@@ -1,24 +1,47 @@
-import React, { useState, useRef, useReducer } from 'react';
+import React, { useState, useRef, useReducer, useEffect } from 'react';
 import styled from 'styled-components';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import { initialDocData, docDataReducer } from '@reducer/doc-data-reducer';
+import { font, flexBox } from '@styles/styled-components/mixin';
+import { authFetch } from '@utils/login';
+import { fetchIP } from '@utils/ip-check';
+import WikiContentsIndex from '@components/common/WikiContentsIndex';
 import InputTitle from './make-section-components/InputTitle';
 import MakePageRule from './make-section-components/MakePageRule';
 import DocCard from './make-section-components/DocCard';
-import WikiContentsIndex from './make-section-components/WikiContentsIndex';
 import EditorBox from './make-section-components/EditorBox';
 import TitleGuide from './make-section-components/TitleGuide';
 import MainSection from '../common/MainSection';
-import AlertModal from '../custom-alert/AlertModal';
-import { BREAK_POINT_MOBILE } from '../../utils/display-width';
-import { initialDocData, docDataReducer } from '../../reducer/doc-data-reducer';
-import { font, flexBox } from '../../styles/styled-components/mixin';
-import { authFetch } from '../../utils/login';
+import AlertConfirm from '../alert-confirm/AlertConfirm';
 
 const MakeSection = ({ history }) => {
   const [canMake, setCanMake] = useState();
   const [docRule, setDocRule] = useState(false);
   const [alertState, setAlertState] = useState({ isAlertOn: false, msg: '' });
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
+  const [isBlock, setIsBlock] = useState(false);
   const checkBoxRef = useRef(null);
+
+  useEffect(async () => {
+    const ip = await fetchIP();
+    docDispatch({
+      type: 'INPUT_DOC_DATA',
+      payload: {
+        ip,
+      },
+    });
+  });
+
+  useEffect(() => {
+    if (isBlock) {
+      const unblock = history.block('작성 중인 내용이 저장되지 않습니다. 이동하시겠습니까?');
+      return () => {
+        unblock();
+      };
+    }
+
+    return false;
+  }, [history, isBlock]);
 
   const handleRule = (e) => {
     if (e.target.checked) setDocRule(true);
@@ -39,19 +62,20 @@ const MakeSection = ({ history }) => {
     } else if (result.status === 409) {
       setAlertState({
         isAlertOn: true,
-        msg: '문서가 이미 생성되었습니다. 작성 내용을 클립보드나 메모장에 저장 후 페이지를 검색하여 진입해주세요. 필요시 편집 부탁드립니다.',
+        msg: '실패 ❌ 다른 문서가 먼저 생성되었습니다. 작성 내용을 클립보드나 메모장에 저장해주세요.',
       });
     } else {
       const body = await result.json();
       setAlertState({
         isAlertOn: true,
-        msg: `문서를 생성하는데 실패했습니다. 사유 [${result.status}] body: ${body}`,
+        msg: `문서를 생성하는데 실패했습니다. 사유 [${result.status}] body: ${body.msg}`,
       });
     }
   };
 
   const addDocument = async () => {
     if (docValidation()) return;
+    setIsBlock(false);
     const result = await authFetch('/api/documents', {
       method: 'POST',
       headers: {
@@ -81,7 +105,7 @@ const MakeSection = ({ history }) => {
   return (
     <MainSection title="문서 작성">
       <MainContent onClick={closeAlert}>
-        {alertState.isAlertOn && <AlertModal modalContent={alertState.msg} />}
+        {alertState.isAlertOn && <AlertConfirm modalContent={alertState.msg} />}
         <TitleGuide />
         <InputTitle setCanMake={setCanMake} canMake={canMake} docData={docData} docDispatch={docDispatch} />
 
@@ -90,7 +114,7 @@ const MakeSection = ({ history }) => {
           <DocCard docData={docData} docDispatch={docDispatch} />
         </ListCardWrap>
 
-        <EditorBox docData={docData} docDispatch={docDispatch} />
+        <EditorBox docData={docData} docDispatch={docDispatch} setIsBlock={setIsBlock} />
 
         <RuleDiv>
           <input type="checkbox" style={{ margin: '11px 10px 9px 10px' }} onChange={handleRule} id="checkbox" />

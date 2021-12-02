@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { font, flexBox } from '../../../styles/styled-components/mixin';
+import { font, flexBox } from '@styles/styled-components/mixin';
 import AgreementButton from './AgreementButton';
 import AgreementCheckbox from './AgreementCheckbox';
 import AgreementContent from './AgreementContent';
@@ -30,7 +30,7 @@ const Agreement = () => {
 
   return (
     <AgreementWrapper>
-      <AgreementTitle>안내</AgreementTitle>
+      <AgreementTitle>회원가입 안내</AgreementTitle>
       <AgreementContent />
       <AgreementCheckbox _ref={checkbox} />
       <AgreementButton _ref={checkbox} />

@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.2",
     "@material-ui/core": "^4.12.3",
     "browser-image-compression": "^1.0.17",
+    "craco-alias": "^3.0.1",
     "dotenv": "^10.0.0",
     "jsonwebtoken": "^8.5.1",
     "node-sass": "^6.0.1",
@@ -22,10 +24,10 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "craco start",
+    "build": "craco build",
     "postbuild": "mkdir -p ../docker/nginx/build && cp -r build/* ../docker/nginx/build",
-    "test": "react-scripts test",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -61,6 +63,7 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "jest-styled-components": "^7.0.8",
     "prettier": "^2.4.1",
     "typescript": "^4.4.4"
   },

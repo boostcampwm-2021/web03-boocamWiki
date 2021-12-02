@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import search from '../../../resource/img/search.svg';
-import drop from '../../../resource/img/drop.svg';
-import SelectModal from '../../select-modal/SelectModal';
-import { SelectTgContext, SelectTypeContext } from '../../../App';
-import { BREAK_POINT_TABLET } from '../../../utils/display-width';
+import search from '@resource/img/search.svg';
+import drop from '@resource/img/drop.svg';
+import { BREAK_POINT_TABLET } from '@utils/display-width';
+import SelectModal from '@select-modal/SelectModal';
+import { SelectTgContext, SelectTypeContext } from '@src/App';
 
 const searchTypeMap = {
   기수: 'generation',
@@ -18,14 +18,14 @@ const HeaderSearchBar = () => {
   const history = useHistory();
   const searchInput = useRef();
   const searchBtn = useRef();
-  // const [searchType, setSearchType] = useState('이름');
   const { isSearchTypeOn } = useContext(SelectTgContext);
   const { searchType } = useContext(SelectTypeContext);
 
   const submitEvent = (e) => {
     e.preventDefault();
     const searchValue = searchInput.current.value;
-    history.push(`/search?${searchTypeMap[searchType]}=${searchValue}`);
+    if (!searchValue) return;
+    history.push(`/search?${searchTypeMap[searchType]}=${encodeURIComponent(searchValue)}`);
   };
 
   const keyPressEvent = (e) => {

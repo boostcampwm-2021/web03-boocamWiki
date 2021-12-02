@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { remark } from 'remark';
 import strip from 'strip-markdown';
-import { Utils } from '../../../utils';
+import { Utils } from '@utils';
 
 const ResultContent = ({ type, value, result }) => {
   const [renderResult, setRenderResult] = useState(result);

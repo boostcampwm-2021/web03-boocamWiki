@@ -11,3 +11,16 @@ export function getHangulCho(str) {
   const result = Hangul.d(str);
   return result[0];
 }
+
+export function packDataWithName(obj) {
+  const packed = {};
+  let c;
+  obj.forEach((item) => {
+    if (isHangulChar(item.name)) c = getHangulCho(item.name);
+    else c = item.name[0];
+
+    if (packed[c]) packed[c].push(item);
+    else packed[c] = [item];
+  });
+  return packed;
+}

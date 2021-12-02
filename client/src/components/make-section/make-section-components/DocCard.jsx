@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BREAK_POINT_MOBILE } from '../../../utils/display-width';
-import noImg from '../../../resource/img/no-image.png';
-import { flexBox, font } from '../../../styles/styled-components/mixin';
-import { fileUploadValidator } from '../../../utils/validator';
-import { getImgUrl, showErrorCode } from '../../../services/image-upload';
+import { BREAK_POINT_MOBILE } from '@utils/display-width';
+import noImg from '@resource/img/no-image.png';
+import { flexBox, font } from '@styles/styled-components/mixin';
+import { fileUploadValidator } from '@utils/validator';
+import { getImgUrl, showErrorCode } from '@services/image-upload';
 
 const cardData = [
   { name: '별명', key: 'nickname' },
@@ -88,7 +88,7 @@ const DocCard = ({ docData, docDispatch }) => {
       <CardOwner type="text" placeholder={docData.name} readOnly />
 
       <CardImgLabel htmlFor="profile">
-        <CardImg src={docData.user_image === null || docData.user_image === 'null' ? noImg : docData.user_image} />
+        <CardImg src={docData.user_image === '' || docData.user_image === 'null' ? noImg : docData.user_image} />
       </CardImgLabel>
       <input style={{ display: 'none' }} type="file" accept="image/*" onChange={profileHandler} id="profile" />
 

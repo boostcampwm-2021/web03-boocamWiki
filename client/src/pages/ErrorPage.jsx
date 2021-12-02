@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
-import logo from '../resource/img/logo.png';
-import style from '../styles/scss/ErrorPage.module.scss';
-import { flexBox } from '../styles/styled-components/mixin';
+import logo from '@resource/img/logo.png';
+import style from '@styles/scss/ErrorPage.module.scss';
+import { flexBox } from '@styles/styled-components/mixin';
 
 const CategoryLink = styled(Link)`
   color: #36a4f3;
@@ -44,7 +44,7 @@ const ErrorPage = () => {
         <div className={style.ErrorGuideWrapper}>
           <p className={style.ErrorGuide}>죄송합니다</p>
           <p className={style.ErrorGuide}>관리자에게 문의해주세요</p>
-          <p className={style.ErrorGuide}>oooo1111@naver.com</p>
+          <p className={style.ErrorGuide}>boocamwiki@gmail.com</p>
         </div>
         <Flexed>
           <Btn type="button" onClick={goBack}>

@@ -48,7 +48,6 @@ const ResultFooter = ({ resultCount, step = 8, currentPage }) => {
           );
         })}
         <IndexDiv>
-          (
           <StyledLink
             to={`${pathname}?${Object.entries(query)
               .map(([key, val]) =>
@@ -60,7 +59,6 @@ const ResultFooter = ({ resultCount, step = 8, currentPage }) => {
           >
             {'>'}
           </StyledLink>
-          )
         </IndexDiv>
       </IndexDivContainer>
     </FooterContainer>

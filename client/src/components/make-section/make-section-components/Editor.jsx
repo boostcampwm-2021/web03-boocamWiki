@@ -1,13 +1,14 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import { font } from '../../../styles/styled-components/mixin';
-import { fileUploadValidator } from '../../../utils/validator';
-import { sendToStorage, showErrorCode } from '../../../services/image-upload';
+import { font } from '@styles/styled-components/mixin';
+import { fileUploadValidator } from '@utils/validator';
+import { sendToStorage, showErrorCode } from '@services/image-upload';
 
-const Editor = ({ docData, docDispatch, withPreview = false }) => {
+const Editor = ({ docData, docDispatch, setIsBlock, withPreview = false }) => {
   const inputRef = useRef(null);
 
   const changeHandler = (e) => {
+    setIsBlock(true);
     docDispatch({
       type: 'INPUT_DOC_DATA',
       payload: {
