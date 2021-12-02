@@ -2,7 +2,7 @@ import React from 'react';
 import SearchSection from '@components/search-section/SearchSection';
 import PageLayout from '@pages/common/PageLayout';
 
-const SearchPage = () => {
+const SearchPage = (): JSX.Element => {
   return (
     <PageLayout>
       <SearchSection />
