@@ -11,7 +11,7 @@ const AgreementContentWrapper = styled.div`
   }
 `;
 
-const AgreementContent = () => {
+const AgreementContent = (): JSX.Element => {
   return (
     <AgreementContentWrapper>
       <div>

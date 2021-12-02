@@ -25,7 +25,7 @@ const AgreementTitle = styled.div`
   ${font({ size: '28px', weight: 'bold', color: '#000000' })};
 `;
 
-const Agreement = () => {
+const Agreement = (): JSX.Element => {
   const checkbox = useRef(null);
 
   return (

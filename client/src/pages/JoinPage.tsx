@@ -3,7 +3,7 @@ import JoinSection from '@components/join-section/JoinSection';
 import { useValidate } from '@utils/login';
 import PageLayout from '@pages/common/PageLayout';
 
-const JoinPage = () => {
+const JoinPage = (): JSX.Element => {
   useValidate(false);
   return (
     <PageLayout>

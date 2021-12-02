@@ -4,12 +4,14 @@ import { BREAK_POINT_TABLET } from '@utils/display-width';
 import SectionItem from '@components/side-section/side-section-components/SectionItem';
 import { FetchingRecent, RecentItem } from '@components/side-section/side-section-components/recents/RecentItem';
 import { FetchingTopView, TopViewItem } from '@components/side-section/side-section-components/top-views/TopViewItem';
+import { Banners } from '@components/side-section/side-section-components/banners/Banners';
 
 const SideSection = () => {
   return (
     <SideArea>
       <SectionItem title="최근 변경" onLoadedFetch={FetchingRecent} itemTemplate={RecentItem} />
       <SectionItem title="부캠 조회 순위" onLoadedFetch={FetchingTopView} itemTemplate={TopViewItem} />
+      <Banners title="제휴 서비스" />
     </SideArea>
   );
 };

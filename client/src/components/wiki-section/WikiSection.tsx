@@ -14,7 +14,7 @@ import Loading from '@components/common/Loading';
 import MdParser from '@components/common/MdParser';
 import { docDataReducer, initialDocData } from '@src/reducer/doc-data-reducer';
 
-const WikiSection = ({ generation, boostcampId, name }: {generation: number; boostcampId: string; name:string;}) => {
+const WikiSection = ({ generation, boostcampId, name }: { generation: number; boostcampId: string; name: string }) => {
   const [docData, docDispatch] = useReducer(docDataReducer, initialDocData);
   const [loading, setLoading] = useState(true);
   const history = useHistory();
@@ -27,7 +27,7 @@ const WikiSection = ({ generation, boostcampId, name }: {generation: number; boo
         const { result } = await res.json();
         docDispatch({
           type: 'INPUT_DOC_DATA',
-          payload: { ... result, classification: result.classifications} ,
+          payload: { ...result, classification: result.classifications },
         });
         setLoading(false);
       } else if (res.status === 404) {

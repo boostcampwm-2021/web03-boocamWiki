@@ -4,7 +4,7 @@ import { flexBox } from '@styles/styled-components/mixin';
 import MainSection from '../common/MainSection';
 import MbtiRank from './rank-components/MbtiRank';
 
-const RankSection = () => {
+const RankSection = (): JSX.Element => {
   return (
     <MainSection title="각종 순위">
       <RankCotainer>
