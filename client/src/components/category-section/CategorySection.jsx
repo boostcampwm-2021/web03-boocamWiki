@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import queryString from 'query-string';
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { docTitleGen } from '@utils/documents';
 import { WikiCategory } from '../wiki-section/wiki-section-components/WikiCategory';
 import { ListItem, DocumentLink, InnerTitle, Contents, TotalCount, CategoryCho } from './style';
@@ -13,7 +13,6 @@ const CategorySection = ({ category }) => {
   const { search, pathname } = useLocation();
   const [loading, setLoading] = useState(true);
   const { offset } = queryString.parse(search);
-  const history = useHistory();
   const step = 30;
 
   useEffect(async () => {
