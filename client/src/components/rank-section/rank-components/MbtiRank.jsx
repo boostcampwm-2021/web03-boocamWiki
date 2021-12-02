@@ -80,7 +80,7 @@ const MbtiRankContainer = styled.div`
   @media only screen and (max-width: ${BREAK_POINT_MOBILE}px) {
     ${flexBox({ direction: 'column', alignItems: 'center' })};
     height: 916px;
-  })
+  }
 `;
 
 const MbtiPieChartWrapper = styled.div`
@@ -98,7 +98,7 @@ const MbtiListWrapper = styled.div`
 
   -ms-overflow-style: none;
   scrollbar-width: none;
-  &:: -webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 `;

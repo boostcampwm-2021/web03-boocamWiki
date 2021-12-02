@@ -5,7 +5,7 @@ import { font, flexBox } from '@styles/styled-components/mixin';
 import githubWhiteIcon from '@resource/img/github-white.png';
 import MainSection from '../common/MainSection';
 
-const LoginSection = () => {
+const LoginSection = (): JSX.Element => {
   useValidate(false);
   return (
     <MainSection title="로그인">

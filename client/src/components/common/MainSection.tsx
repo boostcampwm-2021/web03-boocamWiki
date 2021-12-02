@@ -3,7 +3,15 @@ import styled from 'styled-components';
 import { BREAK_POINT_TABLET } from '@utils/display-width';
 import MainHeader from './SectionTitle';
 
-const MainSection = ({ title, children, documentMode }) => {
+const MainSection = ({
+  title,
+  children,
+  documentMode,
+}: {
+  title: string;
+  children?: React.ReactNode;
+  documentMode?: { [key: string]: string | number };
+}): JSX.Element => {
   return (
     <Main>
       <MainHeader title={title} documentMode={documentMode} />
