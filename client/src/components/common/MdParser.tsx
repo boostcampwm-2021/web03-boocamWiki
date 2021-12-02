@@ -4,9 +4,10 @@ import remarkGfm from 'remark-gfm';
 import rehypeIndex from 'rehype-indexes';
 import styled from 'styled-components';
 
-const MdParser = ({ content, color = '#222222' }) => {
-  const clickHandler = ({ target }) => {
-    const img = target.closest('img');
+const MdParser = ({ content, color = '#222' }: { content: string; color?: string }): JSX.Element => {
+  const clickHandler = ({ target }: React.MouseEvent<HTMLDivElement>) => {
+    const eventTarget = target as HTMLDivElement;
+    const img = eventTarget.closest('img');
     if (img) {
       window.open(img.src);
     }

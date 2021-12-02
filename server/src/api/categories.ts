@@ -15,6 +15,7 @@ router.get('/:classification_id', async (req: express.Request, res: express.Resp
     let offset = getSignedInt(req.query.offset?.toString() ?? '');
     const count = await getCountsWithClassification(cid);
     offset = Math.min(offset, Math.floor(count / step + (count % step ? 1 : 0)));
+    offset = Math.max(1, offset);
     const result = await getDocumentsWithClassification(cid, offset, step);
     const packed = packDataWithName(result);
     const classifications = await getAllClassifications();
@@ -28,6 +29,7 @@ router.get('/:classification_id', async (req: express.Request, res: express.Resp
       msg: 'success',
     });
   } catch (err) {
+    console.log(err);
     return res.status(404).json({ result: [], msg: 'fail' });
   }
 });

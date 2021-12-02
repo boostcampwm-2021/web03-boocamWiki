@@ -10,7 +10,7 @@ const AgreementWrapper = styled.div`
   justify-content: center;
 `;
 
-const JoinSection = () => {
+const JoinSection = (): JSX.Element => {
   return (
     <MainSection title="회원가입">
       <AgreementWrapper>

@@ -6,7 +6,7 @@ import HeaderMenu from './header-components/HeaderMenu';
 import HeaderSearchBar from './header-components/HeaderSearchBar';
 import HeaderUser from './header-components/HeaderUser';
 
-const Header = () => {
+const Header = (): JSX.Element => {
   return (
     <HeaderBar>
       <HeaderContainer>
