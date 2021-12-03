@@ -20,7 +20,7 @@ const CategorySection = ({ category }) => {
     const { result } = await fetched.json();
     setDocuments(result);
     setLoading(false);
-  }, [category]);
+  }, [category, offset]);
 
   const createDocumentLink = (document) => {
     const id = `${document.generation}_${document.boostcamp_id}_${document.name}`;
