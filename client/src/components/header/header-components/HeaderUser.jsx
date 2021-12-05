@@ -9,7 +9,7 @@ const HeaderUser = () => {
   const { isUserInfoOn } = useContext(SelectTgContext);
   const accessTokenPayload = getAccessTokenPayload();
   return (
-    <UserBtn className="TgSelect SelectUserInfo">
+    <UserBtn className="TgSelect SelectUserInfo" aria-label="login-btn">
       {!isValidated() && (
         <>
           <SelectModal
@@ -18,7 +18,7 @@ const HeaderUser = () => {
             isSelectOn={isUserInfoOn}
             move={{ top: '55px', left: '0px', translateX: '-70%' }}
           />
-          <UserSVG src={user} className="TgSelect SelectUserInfo" />
+          <UserSVG src={user} className="TgSelect SelectUserInfo" alt="user-pic" />
         </>
       )}
       {isValidated() && (

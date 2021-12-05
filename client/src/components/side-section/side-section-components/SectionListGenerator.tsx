@@ -10,13 +10,13 @@ export function SectionListGenerator<T extends IDocument>({
   templateFunc: (arg: T) => JSX.Element;
 }): JSX.Element {
   return (
-    <>
+    <ul>
       {list.map((item) => {
         const id = item.name + item.boostcampId + item.generation;
         if (!templateFunc) return <></>;
         return <Li key={id}>{templateFunc(item)}</Li>;
       })}
-    </>
+    </ul>
   );
 }
 
