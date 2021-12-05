@@ -44,11 +44,11 @@ const HeaderSearchBar = () => {
           isSelectOn={isSearchTypeOn}
           move={{ top: '55px', left: '0px', translateX: '-20%' }}
         />
-        <DropIcon src={drop} className="TgSelect SelectSearchType" />
+        <DropIcon src={drop} className="TgSelect SelectSearchType" alt="down-arrow" />
       </SearchTypeWrapper>
       <SearchInput autocomplete="off" type="text" onKeyPress={keyPressEvent} ref={searchInput} />
       <SearchBtn onClick={submitEvent} ref={searchBtn}>
-        <SearchSVG src={search} />
+        <SearchSVG src={search} alt="search-icon" />
       </SearchBtn>
     </SearchBar>
   );

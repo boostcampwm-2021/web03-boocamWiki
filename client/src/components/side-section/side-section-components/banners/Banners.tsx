@@ -12,10 +12,10 @@ export const Banners = (): JSX.Element => {
     <Side>
       <SideTitle>{title}</SideTitle>
       <Anchor href={wiziWorldCupBannerLink} target="_blank" rel="noreferrer">
-        <BannerItem alt="이상형 월드컵 하러가기" src={worldcupBannerImg} />
+        <BannerItem alt="이상형 월드컵 하러가기" src={worldcupBannerImg} width="290" height="89" />
       </Anchor>
       <Anchor href={ssulBannerLink} target="_blank" rel="noreferrer">
-        <BannerItem alt="개발자간 스터디 그룹 매칭" src={ssulBannerGif} />
+        <BannerItem alt="개발자간 스터디 그룹 매칭" src={ssulBannerGif} width="290" height="89" />
       </Anchor>
     </Side>
   );
