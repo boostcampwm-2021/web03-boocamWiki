@@ -1,4 +1,4 @@
-name: auto deploy
+name: [CI/CD] PRODUCTION DEPLOY
 
 on:
   push:
