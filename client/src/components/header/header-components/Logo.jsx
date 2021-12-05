@@ -6,7 +6,7 @@ import logo from '@resource/img/logo2.png';
 const Logo = () => {
   return (
     <Link to="/">
-      <LogoBtn src={logo} />
+      <LogoBtn src={logo} alt="main-logo" />
     </Link>
   );
 };

@@ -11,19 +11,19 @@ const HeaderMenu = () => {
     <NavMenu>
       <Menu>
         <Link to="/makedocs" style={aTagStyle}>
-          <MenuImg src={writePage} />
+          <MenuImg src={writePage} alt="write-page" />
           <MenuText>문서작성</MenuText>
         </Link>
       </Menu>
       <Menu>
         <Link to="/rank" style={aTagStyle}>
-          <MenuImg src={rankPage} />
+          <MenuImg src={rankPage} alt="rank-page" />
           <MenuText>각종순위</MenuText>
         </Link>
       </Menu>
       <Menu>
         <Link to="/t" style={aTagStyle}>
-          <MenuImg src={totalPage} />
+          <MenuImg src={totalPage} alt="total-page" />
           <MenuText>전체문서</MenuText>
         </Link>
       </Menu>
