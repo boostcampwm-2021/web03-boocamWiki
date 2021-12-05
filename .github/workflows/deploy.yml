@@ -1,4 +1,4 @@
-name: [CI/CD] PRODUCTION DEPLOY
+name: production deploy
 
 on:
   push:
