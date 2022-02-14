@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx
+    network_mode: 'host'
+    restart: unless-stopped
+    volumes:
+      - ./nginx/build:/usr/share/nginx/html
+      - ./nginx/nginx:/etc/nginx
+  pm2:
+    image: keymetrics/pm2:16-jessie
+    network_mode: 'host'
+    restart: unless-stopped
+    volumes:
+      - ./node/dist:/dist
+    environment:
+      - DB_PORT=3306
+      - DB_HOST=localhost
+      - DB_PASS=qnzoadnlzl
+      - DB_USER=root
+      - DB_DB=boocam_wiki
+      - PORT=3001
+      - IMG_BUCKET_NAME=boocam-wiki
+      - IMG_STORAGE_ENDPOINT=https://kr.object.ncloudstorage.com
+      - ACCESS_KEY=rs79Gh9L4pXVSDeTMRxd
+      - SECRET_KEY=QObDjOCpQjotxLCa3OtGjwuupDMZpY3DzRXXhqkV
+      - GITHUB_CLIENT_ID=6081de5d976c1a172081
+      - GITHUB_SECRET=9085c8783d6ca5579876504b5a7641cbe317ee9f
+      - ACCESS_TOKEN_SECRET=a9187bcf7bbdcf108dbe702da37d85b37232b89d4c48d53da657696ff8590473
+      - REFRESH_TOKEN_SECRET=70a0c2d26d743a2965eb785ca6fba6ca0962cd79e52a40a5068e1d1f69780b20
+    command: sh -c "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && pm2 start /dist/app.js -f -i max && tail -f /dev/null"
+  mysql:
+    image: mysql:5.7.36
+    network_mode: 'host'
+    restart: unless-stopped
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=qnzoadnlzl

@@ -33,6 +33,6 @@
   "scripts": {
     "start": "tsc-watch --onSuccess \" node dist/app.js\"",
     "build": "tsc",
-    "postbuild": "cp package.json dist/package.json && cp package-lock.json dist/package-lock.json && cd dist && npm ci --production && mkdir -p ../../docker/node/dist && cp -r * ../../docker/node/dist"
+    "postbuild": "cp package.json dist/package.json && cp package-lock.json dist/package-lock.json && cp .env dist/env && cd dist && npm ci --production && mkdir -p ../../docker/node/dist && cp -r * ../../docker/node/dist"
   }
 }
