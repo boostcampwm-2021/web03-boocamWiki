@@ -14,7 +14,7 @@ jobs:
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
+          key: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
             cd web03-boocamWiki
@@ -26,5 +26,8 @@ jobs:
             cd ../server
             npm i
             npm run build
+            cd ../docker
+            mv docker-compose.prod.yml docker-compose.yml
+            mv -f nginx-prod/nginx nginx/nginx
             docker exec docker_pm2_1 pm2 reload /dist/app.js
             docker exec docker_nginx_1 service nginx reload
