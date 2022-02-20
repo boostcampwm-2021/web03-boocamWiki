@@ -14,7 +14,7 @@ jobs:
         with:
           host: ${{ secrets.DEV_SERVER_HOST }}
           username: ${{ secrets.DEV_SERVER_USERNAME }}
-          password: ${{ secrets.DEV_SERVER_PASSWORD }}
+          key: ${{ secrets.DEV_SERVER_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
             cd web03-boocamWiki
