@@ -7,6 +7,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_FOLDER: boocam_wiki-dev
 
     steps:
       - name: ssh connect & production
@@ -16,8 +18,9 @@ jobs:
           username: ${{ secrets.DEV_SERVER_USERNAME }}
           key: ${{ secrets.DEV_SERVER_PASSWORD }}
           port: ${{ secrets.DEV_SERVER_PORT }}
+          envs: PROJECT_FOLDER
           script: |
-            cd web03-boocamWiki
+            cd $PROJECT_FOLDER
             git fetch
             git pull origin
             cd client

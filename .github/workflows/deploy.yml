@@ -7,6 +7,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      PROJECT_FOLDER: boocam_wiki
 
     steps:
       - name: ssh connect & production
@@ -16,8 +18,9 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_PASSWORD }}
           port: ${{ secrets.SERVER_PORT }}
+          envs: PROJECT_FOLDER
           script: |
-            cd web03-boocamWiki
+            cd $PROJECT_FOLDER
             git fetch
             git pull origin
             cd client
@@ -27,7 +30,6 @@ jobs:
             npm i
             npm run build
             cd ../docker
-            mv docker-compose.prod.yml docker-compose.yml
             mv -f nginx-prod/nginx nginx/nginx
             docker exec docker_pm2_1 pm2 reload /dist/app.js
             docker exec docker_nginx_1 service nginx reload
