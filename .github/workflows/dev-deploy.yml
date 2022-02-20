@@ -26,5 +26,7 @@ jobs:
             cd ../server
             npm i
             npm run build
-            docker exec docker_pm2_1 pm2 reload /dist/app.js
-            docker exec docker_nginx_1 service nginx reload
+            cd ../docker
+            cp -rf nginx-dev nginx/nginx
+            docker exec dev-boocam-pm2 pm2 reload /dist/app.js
+            docker exec dev-boocam-nginx service nginx reload

@@ -1,9 +1,10 @@
-version: '3.1'
+version: '3.7'
 
 services:
   nginx:
     image: nginx
     restart: unless-stopped
+    container_name: dev-boocam-nginx
     ports:
       - '3002:80'
     volumes:

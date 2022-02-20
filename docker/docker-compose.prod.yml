@@ -1,9 +1,9 @@
-version: "3.1"
+version: '3.7'
 
 services:
   nginx:
     image: nginx
-    network_mode: "host"
+    network_mode: 'host'
     restart: unless-stopped
     volumes:
       - ./nginx/build:/usr/share/nginx/html
@@ -12,7 +12,7 @@ services:
       - ./certbot/data:/var/www/certbot
   pm2:
     image: keymetrics/pm2:16-jessie
-    network_mode: "host"
+    network_mode: 'host'
     restart: unless-stopped
     volumes:
       - ./node/dist:/dist
@@ -34,9 +34,9 @@ services:
     command: sh -c "ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime && pm2 start /dist/app.js -f -i max && tail -f /dev/null"
   mysql:
     image: mysql:5.7.36
-    network_mode: "host"
+    network_mode: 'host'
     restart: unless-stopped
-    volumes: 
+    volumes:
       - /var/lib/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=qnzoadnlzl
